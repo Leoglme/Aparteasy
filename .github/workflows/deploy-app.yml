@@ -34,5 +34,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          local-dir: ./api/dist/
+          local-dir: ./app/dist/
           server-dir: aparteasy.dibodev.com/
