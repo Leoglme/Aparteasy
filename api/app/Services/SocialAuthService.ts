@@ -1,60 +1,45 @@
 import User from 'App/Models/User'
 import type { AllyUserContract, GoogleToken, SocialProviders } from '@ioc:Adonis/Addons/Ally'
-import Event from '@ioc:Adonis/Core/Event'
+import BaseService from 'App/Services/BaseService'
 
-export default class SocialAuthService {
-  private findOrCreateHandler: any
-  private socialUser: AllyUserContract<GoogleToken>
-  private readonly provider: keyof SocialProviders
-
-  constructor(socialUser: AllyUserContract<GoogleToken>, provider: keyof SocialProviders) {
-    this.socialUser = socialUser
-    this.provider = provider
+export default class SocialAuthService extends BaseService {
+  public static async generateToken(user: User, provider: keyof SocialProviders) {
+    return await super.auth.login(user, {
+      name: `${provider} Login Access Token`,
+      expiresIn: '7days',
+    })
   }
-
-  public onFindOrCreate(cb: any) {
-    this.findOrCreateHandler = cb
-    return this
-  }
-
-  public async exec(): Promise<void> {
-    let user = await this.findUser()
+  public static async findOrCreateUser(
+    socialUser: AllyUserContract<GoogleToken>,
+    provider: keyof SocialProviders
+  ): Promise<User> {
+    let user = await this.findUser(socialUser, provider)
 
     if (!user) {
-      user = await this.createUser()
-      await Event.emit('new:user', user)
+      user = await this.createUser(socialUser, provider)
     }
-
-    await this.findOrCreateHandler(user)
+    return user
   }
 
-  private findUser() {
+  private static findUser(
+    socialUser: AllyUserContract<GoogleToken>,
+    provider: keyof SocialProviders
+  ) {
     return User.query()
-      .where('oauthProviderId', this.socialUser.id)
-      .where('oauthProviderName', this.provider)
+      .where('oauthProviderId', socialUser.id)
+      .where('oauthProviderName', provider)
       .first()
   }
 
-  private createUser() {
+  private static async createUser(
+    socialUser: AllyUserContract<GoogleToken>,
+    provider: keyof SocialProviders
+  ) {
     return User.create({
-      name: this.socialUser.name,
-      email: this.socialUser.email ?? undefined,
-      oauthProviderId: this.socialUser.id,
-      oauthProviderName: this.provider,
+      name: socialUser.name,
+      email: socialUser.email ?? undefined,
+      oauthProviderId: socialUser.id,
+      oauthProviderName: provider,
     })
-  }
-
-  /**
-   * Implementation of `catch` for the promise API
-   */
-  public catch(reject: any): any {
-    return this.exec().catch(reject)
-  }
-
-  /**
-   * Required when Promises are extended
-   */
-  public get [Symbol.toStringTag]() {
-    return this.constructor.name
   }
 }

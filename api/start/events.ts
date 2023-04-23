@@ -3,7 +3,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 
 /*Events files*/
 // import './events/app'
-// import './events/auth'
+import './events/auth'
 // import './events/mail'
 // import './events/notify'
 

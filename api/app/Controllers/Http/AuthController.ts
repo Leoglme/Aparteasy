@@ -1,33 +1,21 @@
-import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import User from 'App/Models/User'
-import RegisterValidator from 'App/Validators/RegisterValidator'
+import AuthService from 'App/Services/AuthService'
+import BaseController from 'App/Controllers/Http/BaseController'
 
-export default class AuthController {
-  protected async signup({ request, response }: HttpContextContract) {
-    const data = await request.validate(RegisterValidator)
-    const user = await User.create(data)
-    return response.created(user)
+export default class AuthController extends BaseController {
+  protected async signup() {
+    await AuthService.signup()
   }
 
-  protected async login({ request, auth }: HttpContextContract) {
-    const password = await request.input('password')
-    const email = await request.input('email')
-
-    const token = await auth.use('api').attempt(email, password, {
-      name: 'Auth Login Access Token',
-      expiresIn: '7days',
-    })
-    return { token: token.toJSON(), user: auth.user }
+  protected async login() {
+    await AuthService.login()
   }
 
-  protected async logout({ auth }: HttpContextContract) {
-    await auth.use('api').revoke()
-    return auth.use('api')
+  protected async logout() {
+    return await AuthService.logout()
   }
 
   // Auth status and information
-  protected async status({ auth }: HttpContextContract) {
-    await auth.use('api').authenticate()
-    return auth.use('api')
+  protected async status() {
+    return await AuthService.status()
   }
 }
