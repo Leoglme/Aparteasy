@@ -7,6 +7,8 @@
     "build": "node ace build --production",
     "start": "node server.js",
     "test": "node ace test",
+    "migration:run": "node ace migration:run",
+    "db:seed": "node ace db:seed",
     "lint": "eslint . --ext=.ts",
     "format": "prettier --write ."
   },
