@@ -1,0 +1,38 @@
+name: Deploy to o2switch
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v2.5.3
+        with:
+          node-version: '16.x'
+
+      - name: Install dependencies
+        run:  cd api && npm install
+
+      - name: Build application
+        run: cd api && npm run build
+
+      - name: Deploy to o2switch
+        uses: SamKirkland/FTP-Deploy-Action@4.1.3
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftp
+          local-dir: api/dist
+          remote-dir: /home/cole7746/aparteasy.api.dibodev.com/
+          subdirs: true
+          args: --delete
