@@ -1,4 +1,4 @@
-import './routes/auth.ts'
+import './routes/auth'
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 
