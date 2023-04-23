@@ -25,6 +25,9 @@ jobs:
 
       - name: Build application
         run: cd api && npm run build
+        
+      - name: Clean install a project
+        run: cd api/build && npm ci --production
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
