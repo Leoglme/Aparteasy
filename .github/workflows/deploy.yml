@@ -2,8 +2,10 @@ name: Deploy to o2switch
 
 on:
   push:
-    branches:
-      - master
+    branches: [ 'master' ]
+  pull_request:
+    branches: [ 'master' ]
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -14,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node
+        uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
