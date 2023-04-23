@@ -24,8 +24,8 @@ const props = defineProps({
 });
 
 /*COMPUTED*/
-const iconStroke = computed(() => props.iconMode === 'stroke' ? props.color : null)
-const iconFill = computed(() => props.iconMode === 'fill' ? props.color : null)
+const iconStroke = computed(() => props.iconMode === 'stroke' ? props.color : undefined)
+const iconFill = computed(() => props.iconMode === 'fill' ? props.color : undefined)
 const classes = computed(() => ({ 'btn-small': props.small, 'square': props.small }))
 const styles = computed(() => ({ background: props.background, color: props.background }))
 </script>

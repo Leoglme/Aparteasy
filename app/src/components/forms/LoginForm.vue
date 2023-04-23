@@ -12,13 +12,14 @@ import Button from "@/components/buttons/Button.vue";
 import FormInput from "@/components/fields/FormInput.vue";
 import GooglePlacesAutocomplete from '@/components/fields/GooglePlacesAutocomplete.vue'
 import { Auth } from "@/api/auth/auth";
-import { Form } from "vee-validate";
+import { Form, useForm } from 'vee-validate';
 import { useRouter } from "vue-router";
 
 /*Hooks*/
 const router = useRouter()
+const { values } = useForm<{ email: string; password: string }>();
 
-const login = async (values: { email: string, password: string }) => {
+const login = async () => {
   const authService = new Auth();
   const { success } = await authService.login(values);
   if(success){

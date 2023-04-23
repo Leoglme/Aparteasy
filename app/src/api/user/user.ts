@@ -12,7 +12,7 @@ export class User {
         return await axios.get(API_URL + '/user/' + id).then(response => response).catch(err => err)
     }
 
-    static async update(id: string | string[], user: UserType): Promise<UserType> {
+    static async update(id: string | string[], user: { email: string, name: string, city: string }): Promise<UserType> {
         return await axios.put(API_URL + '/user/' + id, user).then(response => response).catch(err => err)
     }
 

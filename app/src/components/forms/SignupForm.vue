@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Form } from "vee-validate";
+import { Form, useForm } from 'vee-validate';
 import FormInput from "@/components/fields/FormInput.vue"
 import Button from "@/components/buttons/Button.vue"
 import { Auth } from "@/api/auth/auth";
@@ -23,9 +23,9 @@ import type { SignupCommand } from "@/api/auth/auth.model";
 
 /*HOOKS*/
 const router = useRouter();
+const { values } = useForm<SignupCommand>();
 
-
-const signup = async (values: SignupCommand) => {
+const signup = async () => {
   const authService = new Auth();
   const { success } = await authService.signup(values);
   if(success){

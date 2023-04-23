@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts" setup>
-import { alphaColor } from "@/services/color";
+import { alphaColor } from "@/utils/color";
 import { useAppStore } from "@/stores/app.store";
 /*STORE*/
 const appStore = useAppStore()

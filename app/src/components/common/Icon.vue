@@ -7,13 +7,13 @@
        :aria-labelledby="name">
     <title :id="title ? title : name" lang="en">{{name}} icon</title>
     <g :stroke="stroke ?? 'transparent'" :fill="fill ?? 'transparent'">
-      <AsyncComp />
+      <AsyncComp/>
     </g>
   </svg>
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from "vue";
+import { defineAsyncComponent } from 'vue';
 
 const props = defineProps({
   name: {
@@ -41,13 +41,13 @@ const props = defineProps({
   }
 });
 const AsyncComp = defineAsyncComponent(() =>
-  import(`@/components/icons/${props.name}.vue`)
+    import(`@/components/icons/${props.name}.vue`)
 );
 </script>
 <style scoped>
 svg {
   display: inline-block;
   vertical-align: baseline;
-  margin-bottom: -2px; /* yes, I'm that particular about formatting */
+  margin-bottom: -2px;
 }
 </style>

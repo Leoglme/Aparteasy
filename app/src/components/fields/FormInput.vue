@@ -5,7 +5,7 @@
       <slot name="link"></slot>
     </span>
     <Field
-        :as="rows ? 'textarea' : null"
+        :as="rows ? 'textarea' : undefined"
         :rows="rows"
         :rules="rules"
         class="h-full"
@@ -33,7 +33,7 @@
 <script lang="ts" setup>
 import { ref, watch, useSlots } from "vue";
 import { Field, ErrorMessage } from "vee-validate";
-import Icon from "@/components/Common/Icon.vue"
+import Icon from "@/components/common/Icon.vue"
 
 /*PROPS*/
 const props = defineProps({
