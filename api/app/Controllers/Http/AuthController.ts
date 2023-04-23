@@ -1,5 +1,5 @@
-import BaseController from 'App/Controllers/Http/BaseController'
 import AuthService from 'App/Services/AuthService'
+import BaseController from 'App/Controllers/Http/BaseController'
 
 export default class AuthController extends BaseController {
   protected async signup() {

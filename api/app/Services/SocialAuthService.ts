@@ -1,5 +1,4 @@
 import User from 'App/Models/User'
-import Event from '@ioc:Adonis/Core/Event'
 import type { AllyUserContract, GoogleToken, SocialProviders } from '@ioc:Adonis/Addons/Ally'
 import BaseService from 'App/Services/BaseService'
 
@@ -36,13 +35,11 @@ export default class SocialAuthService extends BaseService {
     socialUser: AllyUserContract<GoogleToken>,
     provider: keyof SocialProviders
   ) {
-    const user = User.create({
+    return User.create({
       name: socialUser.name,
       email: socialUser.email ?? undefined,
       oauthProviderId: socialUser.id,
       oauthProviderName: provider,
     })
-    await Event.emit('new:user', user)
-    return user
   }
 }
