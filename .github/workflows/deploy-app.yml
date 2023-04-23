@@ -2,9 +2,9 @@ name: 🚀 Deploy api to o2switch
 
 on:
   push:
-    branches: [ 'master' ]
+    branches: [ 'main' ]
   pull_request:
-    branches: [ 'master' ]
+    branches: [ 'main' ]
   workflow_dispatch:
 
 jobs:
@@ -15,19 +15,16 @@ jobs:
       - name: 🚚 Get latest code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: 🚀 Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '16.x'
 
-      - name: Install dependencies
+      - name: 🔍 Install dependencies
         run:  cd api && npm install
 
-      - name: Build application
+      - name: 🧱 Build application
         run: cd api && npm run build
-        
-      - name: Clean install a project
-        run: cd api/build && npm ci --production
 
       - name: 📂 Sync files
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
@@ -37,5 +34,5 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           port: 21
           protocol: ftp
-          local-dir: ./api/build/
-          server-dir: aparteasy.api.dibodev.com/
+          local-dir: ./api/dist/
+          server-dir: aparteasy.dibodev.com/
