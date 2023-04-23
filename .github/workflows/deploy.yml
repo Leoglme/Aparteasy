@@ -35,6 +35,6 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./api/build/
-          remote-dir: home/cole7746/aparteasy.api.dibodev.com
+          server-dir: home/cole7746/aparteasy.api.dibodev.com
           subdirs: true
           args: --delete
