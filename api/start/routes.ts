@@ -11,5 +11,5 @@ Route.group(() => {
 }).prefix('/api/')
 
 Route.get('/', async () => {
-  return { hello: 'world' }
+  return { success: true }
 })
