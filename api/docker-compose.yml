@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db
+    image: mariadb:latest
+    restart: always
+    env_file:
+      - .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    env_file:
+      - .env
+    restart: always
+    ports:
+      - "8080:80"
+
+volumes:
+  db_data:

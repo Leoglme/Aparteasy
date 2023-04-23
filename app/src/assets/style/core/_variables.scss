@@ -1,0 +1,60 @@
+@import 'mixins';
+
+$font: 'Poppins', "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$primary: #ff2560;
+$primary-light: #FF7097;
+$primary-dark: #D7194C;
+$yellow: #FFB836;
+$green: #00F593;
+$red: #EC364B;
+$dark-red: #C0172A;
+$blue: #26A4FF;
+$dark: #131A20;
+$grey-700: #101623;
+$grey-500: #1B232D;
+$grey-400: #35424D;
+$grey-300: #454D5E;
+$grey-200: #222B39;
+$grey-100: #F9FAFC;
+$disabled: #303A4B;
+$light: #F5F4FB;
+$contrast: rgba(255, 255, 255, 1);
+$contrast-30: rgba(255, 255, 255, 0.3);
+$contrast-70: rgb(255, 255, 255, .7);
+
+:root {
+  --radius: 4px;
+  --primary: #{$primary};
+  --primary-light: #{$primary-light};
+  --primary-dark: #{$primary-dark};
+  --yellow: #{$yellow};
+  --green: #{$green};
+  --red: #{$red};
+  --dark-red: #{$dark-red};
+  --blue: #{$blue};
+  --dark: #{$dark};
+  --grey-700: #{$grey-700};
+  --grey-500: #{$grey-500};
+  --grey-400: #{$grey-400};
+  --grey-300: #{$grey-300};
+  --grey-200: #{$grey-200};
+  --grey-10: #{$grey-100};
+  --light: #{$light};
+  --contrast: #{$contrast};
+  --contrast-30: #{$contrast-30};
+  --contrast-70: #{$contrast-70};
+  --sidebarWidth: 300px;
+}
+
+
+$variants: (
+        primary: $primary,
+        grey-500: $grey-500,
+        grey-400: $grey-400,
+        green: $green,
+        yellow: $yellow,
+        red: $red,
+        dark: $dark,
+        light: $light
+);

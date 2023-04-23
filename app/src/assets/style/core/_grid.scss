@@ -1,0 +1,32 @@
+$max: 6;
+@import "mixins";
+.d-grid {
+  display: grid;
+}
+
+.d-inline-grid {
+  display: inline-grid;
+}
+
+.d-grid, .d-inline-grid {
+  &.columns {
+    grid-template-columns: repeat(var(--columns, 1), 1fr);
+  }
+}
+.d-grid, .d-inline-grid {
+  &.col-auto {
+    grid-template-columns: repeat(var(--columns, 1), auto);
+  }
+}
+.d-grid, .d-inline-grid {
+  &.row-fit {
+    grid-auto-rows: minmax(min-content, max-content);
+  }
+}
+
+
+@for $i from 1 through $max {
+  .col-#{$i}{
+    --columns: #{$i};
+  }
+}

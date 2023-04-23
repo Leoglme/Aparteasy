@@ -1,0 +1,148 @@
+@import "mixins";
+@import "variables";
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  font-family: $font;
+  font-size: 14px;
+  color: var(--light);
+  line-height: 1.6;
+  background: var(--grey-700);
+  scroll-margin: 100px 0 0 0;
+  word-break: break-word;
+}
+
+.pointer-events-none {
+  pointer-events: none;
+}
+
+.opacity-0 {
+  opacity: 0;
+}
+
+.overflow-x-auto {
+  overflow-x: auto;
+}
+
+.shadow {
+  box-shadow: 0 79px 128px rgba(192, 192, 192, 0.09), 0 28.8363px 46.7221px rgba(192, 192, 192, 0.0598508), 0 13.9995px 22.6827px rgba(192, 192, 192, 0.0475723), 0 6.86281px 11.1195px rgba(192, 192, 192, 0.0380675), 0 2.71357px 4.39666px rgba(192, 192, 192, 0.0270615);
+}
+
+main {
+  flex-grow: 2;
+}
+
+.round {
+  border-radius: 100%;
+}
+
+.round-sm {
+  border-radius: 8px;
+}
+
+.fit-content {
+  width: fit-content;
+}
+
+.cap {
+  text-transform: capitalize;
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
+}
+
+.select-none {
+  user-select: none;
+}
+
+p {
+  line-height: 24px;
+}
+
+.rotate-180 {
+  transform: rotateX(180deg);
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sm-ellipsis {
+  @include down(400){
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+/*Height && width */
+.vh-100 {
+  min-height: 100vh;
+}
+
+.max-100 {
+  max-width: 100%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-auto {
+  height: auto;
+}
+
+.w-full {
+  width: 100%;
+}
+
+/*Position*/
+.relative {
+  position: relative;
+}
+
+
+/* Pseudo-classes */
+::selection {
+  background: var(--primary-light);
+  color: var(--contrast);
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--contrast-30);
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: var(--contrast-30);
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: var(--contrast-30);
+}
+
+.hide-md, .d-flex.hide-md {
+  @include down(1060) {
+    display: none;
+  }
+}
+
+.show-md {
+  display: none;
+  @include down(1060) {
+    display: block;
+  }
+}
+
+.hide-sm, .d-flex.hide-sm {
+
+  @include down(768) {
+    display: none;
+  }
+}

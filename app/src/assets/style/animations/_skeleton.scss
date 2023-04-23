@@ -1,0 +1,126 @@
+@import "../core/mixins";
+/*https://codepen.io/jbeargraphics/pen/BbbgYR*/
+
+.loader {
+  display: block;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-fill-mode: forwards;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-name: placeholderSkeleton;
+  -webkit-animation-timing-function: linear;
+  background: #ECE9FD -webkit-linear-gradient(left, #ECE9FD 0%, #d2d4ef 20%, #ECE9FD 40%, #ECE9FD 100%) no-repeat;
+  background-size: 800px 100%;
+  height: 100%;
+  position: relative;
+}
+
+.skeleton--table {
+  .skeleton--tr {
+    display: flex;
+
+    .skeleton--th {
+      flex: 1 1 100%;
+      height: 15px;
+      margin: 5px 10px 15px;
+    }
+
+    .skeleton--td {
+      flex: 1 1 100%;
+      height: 10px;
+      margin: 5px 10px;
+    }
+
+    .skeleton--td__2 {
+      flex-basis: 300%;
+    }
+
+    .skeleton--td__3 {
+      flex-basis: 500%;
+    }
+
+    .skeleton--td__4 {
+      flex-basis: 700%;
+    }
+
+    .skeleton--td__5 {
+      flex-basis: 900%;
+    }
+  }
+}
+
+.skeleton--h2 {
+  height: 52px;
+  max-width: 300px;
+
+  @include down(768){
+    height: 44px;
+  }
+}
+
+.skeleton--h3 {
+  height: 2.5em;
+  max-width: 300px;
+
+  @include down(768){
+    height: 26px;
+  }
+}
+
+.skeleton--pill {
+  min-width: 150px;
+  height: 29px;
+  border-radius: 80px;
+}
+
+.skeleton--h5 {
+  height: 1.5em;
+}
+
+.skeleton--h4 {
+  height: 1.85em;
+}
+
+.skeleton--hr {
+  height: 2px;
+  width: calc(100% - 20px);
+  margin: 0 10px 10px;
+}
+.skeleton--button {
+  justify-self: flex-end;
+  align-self: center;
+  min-width: 150px;
+  padding: 12px 24px;
+  width: auto;
+  height: 41px;
+}
+
+.skeleton--line {
+  height: 10px;
+  width: calc(100% - 20px);
+
+  &.skeleton--line__short {
+    width: 120px;
+  }
+}
+
+.skeleton--circle {
+  margin: 5px 10px 10px;
+  height: 60px;
+  width: 60px;
+  border-radius: 10px;
+}
+
+.fl {
+  display: inline-block;
+  width: auto;
+  vertical-align: text-top;
+}
+
+@-webkit-keyframes placeholderSkeleton {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}

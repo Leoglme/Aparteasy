@@ -1,0 +1,124 @@
+@use 'sass:color';
+@import "../core/functions";
+@import "../core/mixins";
+%reset-button {
+  cursor: pointer;
+  text-decoration: none;
+  border: none;
+  color: var(--light, #fff);
+}
+
+button {
+  @extend %reset-button;
+}
+
+%button {
+  font-size: 14px;
+  padding: 10px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: filter 0.25s, background 0.25s, color 0.25s, transform .25s;
+  filter: brightness(1);
+  white-space: nowrap;
+  transform: translateZ(0);
+
+  &[disabled] {
+    cursor: default;
+    filter: grayscale(1);
+    opacity: 0.7;
+  }
+
+  &:hover[disabled] {
+    filter: grayscale(1);
+  }
+
+  &:active:not([disabled]) {
+    transform: translateY(2px);
+  }
+}
+
+.btn {
+  @extend %button;
+
+  @each $key, $value in $variants {
+    &[data-variant='#{"" + $key}'] {
+      background: $value;
+      color: text-contrast($value);
+
+      &:hover:not([disabled]) {
+        $color: color.adjust($value, $saturation: -22%, $lightness: -10%);
+        background: $color;
+        color: text-contrast($color);
+      }
+
+      &:active:hover {
+        background: $value;
+      }
+    }
+
+    }
+}
+
+.btn.square  {
+  height: 40px;
+  width: 40px;
+  border-radius: 4px;
+  padding: 0;
+}
+
+.btn-outlined {
+  @extend %button;
+  border: 1px solid var(--contrast);
+  color: var(--contrast);
+  box-shadow: none;
+
+  &:hover {
+    filter: none;
+    background: var(--contrast);
+    color: #fff;
+  }
+}
+
+.btn.google {
+  background: var(--contrast);
+  color: var(--dark);
+  font-weight: 600;
+  line-height: 1;
+  padding: 10px 16px;
+
+  &:hover:not(:disabled):not(:active) {
+    transform: translateY(-2px);
+  }
+}
+
+.btn-big {
+  padding: 12px 16px;
+  font-size: 1rem;
+  font-weight: 700;
+  white-space: initial;
+
+  @include up(1100) {
+    font-size: 18px;
+  }
+
+  .icon {
+    margin-right: space(2);
+  }
+}
+
+.btn-block {
+  @extend .btn-big;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-small {
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 0.8em;
+}

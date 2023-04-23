@@ -1,0 +1,75 @@
+@import "mixins";
+.h1, .h2, .h3, .h4, .h5 {
+  font-weight: 600;
+}
+
+.h1 {
+  font-size: 3rem;
+
+  @include down(768){
+    font-size: 2rem;
+  }
+  @include down(300){
+    font-size: 1.5rem;
+  }
+}
+
+.h2 {
+  font-size: 3em;
+
+  @include down(768){
+    font-size: 2.5em;
+  }
+}
+
+.h3 {
+  font-size: 2em;
+
+  @include down(768){
+    font-size: 1.5em;
+  }
+}
+
+.h4 {
+  font-size: 1.5em;
+}
+
+.h5 {
+  font-size: 1.25em;
+}
+
+.font-sm {
+  font-size: 0.875em;
+}
+
+
+p {
+  font-size: 0.8rem;
+}
+
+/*Thickness*/
+.text-medium {
+  font-weight: 500;
+}
+.text-semi-bold {
+  font-weight: 600;
+}
+
+/* Color */
+.text-success {
+  color: var(--success);
+}
+.text-contrast-70 {
+  color: var(--contrast-70);
+}
+
+.invalid-feedback {
+  color: var(--red)
+}
+
+/*Text alignement*/
+.text-center {
+  text-align: center;
+}
+
+

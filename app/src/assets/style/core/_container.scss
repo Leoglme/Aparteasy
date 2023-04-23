@@ -1,0 +1,33 @@
+@import "functions";
+$container: ("sm": 650px, "xs": 400px);
+
+.container {
+  margin-inline: auto;
+  max-width: 1120px;
+  width: 100%;
+}
+
+@each $name, $size in $container {
+  .container-#{$name} {
+    margin-inline: auto;
+    max-width: $size;
+    width: 100%;
+  }
+}
+
+.centered-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: space(2);
+}
+
+.icon path {
+  transition: stroke 0.3s, fill 0.3s;
+}
