@@ -5,7 +5,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 // import './events/app'
 import './events/auth'
 // import './events/mail'
-// import './events/notify'
+import './events/notify'
 
 /* listen for event errors */
 Event.onError((event, error, eventData) => {

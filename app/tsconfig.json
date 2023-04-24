@@ -2,7 +2,7 @@
   "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "types": ["notyf", "axios", "vee-validate", "@vee-validate/rules", "node", "googlemaps"],
+    "types": ["notyf", "axios", "vee-validate", "@vee-validate/rules", "node", "googlemaps", "@types/socket.io-client"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]

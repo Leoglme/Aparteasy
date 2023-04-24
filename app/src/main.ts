@@ -9,6 +9,9 @@ import "./assets/style/main.scss";
 import { defineRule } from 'vee-validate'
 import { required, email, min } from '@vee-validate/rules';
 
+/*EVENTS*/
+import './events/socket'
+
 // define global rules
 defineRule('required', required);
 defineRule('email', email);

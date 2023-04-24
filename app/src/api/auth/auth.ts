@@ -41,16 +41,11 @@ export class Auth {
             })
             .then(async (response) => {
                 await this.authStore.setToken(response.data.token.token);
-                notify?.success("Connection successful, welcome!");
                 this.authStore.setUser(response.data.user);
                 success = true;
             })
             .catch((err) => {
                 console.log("err", err);
-                notify.error(
-                    err.response?.data?.message ||
-                    "An error occurred while connecting."
-                );
             });
         return { success };
     }

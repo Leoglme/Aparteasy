@@ -21,7 +21,6 @@ import Divider from '@/components/common/Divider.vue'
 import Logo from '@/components/common/Logo.vue'
 import { SITE_NAME } from '@/env'
 
-
 /*METAS*/
 document.title = 'Login | ' + SITE_NAME
 </script>

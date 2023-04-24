@@ -5,4 +5,8 @@ declare module '@ioc:Adonis/Core/Event' {
     'new:user': User
     'login': User
   }
+  interface EventsNotify {
+    'notify:success': string
+    'notify:error': string
+  }
 }
