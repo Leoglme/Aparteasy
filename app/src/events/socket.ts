@@ -24,6 +24,7 @@ socket.on('notify:success',  async (message: string) => {
 });
 
 socket.on('notify:error', async (message: string) => {
+    console.log("error", message)
     notyf.error(message);
     await audio.play()
 });

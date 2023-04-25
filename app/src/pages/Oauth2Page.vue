@@ -1,0 +1,40 @@
+<template>
+  <div class="w-full d-flex center-y center-x vh-100">
+    <Spinner/>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import Spinner from "@/components/common/Spinner.vue"
+import { useRoute, useRouter } from "vue-router";
+import { SITE_NAME } from "@/env";
+import { notify } from "@/plugins/notyf";
+import { useAuthStore } from "@/stores/auth.store";
+import { Auth } from "@/api/auth/auth";
+import { ref } from "vue";
+/*HOOKS*/
+const route = useRoute()
+const router = useRouter()
+/*STORE*/
+const authStore = useAuthStore();
+/*REFS*/
+const token = ref(route.query.token || undefined as String | undefined)
+/*METHODS*/
+const handleError = () => {
+  router.push("/login")
+  notify.error('An error occurred while logging in, please try again')
+}
+if (!token.value) {
+  handleError();
+} else {
+  authStore.setToken(token.value ? token.value.toString() : undefined);
+  Auth.status().then(({ data }) => {
+    authStore.setUser(data.user)
+    router.push("/")
+  }).catch(() => {
+    handleError();
+  })
+}
+/*METAS*/
+document.title = `Authentication in progress... | ${SITE_NAME}`
+</script>

@@ -20,15 +20,6 @@ export class Auth {
         };
     }
 
-    init() {
-        if (this.authStore.token && this.authStore.user) {
-            this.authStore.setToken(this.authStore.token);
-            Auth.user().then((response: { infos: {}; user: User }) => {
-                this.authStore.setUser(response.user);
-            });
-        }
-    }
-
     async login(body: {
         email: string;
         password: string;
@@ -54,48 +45,21 @@ export class Auth {
     let success = false;
     notify.dismissAll();
     await axios
-        .post(API_URL + "/auth/signup", JSON.stringify(body), {
+        .post(API_URL + "/api/auth/signup", JSON.stringify(body), {
           headers: this.headers,
         })
         .then(async (response) => {
           await this.authStore.setToken(response.data.token);
-          notify?.success("Connection successful, welcome!");
           this.authStore.setUser(response.data.user);
           success = true;
         })
         .catch((err) => {
           console.log("err", err);
-          notify.error(
-              err.response?.data?.message ||
-              "An error occurred while connecting."
-          );
         });
     return { success };
   }
 
-    static user() {
-        return axios
-            .get(API_URL + "/auth/user")
-            .then((response) => response.data)
-            .catch((e) => e);
-    }
-    async verifyAccount(token: string | undefined, code: string | undefined) {
-        axios.get(API_URL + "/auth/verify-account?token=" + token  + "&code=" + code).then((response) => {
-            notify.success(response.data || "Account verify successfully");
-            Auth.user().then((response: { infos: {}; user: User }) => {
-                this.authStore.setUser(response.user);
-                this.router.push("/")
-            });
-        }).catch((err) => {
-            notify.error(err.response?.data?.message || "An error occurred while confirm your account.");
-        });
-    }
-    async sendVerifyAccountEmail(token: string | undefined) {
-        axios.get(API_URL + "/auth/send-verify-email?token=" + token).then((response) => {
-            notify.success(response.data || "Email sent successfully");
-            this.router.push("/")
-        }).catch((err) => {
-            notify.error(err.response?.data?.message || "An error occurred while sent mail.");
-        });
+    static status(): Promise<{data: { user: User }}> {
+        return axios.get(API_URL + "/api/auth/status")
     }
 }

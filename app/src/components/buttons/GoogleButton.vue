@@ -11,7 +11,7 @@
 </template>
 
 <script lang="ts" setup>
-import { API_URL, APP_URL } from "@/env";
+import { API_URL } from "@/env";
 
-const googleUrl = `${API_URL}/oauth2/authorize/google?redirect_uri=${APP_URL}/oauth2/redirect`
+const googleUrl = `${API_URL}/api/oauth2/google/redirect`
 </script>

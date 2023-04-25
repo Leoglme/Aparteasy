@@ -5,8 +5,6 @@ WsService.boot()
  * Listen for incoming socket connections
  */
 WsService.io.on('connection', (socket) => {
-  socket.emit('news', { hello: 'world' })
-
   socket.on('notify:success', (data) => {
     socket.emit('notify:success', data)
   })

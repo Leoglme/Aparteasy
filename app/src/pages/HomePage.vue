@@ -17,7 +17,7 @@ const authStore = useAuthStore()
 /*API*/
 
 /*METAS*/
-document.title = `Create and manage awesome widgets | ${SITE_NAME}`
+document.title = `Home | ${SITE_NAME}`
 </script>
 
 <style lang="scss" scoped>

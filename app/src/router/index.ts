@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
+import Oauth2Page from "@/pages/Oauth2Page.vue";
 import { useAuthStore } from '@/stores/auth.store'
 
 const router = createRouter({
@@ -21,6 +22,11 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: SignupPage
+    },
+    {
+      path: '/oauth2',
+      name: 'oauth2',
+      component: Oauth2Page
     },
   ]
 })
