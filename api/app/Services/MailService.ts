@@ -1,6 +1,6 @@
 import Event from '@ioc:Adonis/Core/Event'
 import Mail from '@ioc:Adonis/Addons/Mail'
-import type { MailCommand, MailMessage } from '@ioc:Adonis/Addons/Mail'
+import type { MailCommand, MailMessage, MailsMessages, MailsCommand } from '@ioc:Adonis/Addons/Mail'
 import View from '@ioc:Adonis/Core/View'
 import mjml from 'mjml'
 import appInfos from 'Config/app-infos'
@@ -10,7 +10,10 @@ export default class MailService {
     email: appInfos.emails.support,
     name: `${appInfos.name} Team`,
   }
-  public static async send(payload: MailCommand, viewPath: string = 'emails.test-email') {
+  public static async send(
+    payload: MailCommand,
+    viewPath: string = 'emails.test-email'
+  ): Promise<void> {
     const mail: MailMessage = {
       viewPath,
       from: appInfos.emails.noReply,
@@ -20,7 +23,7 @@ export default class MailService {
       payload,
     }
 
-    const html = mjml(View.renderSync(mail.viewPath, mail.payload)).html
+    const html = this.getHtml(mail.viewPath, mail.payload)
     await Mail.sendLater((message) => {
       message
         .from(mail.from)
@@ -30,5 +33,40 @@ export default class MailService {
         .html(html)
     })
     await Event.emit('mail:send', mail.to)
+  }
+
+  public static async sendMany(payload: MailsCommand, viewPath: string = 'emails.test-email') {
+    const mails: MailsMessages = {
+      viewPath,
+      from: appInfos.emails.noReply,
+      to: payload.emails,
+      subject: payload.subject,
+      replyTo: {
+        email: appInfos.emails.support,
+        name: `${appInfos.name} Team`,
+      },
+      payload,
+    }
+
+    const receivers: string[] = []
+    const html = this.getHtml(mails.viewPath, mails.payload)
+    mails.to.map(async (mail) => {
+      if (receivers.includes(mail)) return
+      receivers.push(mail)
+
+      await Mail.sendLater((message) => {
+        message
+          .from(mails.from)
+          .to(mail)
+          .subject(mails.subject || '')
+          .replyTo(mails.replyTo.email || mail, mails.replyTo.name)
+          .html(html)
+      })
+    })
+    await Event.emit('mail:send', mails.to)
+  }
+
+  protected static getHtml(viewPath: string, payload: MailCommand | MailsCommand): string {
+    return mjml(View.renderSync(viewPath, payload)).html
   }
 }

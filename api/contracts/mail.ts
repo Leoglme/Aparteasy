@@ -14,7 +14,16 @@ declare module '@ioc:Adonis/Addons/Mail' {
     email: string
     message: string
   }
+
+  interface MailsPayload {
+    emails: string[]
+    message: string
+  }
   interface MailCommand extends MailPayload {
+    subject?: string
+  }
+
+  interface MailsCommand extends MailsPayload {
     subject?: string
   }
   interface MailMessage {
@@ -26,7 +35,7 @@ declare module '@ioc:Adonis/Addons/Mail' {
       email?: string
       name?: string
     }
-    payload: MailPayload
+    payload: MailPayload | MailsPayload
   }
   interface MailsMessages extends Omit<MailMessage, 'to'> {
     to: string[]
