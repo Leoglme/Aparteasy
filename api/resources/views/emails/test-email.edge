@@ -1,0 +1,32 @@
+<mjml version="3.3.3">
+  <mj-head>
+    <mj-title>{{ app_name }}, test email.</mj-title>
+    <mj-font name="Rubik" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"></mj-font>
+    <mj-attributes>
+      <mj-all font-family="Rubik, Helvetica, Arial, sans-serif"></mj-all>
+      <mj-text font-weight="400" font-size="16px" color="#F5F4FB"></mj-text>
+      <mj-section padding="0px"></mj-section>
+    </mj-attributes>
+  </mj-head>
+
+  <mj-body background-color="#101623">
+    <mj-section padding="20px 0" text-align="center">
+
+    </mj-section>
+    <mj-section border-radius="8px" text-align="center">
+      <mj-column>
+        <mj-image padding-top="0px" padding-left="0px"  padding-bottom="40px" align="left" src="{{ app_logo }}" width="108px"></mj-image>
+        <mj-text padding-left="0px" padding-bottom="24px" font-weight="700" align="left" font-size="20px">
+          Test email
+        </mj-text>
+
+
+        <mj-text padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+          {{message}}
+        </mj-text>
+      </mj-column>
+    </mj-section>
+
+    @include('emails/partials/footer')
+  </mj-body>
+</mjml>

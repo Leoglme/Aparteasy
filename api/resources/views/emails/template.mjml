@@ -1,0 +1,59 @@
+<mjml version="3.3.3">
+  <!-- HEADER -->
+  <mj-head>
+    <mj-font name="Rubik" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"/>
+    <mj-attributes>
+      <mj-all font-family="Rubik, Helvetica, Arial, sans-serif"/>
+      <mj-text font-weight="400" font-size="16px" color="#F5F4FB"/>
+      <mj-section padding="0px"/>
+    </mj-attributes>
+
+    <mj-style>
+      .btn:hover td, .btn:hover a { background-color: #6B59D9 !important; }
+      .btn:active td, .btn:active a { background-color: #8472F3 !important; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#101623">
+    <mj-section padding="20px 0" text-align="center">
+      <mj-column>
+        <mj-image align="center" src="https://i.ibb.co/856BKYq/logo.png" width="108px"/>
+      </mj-column>
+    </mj-section>
+    <!-- BODY -->
+    <mj-section background-color="#222B39" border-radius="8px" padding="32px" text-align="center">
+      <mj-column>
+        <mj-text padding-left="0px" padding-bottom="24px" font-weight="700" align="left" font-size="20px">
+          Bienvenue sur flapi 👋, confirmer votre adresse e-mail.
+        </mj-text>
+        <mj-text padding-left="0px" align="left">
+          Hey <b>{{user.name}}</b> 👋, <br/>
+        </mj-text>
+
+        <mj-text padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+          Nous sommes ravis de vous accueillir sur notre application. Pour activer votre compte flapi, veuillez vérifier
+          votre adresse e-mail. <br/>
+
+          Si vous avez besoin de quoi que ce soit, nous serons là pour vous aider.<br/><br/>
+
+          Merci, <br/>
+          L'équipe flapi.
+        </mj-text>
+        <mj-button height="48px" css-class="btn" padding-bottom="0px" padding-left="0px" font-weight="600"
+                   padding-top="24px" align="left" background-color="#8472F3" color="#fff" border-radius="6px"
+                   href="{{url}}">Confirmer mon compte
+        </mj-button>
+      </mj-column>
+    </mj-section>
+    <!-- FOOTER -->
+    <mj-section padding="20px 0px 20px 0px" text-align="center">
+      <mj-column>
+        <mj-text padding="0px" align="left" line-height="24px">Une question ? Contactez-nous sur notre adresse email <a href="mailto:support@flapi.fr" style="color: #BDB3FF;">
+          support@flapi.fr</a>.<br/> <br/>
+          © 2022 flapi.fr</mj-text>
+      </mj-column>
+    </mj-section>
+    <mj-section padding="20px 0px 20px 0px">
+    </mj-section>
+  </mj-body>
+</mjml>
+

@@ -1,5 +1,8 @@
 import './routes/auth'
 import './routes/socialAuth'
+import './routes/search'
+import './routes/location'
+import './routes/mail'
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 

@@ -1,0 +1,20 @@
+<mjml version="3.3.3">
+  <mj-head>
+    <mj-font name="Rubik" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap"></mj-font>
+    <mj-attributes>
+      <mj-all font-family="Rubik, Helvetica, Arial, sans-serif"></mj-all>
+      <mj-text font-weight="400" font-size="16px" color="#F5F4FB"></mj-text>
+      <mj-section padding="0px"/>
+    </mj-attributes>
+
+    <mj-style>
+      .btn:hover td, .btn:hover a { background-color: {{ lightOrDarkColor(primary_color, -10) }} !important; }
+      .btn:active td, .btn:active a { background-color: {{ primary_color }} !important; }
+    </mj-style>
+  </mj-head>
+  <mj-body background-color="#101623">
+    @include('emails/partials/header')
+    @!section('body')
+    @include('emails/partials/footer')
+  </mj-body>
+</mjml>

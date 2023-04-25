@@ -24,6 +24,6 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   }
   public async handle(error: { message: string }, ctx: HttpContextContract) {
     await Event.emit('notify:error', error.message)
-    ctx.response.send(error)
+    ctx.response.send(error.message)
   }
 }

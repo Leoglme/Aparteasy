@@ -1,0 +1,28 @@
+@layout('emails/layouts/main')
+
+@section('body')
+<mj-section background-color="#222B39" border-radius="8px" padding="32px" text-align="center">
+  <mj-column>
+    <mj-text align="center" padding-right="0" padding-left="0px" padding-bottom="24px" font-weight="700" align="left" font-size="24px">
+      {{ t('mail-templates.app.invite.title') }}
+    </mj-text>
+
+    <mj-text font-size="18px" padding="0" align="center" padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+      {{{ t('mail-templates.app.invite.content', { username, app_name }) }}}
+    </mj-text>
+    <mj-button align="center" height="48px" css-class="btn" padding-bottom="0px" padding-left="0px" font-weight="600"padding-top="24px" align="left"
+               background-color="#8472F3" color="#fff" border-radius="6px" href="{{url}}">
+      {{ t('mail-templates.app.invite.cta') }}
+    </mj-button>
+    <mj-text padding="16px 0px 16px 0px"/>
+    <mj-text font-size="12px" color="#BACAE3" align="center" padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+      {{ t('mail-templates.app.invite.help') }}
+    </mj-text>
+    <mj-text font-size="12px"padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+      <a style="word-break: break-all;" href="{{url}}">
+        {{ url }}
+      </a>
+    </mj-text>
+  </mj-column>
+</mj-section>
+@end

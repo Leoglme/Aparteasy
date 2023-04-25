@@ -6,6 +6,6 @@ export default class SearchValidator {
   public schema = schema.create({
     name: schema.string({ trim: true }),
     location_id: schema.number(),
-    user_id: schema.number(),
+    creator_id: schema.number(),
   })
 }
