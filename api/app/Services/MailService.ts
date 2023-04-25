@@ -1,6 +1,6 @@
 import Event from '@ioc:Adonis/Core/Event'
 import Mail from '@ioc:Adonis/Addons/Mail'
-import type { MailCommand, MailMessage, MailsMessages, MailsCommand } from '@ioc:Adonis/Addons/Mail'
+import type { MailMessage, MailsMessages } from '@ioc:Adonis/Addons/Mail'
 import View from '@ioc:Adonis/Core/View'
 import mjml from 'mjml'
 import appInfos from 'Config/app-infos'
@@ -10,15 +10,23 @@ export default class MailService {
     email: appInfos.emails.support,
     name: `${appInfos.name} Team`,
   }
-  public static async send(
-    payload: MailCommand,
-    viewPath: string = 'emails.test-email'
-  ): Promise<void> {
+
+  public static async send({
+    email,
+    payload,
+    subject,
+    viewPath = 'emails/test-email',
+  }: {
+    email: string
+    payload?: Record<string, unknown>
+    subject?: string
+    viewPath?: string
+  }): Promise<void> {
     const mail: MailMessage = {
       viewPath,
       from: appInfos.emails.noReply,
-      to: payload.email,
-      subject: payload.subject,
+      to: email,
+      subject: subject,
       replyTo: this.replyTo,
       payload,
     }
@@ -35,12 +43,22 @@ export default class MailService {
     await Event.emit('mail:send', mail.to)
   }
 
-  public static async sendMany(payload: MailsCommand, viewPath: string = 'emails.test-email') {
+  public static async sendMany({
+    emails,
+    payload,
+    subject,
+    viewPath = 'emails/test-email',
+  }: {
+    emails: string[]
+    payload?: Record<string, unknown>
+    subject?: string
+    viewPath?: string
+  }) {
     const mails: MailsMessages = {
       viewPath,
       from: appInfos.emails.noReply,
-      to: payload.emails,
-      subject: payload.subject,
+      to: emails,
+      subject: subject,
       replyTo: {
         email: appInfos.emails.support,
         name: `${appInfos.name} Team`,
@@ -66,7 +84,7 @@ export default class MailService {
     await Event.emit('mail:send', mails.to)
   }
 
-  protected static getHtml(viewPath: string, payload: MailCommand | MailsCommand): string {
+  protected static getHtml(viewPath: string, payload?: Record<string, unknown>): string {
     return mjml(View.renderSync(viewPath, payload)).html
   }
 }

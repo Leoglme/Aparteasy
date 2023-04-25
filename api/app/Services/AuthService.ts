@@ -2,6 +2,7 @@ import BaseService from 'App/Services/BaseService'
 import RegisterValidator from 'App/Validators/RegisterValidator'
 import User from 'App/Models/User'
 import Event from '@ioc:Adonis/Core/Event'
+import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 
 export default class AuthService extends BaseService {
   public static async signup() {
@@ -40,5 +41,13 @@ export default class AuthService extends BaseService {
       name: 'Auth Login Access Token',
       expiresIn: '7days',
     })
+  }
+
+  public static unauthorized() {
+    throw new AuthenticationException(
+      'Unauthorized access',
+      'E_UNAUTHORIZED_ACCESS',
+      'unauthorized'
+    )
   }
 }

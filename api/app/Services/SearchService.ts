@@ -1,12 +1,12 @@
 import BaseService from 'App/Services/BaseService'
 import Search from 'App/Models/Search'
 import SearchValidator from 'App/Validators/SearchValidator'
-import { AuthenticationException } from '@adonisjs/auth/build/standalone'
+import AuthService from 'App/Services/AuthService'
 
 export default class SearchService extends BaseService {
   public static async getAll() {
     const searches = await this.getAllForUser()
-    return searches.map((search) => {
+    return searches?.map((search) => {
       return {
         ...search.serialize(),
         users: this.mergeCreatorWithInvitedUsers(search),
@@ -30,7 +30,8 @@ export default class SearchService extends BaseService {
   public static async getAllForUser() {
     const user = super.auth.user
     if (!user) {
-      throw new AuthenticationException('Unauthorized access', 'E_UNAUTHORIZED_ACCESS')
+      AuthService.unauthorized()
+      return
     }
     return await Search.query()
       .whereHas('users', (query) => {

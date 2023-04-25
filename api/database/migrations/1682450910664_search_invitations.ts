@@ -7,8 +7,8 @@ export default class SearchInvitations extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.integer('search_id').unsigned().references('id').inTable('searches').onDelete('CASCADE')
-      table.integer('inviter_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      table.integer('invitee_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.integer('sender_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
+      table.string('receiver').notNullable()
       table.boolean('accepted').defaultTo(false)
       table.timestamps(true, true)
     })
