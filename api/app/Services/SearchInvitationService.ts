@@ -5,6 +5,9 @@ import SearchUser from 'App/Models/SearchUser'
 import Encryption from '@ioc:Adonis/Core/Encryption'
 import MailService from 'App/Services/MailService'
 import appInfos from 'Config/app-infos'
+import AuthService from 'App/Services/AuthService'
+import BaseService from 'App/Services/BaseService'
+import SearchService from 'App/Services/SearchService'
 
 type SearchInvitationCommand = {
   search_id: number
@@ -13,7 +16,12 @@ type SearchInvitationCommand = {
   accepted: boolean
 }
 
-export class SearchInvitationService {
+type TokenInvite = {
+  email: string
+  searchId: string
+}
+
+export class SearchInvitationService extends BaseService {
   public static async createMany(
     searchId: number,
     senderId: number,
@@ -30,7 +38,7 @@ export class SearchInvitationService {
     for (const receiver of receivers) {
       const isReceiverMember = await this.userAlreadyMember(receiver, searchId)
       const receiverUser = await UserService.findByEmail(receiver)
-      const isReceiverCreator = receiverUser && receiverUser.id === senderId
+      const isReceiverCreator = receiverUser ? receiverUser.id === senderId : false
 
       if (!isReceiverMember && !isReceiverCreator) {
         searchInvitations.push({
@@ -52,7 +60,7 @@ export class SearchInvitationService {
   }
 
   public static sendInvitationsEmail = async (emails: string[], searchId: number) => {
-    const search = await Search.findOrFail(searchId)
+    const search = await Search.query().preload('creator').where('id', searchId).firstOrFail()
     const sender = search.creator.name
 
     for (const email of emails) {
@@ -64,6 +72,7 @@ export class SearchInvitationService {
         payload: {
           url: `${appInfos.url}/search-invite?token=${inviteToken}`,
           sender,
+          searchName: search.name,
           inviteToken,
         },
       })
@@ -71,10 +80,27 @@ export class SearchInvitationService {
   }
 
   public static async updateAccepted(
-    searchId: number,
+    token: string,
     accepted: boolean
-  ): Promise<SearchInvitation> {
-    const searchInvitation = await SearchInvitation.findOrFail(searchId)
+  ): Promise<SearchInvitation | undefined> {
+    const inviteToken: TokenInvite | null = Encryption.decrypt(token.trim())
+    const user = inviteToken ? await UserService.findByEmail(inviteToken.email) : null
+    const connectedUser = super.auth.user
+
+    if (!inviteToken || !user || user.id !== connectedUser?.id) {
+      AuthService.unauthorized()
+      return
+    }
+
+    const searchId = Number(inviteToken.searchId)
+
+    const searchInvitation = await SearchInvitation.query()
+      .where('receiver', inviteToken.email)
+      .andWhere('search_id', searchId)
+      .orderBy('id', 'desc')
+      .firstOrFail()
+
+    await SearchService.addUserToSearch(searchId, user.id)
 
     searchInvitation.accepted = accepted
     await searchInvitation.save()

@@ -3,6 +3,7 @@ import RegisterValidator from 'App/Validators/RegisterValidator'
 import User from 'App/Models/User'
 import Event from '@ioc:Adonis/Core/Event'
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
+import { UserService } from 'App/Services/UserService'
 
 export default class AuthService extends BaseService {
   public static async signup() {
@@ -15,6 +16,13 @@ export default class AuthService extends BaseService {
   public static async login() {
     const password = await super.request.input('password')
     const email = await super.request.input('email')
+    const findUserByEmail = await UserService.findByEmail(email)
+
+    if (findUserByEmail?.oauthProviderName) {
+      const message = `You must sign in with your ${findUserByEmail?.oauthProviderName} account`
+      await Event.emit('notify:error', message)
+      return super.response.badRequest(message)
+    }
 
     const token = await this.generateToken(email, password)
 

@@ -12,12 +12,18 @@ export default class SocialAuthService extends BaseService {
   public static async findOrCreateUser(
     socialUser: AllyUserContract<GoogleToken>,
     provider: keyof SocialProviders
-  ): Promise<User> {
+  ): Promise<User | { error: string }> {
     let user = await this.findUser(socialUser, provider)
+
+    if (!user?.oauthProviderName) {
+      const message = `This email is already in use, log in with your email and password`;
+      return { error: message }
+    }
 
     if (!user) {
       user = await this.createUser(socialUser, provider)
     }
+
     return user
   }
 

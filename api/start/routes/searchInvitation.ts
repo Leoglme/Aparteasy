@@ -1,6 +1,8 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
-  Route.post('/searches/:searchId/invite', 'SearchInvitationController.invite')
-  Route.patch('/search-invitations/:invitationId/accept', 'SearchInvitationController.accept')
-}).middleware('auth')
+  Route.post('/search-invitations/:searchId/invite', 'SearchInvitationController.invite')
+  Route.patch('/search-invitations/:token/accept', 'SearchInvitationController.accept')
+})
+  .prefix('/api')
+  .middleware('auth')

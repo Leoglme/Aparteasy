@@ -2,6 +2,7 @@ import BaseService from 'App/Services/BaseService'
 import Search from 'App/Models/Search'
 import SearchValidator from 'App/Validators/SearchValidator'
 import AuthService from 'App/Services/AuthService'
+import SearchUser from 'App/Models/SearchUser'
 
 export default class SearchService extends BaseService {
   public static async getAll() {
@@ -20,7 +21,11 @@ export default class SearchService extends BaseService {
 
   public static async create() {
     const data = await super.request.validate(SearchValidator)
-    return await Search.create(data)
+    if (!super.auth.user?.id) {
+      AuthService.unauthorized()
+      return
+    }
+    return await Search.create({ ...data, creator_id: super.auth.user?.id })
   }
 
   public static async delete(id: number) {
@@ -42,6 +47,10 @@ export default class SearchService extends BaseService {
       .preload('creator')
       .preload('users')
       .exec()
+  }
+
+  public static async addUserToSearch(searchId: number, userId: number) {
+    return await SearchUser.create({ search_id: searchId, user_id: userId })
   }
 
   private static mergeCreatorWithInvitedUsers(search: Search) {

@@ -3,14 +3,12 @@
     <FormInput v-model:value="values.email" rules="required|email" label="Email" type="email" id="email" />
     <FormInput v-model:value="values.password" rules="required|min:5" id="password" label="Password" type="password"/>
     <Button :disabled="!meta.valid" type="submit" variant="primary">Login</Button>
-    <GooglePlacesAutocomplete></GooglePlacesAutocomplete>
   </Form>
 </template>
 
 <script lang="ts" setup>
 import Button from "@/components/buttons/Button.vue";
 import FormInput from "@/components/fields/FormInput.vue";
-import GooglePlacesAutocomplete from '@/components/fields/GooglePlacesAutocomplete.vue'
 import { Auth } from "@/api/auth/auth";
 import { Form } from 'vee-validate';
 import { useRouter } from "vue-router";

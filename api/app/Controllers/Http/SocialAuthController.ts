@@ -12,11 +12,24 @@ export default class SocialAuthController extends BaseController {
   public async callback({ ally, params, response }: HttpContextContract) {
     const socialUser = await ally.use(params.provider).user()
 
-    const user = await SocialAuthService.findOrCreateUser(socialUser, params.provider)
-    const token = await SocialAuthService.generateToken(user, params.provider)
-    await Event.emit('login', user)
+    const userOrError = await SocialAuthService.findOrCreateUser(socialUser, params.provider)
+
+    if ('error' in userOrError) {
+      const redirectUrl = `${Env.get('APP_URL')}/login`
+      response.redirect(redirectUrl)
+      setTimeout(async () => {
+        await Event.emit('notify:error', userOrError.error)
+      }, 2500)
+      return
+    }
+
+    const token = await SocialAuthService.generateToken(userOrError, params.provider)
+    await Event.emit('login', userOrError)
 
     const redirectUrl = `${Env.get('APP_URL')}/oauth2?token=${token.token}`
-    return response.redirect(redirectUrl)
+    response.redirect(redirectUrl)
+    setTimeout(async () => {
+      await Event.emit('login', userOrError)
+    }, 2500)
   }
 }

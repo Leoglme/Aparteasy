@@ -22,9 +22,11 @@ export default class ExceptionHandler extends HttpExceptionHandler {
   constructor() {
     super(Logger)
   }
-  public async handle(error: { message: string }, ctx: HttpContextContract) {
+  public async handle(
+    error: { message: string; messages?: [key: string] },
+    ctx: HttpContextContract
+  ) {
     await Event.emit('notify:error', error.message)
-    console.log(error)
-    ctx.response.send(error.message)
+    ctx.response.send(error.messages || error.message)
   }
 }

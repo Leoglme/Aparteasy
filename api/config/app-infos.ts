@@ -1,6 +1,6 @@
 import Env from '@ioc:Adonis/Core/Env'
 export default {
-  color: Env.get('APP_COLOR', '#8472F3'),
+  color: Env.get('APP_PRIMARY_COLOR', '#ff2560'),
   name: Env.get('APP_NAME', 'My App'),
   logo: Env.get('APP_LOGO'),
   url: Env.get('APP_URL'),
