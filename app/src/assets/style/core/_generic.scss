@@ -126,23 +126,3 @@ p {
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: var(--contrast-30);
 }
-
-.hide-md, .d-flex.hide-md {
-  @include down(1060) {
-    display: none;
-  }
-}
-
-.show-md {
-  display: none;
-  @include down(1060) {
-    display: block;
-  }
-}
-
-.hide-sm, .d-flex.hide-sm {
-
-  @include down(768) {
-    display: none;
-  }
-}

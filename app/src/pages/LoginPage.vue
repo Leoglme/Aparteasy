@@ -1,13 +1,13 @@
 <template>
-  <section class="p-6">
+  <section class="p-4">
     <div class="container-xs">
-      <Logo class="d-flex center-x mb-8" large/>
-      <div class="d-flex column gap-4">
+      <Logo class="flex justify-center mb-8" large/>
+      <div class="flex flex-col gap-4">
         <GoogleButton/>
         <Divider text="ou"/>
         <LoginForm/>
       </div>
-      <h6 class="text-medium text-sm mt-6 centered gap-2 wrap">Vous n'avez pas de compte ?
+      <h6 class="text-medium text-sm mt-6 centered gap-2 flex-wrap">Vous n'avez pas de compte ?
         <router-link class="link" to="/signup">S’inscrire</router-link>
       </h6>
     </div>
@@ -22,5 +22,5 @@ import Logo from '@/components/common/Logo.vue'
 import { SITE_NAME } from '@/env'
 
 /*METAS*/
-document.title = 'Login | ' + SITE_NAME
+document.title = 'Connexion | ' + SITE_NAME
 </script>

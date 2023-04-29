@@ -1,8 +1,8 @@
 <template>
   <button class="btn gap-1" :class="classes" :style="styles" :data-variant="variant">
-    <Icon style="margin-bottom: 0;" :stroke="iconStroke" :fill="iconFill" :name="startIcon" v-if="startIcon"/>
+    <Icon :width="22" :height="22" style="margin-bottom: 0;" :stroke="iconStroke" :fill="iconFill" :name="startIcon" v-if="startIcon"/>
     <slot/>
-    <Icon style="margin-bottom: 0;" :stroke="iconStroke" :fill="iconFill" :name="endIcon" v-if="endIcon"/>
+    <Icon :width="22" :height="22" class="btn__icon--right" :stroke="iconStroke" :fill="iconFill" :name="endIcon" v-if="endIcon"/>
   </button>
 </template>
 
@@ -29,3 +29,15 @@ const iconFill = computed(() => props.iconMode === 'fill' ? props.color : undefi
 const classes = computed(() => ({ 'btn-small': props.small, 'square': props.small }))
 const styles = computed(() => ({ background: props.background, color: props.background }))
 </script>
+
+
+<style lang="scss">
+.btn__icon--{
+  &right {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+  }
+}
+</style>

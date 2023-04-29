@@ -6,7 +6,11 @@ import router from './router'
 
 /*SCSS*/
 import "./assets/style/main.scss";
-import { defineRule } from 'vee-validate'
+
+/*vee-validate*/
+import { localize } from '@vee-validate/i18n';
+import fr from '@vee-validate/i18n/dist/locale/fr.json';
+import { configure, defineRule } from 'vee-validate'
 import { required, email, min } from '@vee-validate/rules';
 
 /*EVENTS*/
@@ -16,6 +20,15 @@ import './events/socket'
 defineRule('required', required);
 defineRule('email', email);
 defineRule('min', min);
+
+localize({ fr });
+
+// Activate the locale
+configure({
+    generateMessage: localize('fr', {
+        names: {},
+    }),
+});
 
 const app = createApp(App)
 

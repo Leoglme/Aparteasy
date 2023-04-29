@@ -1,7 +1,7 @@
 @import "functions";
 $max: 8;
 
-@for $i from 1 through $max {
+@for $i from 0 through $max {
   .gap-#{$i} {
     gap: space($i)
   }

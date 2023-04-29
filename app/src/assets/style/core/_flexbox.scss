@@ -1,51 +1,29 @@
-.d-flex {
+.flex {
   display: flex;
 }
-.start-x {
-  justify-content: start;
+
+$justify-options: (
+        start: start,
+        center: center,
+        end: end,
+        between: space-between
+);
+$align-items-options: (
+        start: start,
+        center: center,
+        end: end
+);
+
+@each $key, $value in $justify-options {
+  .justify-#{$key} {
+    justify-content: $value;
+  }
 }
 
-.start-y {
-  align-items: start;
-}
-
-.center-y {
-  align-items: center;
-}
-.center-x {
-  justify-content: center;
-}
-.end-y {
-  align-items: end;
-}
-.end-x {
-  justify-content: end;
-}
-
-.right-x {
-  justify-content: end;
-}
-
-.between {
-  justify-content: space-between !important;
-}
-.column {
-  flex-direction: column;
-}
-.wrap {
-  flex-wrap: wrap;
-}
-
-.wrapper {
-  flex-wrap: wrap;
-}
-
-.stretch {
-  align-items: stretch;
-}
-
-.flex-1 {
-  flex: 1;
+@each $key, $value in $align-items-options {
+  .items-#{$key} {
+    align-items: $value;
+  }
 }
 
 .centered {
@@ -53,4 +31,20 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+}
+
+.between {
+  justify-content: space-between;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-1 {
+  flex: 1;
 }

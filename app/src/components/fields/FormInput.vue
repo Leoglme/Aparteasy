@@ -1,7 +1,7 @@
 <template>
-  <div class="d-flex column gap-1 relative">
-    <span class="d-flex between">
-       <label class="d-flex center-y" :for="id" v-if="label">{{ label }} <span v-if="rules && rules.includes('required')" style="margin-left: 5px;" class="text-primary">*</span></label>
+  <div class="flex flex-col gap-1 relative">
+    <span class="flex justify-between">
+       <label class="flex items-center" :for="id" v-if="label">{{ label }} <span v-if="rules && rules.includes('required')" style="margin-left: 5px;" class="text-primary">*</span></label>
       <slot name="link"></slot>
     </span>
     <Field
@@ -24,7 +24,7 @@
       <Icon v-if="togglePassword" title="Masquer le mot de passe" name="eye-off" fill="var(--contrast-70)"/>
     </div>
 
-    <ErrorMessage class="invalid-feedback" :name="props.id"/>
+    <ErrorMessage class="invalid-feedback text-xs" :name="props.id"/>
     <slot/>
   </div>
 </template>
@@ -79,7 +79,7 @@ const hasIcon = !!slot['default']
 .toggle-password {
   cursor: pointer;
   position: absolute;
-  top: 44px;
+  top: 40px;
   right: 12px;
 }
 .toggle-password svg:hover path {
