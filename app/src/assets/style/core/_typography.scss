@@ -1,51 +1,29 @@
-@import "mixins";
-.h1, .h2, .h3, .h4, .h5 {
-  font-weight: 600;
-}
+/* Font size */
+$text-sizes: (
+        xs: (font-size: 0.75rem, line-height: 1rem),
+        sm: (font-size: 0.875rem, line-height: 1.25rem),
+        base: (font-size: 1rem, line-height: 1.5rem),
+        lg: (font-size: 1.125rem, line-height: 1.75rem),
+        xl: (font-size: 1.25rem, line-height: 1.75rem),
+        2xl: (font-size: 1.5rem, line-height: 2rem),
+        3xl: (font-size: 1.875rem, line-height: 2.25rem),
+        4xl: (font-size: 2.25rem, line-height: 2.5rem),
+        5xl: (font-size: 3rem, line-height: 1),
+        6xl: (font-size: 3.75rem, line-height: 1),
+        7xl: (font-size: 4.5rem, line-height: 1),
+        8xl: (font-size: 6rem, line-height: 1),
+        9xl: (font-size: 8rem, line-height: 1)
+);
 
-.h1 {
-  font-size: 3rem;
-
-  @include down(768){
-    font-size: 2rem;
-  }
-  @include down(300){
-    font-size: 1.5rem;
-  }
-}
-
-.h2 {
-  font-size: 3em;
-
-  @include down(768){
-    font-size: 2.5em;
-  }
-}
-
-.h3 {
-  font-size: 2em;
-
-  @include down(768){
-    font-size: 1.5em;
+@each $size, $properties in $text-sizes {
+  .text-#{$size} {
+    font-size: map-get($properties, font-size);
+    line-height: map-get($properties, line-height);
   }
 }
 
-.h4 {
-  font-size: 1.5em;
-}
-
-.h5 {
-  font-size: 1.25em;
-}
-
-.font-sm {
-  font-size: 0.875em;
-}
 
 
-p {
-  font-size: 0.8rem;
-}
 
 /*Thickness*/
 .text-medium {

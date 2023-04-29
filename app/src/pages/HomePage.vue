@@ -1,6 +1,7 @@
 <template>
   <section id="home" class="pt-5">
     <h1>hello {{authStore.user.name}}</h1>
+    <button></button>
   </section>
 </template>
 

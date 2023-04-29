@@ -1,5 +1,5 @@
 <template>
-  <Form  v-slot="{meta}" class="d-flex column gap-4" @submit="login">
+  <Form  v-slot="{meta}" class="d-flex column gap-6" @submit="login">
     <FormInput v-model:value="values.email" rules="required|email" label="Email" type="email" id="email" />
     <FormInput v-model:value="values.password" rules="required|min:5" id="password" label="Password" type="password"/>
     <Button :disabled="!meta.valid" type="submit" variant="primary">Login</Button>

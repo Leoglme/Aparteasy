@@ -1,13 +1,13 @@
 <template>
-  <section class="centered-screen p-2">
+  <section class="p-6">
     <div class="container-xs">
       <Logo class="d-flex center-x mb-8" large/>
-      <div class="d-flex column gap-3">
+      <div class="d-flex column gap-4">
         <GoogleButton/>
         <Divider text="ou"/>
         <LoginForm/>
       </div>
-      <h6 style="font-size: 16px;" class="text-medium mt-4 centered gap-2 wrap">Vous n'avez pas de compte ?
+      <h6 class="text-medium text-sm mt-6 centered gap-2 wrap">Vous n'avez pas de compte ?
         <router-link class="link" to="/signup">S’inscrire</router-link>
       </h6>
     </div>

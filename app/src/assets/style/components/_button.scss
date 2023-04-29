@@ -87,7 +87,6 @@ button {
   color: var(--dark);
   font-weight: 600;
   line-height: 1;
-  padding: 10px 16px;
 
   &:hover:not(:disabled):not(:active) {
     transform: translateY(-2px);
@@ -95,7 +94,7 @@ button {
 }
 
 .btn-big {
-  padding: 12px 16px;
+  padding: 6px 16px;
   font-size: 1rem;
   font-weight: 700;
   white-space: initial;

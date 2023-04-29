@@ -10,7 +10,7 @@
 import { SITE_NAME } from '@/env'
 
 const props = defineProps({
-  size: {type: [Number, String], default: 40},
+  size: {type: [Number, String], default: 35},
   large: {type: Boolean, default: false}
 })
 </script>
@@ -26,7 +26,7 @@ const props = defineProps({
   }
 }
 .logo-text {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 500;
   color: var(--contrast, #fff);
 }
