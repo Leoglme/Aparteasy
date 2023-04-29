@@ -1,5 +1,5 @@
 <template>
-  <section class="centered-screen p-2">
+  <section class="p-6">
     <div class="d-grid gap-3">
       <div class="container-xs d-flex column">
         <Logo class="d-flex center-x mb-8" large />
