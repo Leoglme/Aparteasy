@@ -1,12 +1,13 @@
 import { API_URL } from "@/env";
 import axios from "axios";
-import type { SignupCommand } from "@/api/auth/auth.model";
+import type { SignupCommand } from "@/services/auth/auth.model";
 import { notify } from "@/plugins/notyf";
 import { useAuthStore } from "@/stores/auth.store";
-import type { User } from "@/api/user/user.model";
+import type { User } from "@/services/user/user.model";
 import { useRouter } from "vue-router";
+import ReferentialService from '@/services/ReferentialService'
 
-export class Auth {
+export class AuthService {
     private authStore;
     private headers;
     private router;
@@ -32,7 +33,7 @@ export class Auth {
             })
             .then(async (response) => {
                 await this.authStore.setToken(response.data.token.token);
-                this.authStore.setUser(response.data.user);
+                await ReferentialService.loadDatas()
                 success = true;
             })
             .catch((err) => {
@@ -50,7 +51,7 @@ export class Auth {
         })
         .then(async (response) => {
           await this.authStore.setToken(response.data.token);
-          this.authStore.setUser(response.data.user);
+            await ReferentialService.loadDatas()
           success = true;
         })
         .catch((err) => {

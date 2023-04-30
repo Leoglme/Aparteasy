@@ -9,6 +9,10 @@ $linkColor: var(--primary-light);
   overflow: hidden;
 }
 
+.hover\:text-link:hover {
+  text-decoration: underline;
+}
+
 .link:hover,
 .link:active {
   text-decoration: underline;

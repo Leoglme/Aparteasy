@@ -1,14 +1,48 @@
 @import "functions";
-$max: 2;
+@import "variables";
+$max: 4;
 
+$radius-variants: (
+        none: 0,
+        sm: 0.25rem /* 4px */,
+        md: 0.5rem /* 8px */,
+        lg: 0.75rem /* 12px */,
+        xl: 1rem /* 16px */,
+        xxl: 1.5rem /* 24px */
+);
+
+
+// Generate classes for border sizes
 @for $i from 1 through $max {
   .b-#{$i} {
-    border: $i * 1px solid var(--contrast-30);
+    border: $i * 1px solid;
   }
   .bb-#{$i} {
-    border-bottom: $i * 1px solid var(--contrast-30);
+    border-bottom: $i * 1px solid;
   }
   .bt-#{$i} {
-    border-top: $i * 1px solid var(--contrast-30);
+    border-top: $i * 1px solid;
+  }
+}
+
+// Generate classes for border colors
+.border-transparent {
+  border-color: transparent;
+}
+@each $color-name, $color-value in $variants {
+  .border-#{$color-name} {
+    border-color: $color-value;
+  }
+  .hover\:border-#{$color-name} {
+    &:hover {
+      border-color: $color-value;
+    }
+  }
+}
+
+// Generate classes for border radius
+@each $radius-name, $radius-value in $radius-variants {
+  .rounded-#{$radius-name} {
+    border-radius: $radius-value;
   }
 }

@@ -4,11 +4,13 @@ import User from 'App/Models/User'
 import Event from '@ioc:Adonis/Core/Event'
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import { UserService } from 'App/Services/UserService'
+import FakeService from 'App/Services/FakeService'
 
 export default class AuthService extends BaseService {
   public static async signup() {
     const data = await super.request.validate(RegisterValidator)
-    const user = await User.create(data)
+    const avatarUrl = FakeService.generateDiceBearURL(data.name)
+    const user = await User.create({ ...data, avatarUrl })
     const token = await this.generateToken(data.email, data.password)
     await Event.emit('new:user', user)
     return super.response.created({ token: token.toJSON(), user: user.serialize() })

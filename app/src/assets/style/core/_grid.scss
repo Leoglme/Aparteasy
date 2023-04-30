@@ -1,32 +1,56 @@
-$max: 6;
 @import "mixins";
-.d-grid {
+@import "variables";
+$max-columns: 6;
+
+.grid {
   display: grid;
 }
 
-.d-inline-grid {
+.order-1 {
+  order: 1;
+}
+
+.inline-grid {
   display: inline-grid;
 }
 
-.d-grid, .d-inline-grid {
+.grid, .inline-grid {
   &.columns {
     grid-template-columns: repeat(var(--columns, 1), 1fr);
   }
 }
-.d-grid, .d-inline-grid {
+
+.grid, .inline-grid {
   &.col-auto {
     grid-template-columns: repeat(var(--columns, 1), auto);
   }
 }
-.d-grid, .d-inline-grid {
+
+.grid, .inline-grid {
   &.row-fit {
     grid-auto-rows: minmax(min-content, max-content);
   }
 }
 
 
-@for $i from 1 through $max {
-  .col-#{$i}{
+@for $i from 1 through $max-columns {
+  .col-#{$i} {
     --columns: #{$i};
+  }
+}
+
+
+/*Responsive grid*/
+/* Responsive min-width */
+@each $breakpoint, $sizes in $breakpoints {
+  @media (min-width: map-get($sizes, 'width')) {
+    @for $i from 1 through 3 {
+      .#{$breakpoint}\:order-#{$i} {
+        order: #{$i};
+      }
+      .#{$breakpoint}\:col-#{$i} {
+        --columns: #{$i};
+      }
+    }
   }
 }

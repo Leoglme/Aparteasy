@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments()
       table.string('email').notNullable().unique()
       table.string('name', 80).notNullable()
+      table.string('avatar_url')
       table.string('password', 180)
       table.string('oauth_provider_id')
       table.string('oauth_provider_name')

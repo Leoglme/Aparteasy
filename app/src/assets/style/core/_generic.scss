@@ -55,6 +55,10 @@ main {
   cursor: not-allowed;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 .select-none {
   user-select: none;
 }

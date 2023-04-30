@@ -1,7 +1,7 @@
 <template>
   <section id="home" class="pt-5">
-    <h1>hello {{authStore.user.name}}</h1>
-    <button></button>
+    <h1 v-if="authStore.user">hello {{authStore.user.name}}</h1>
+    <RouterLink to="/searches">Recherches</RouterLink>
   </section>
 </template>
 

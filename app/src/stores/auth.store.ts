@@ -1,8 +1,7 @@
 import { defineStore } from "pinia";
-import type { User } from "@/api/user/user.model";
+import type { User } from "@/services/user/user.model";
 import axios from "axios";
 import router from "@/router";
-import { useReferentialStore } from "@/stores/referential.store";
 
 const userInLocalStorage = localStorage.getItem("user");
 const tokenInLocalStorage = localStorage.getItem("token");
@@ -37,4 +36,7 @@ export const useAuthStore = defineStore("authStore", {
       await router.push("/login");
     },
   },
+  getters: {
+    isConnected: (state): boolean => !!state.token && !!state.user,
+  }
 });

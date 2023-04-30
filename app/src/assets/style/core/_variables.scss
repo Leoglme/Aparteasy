@@ -50,11 +50,25 @@ $contrast-70: rgb(255, 255, 255, .7);
 
 $variants: (
         primary: $primary,
+        primary-light: $primary-light,
         grey-500: $grey-500,
         grey-400: $grey-400,
+        grey-300: $grey-300,
         green: $green,
         yellow: $yellow,
+        blue: $blue,
         red: $red,
+        contrast-70: $contrast-70,
         dark: $dark,
         light: $light
+);
+
+
+$breakpoints: (
+        "xs": (width: 680px, height: 350px),
+        "sm": (width: 680px, height: 480px),
+        "md": (width: 768px, height: 600px),
+        "lg": (width: 1024px, height: 850px),
+        "xl": (width: 1280px, height: 960px),
+        "xxl": (width: 1536px, height: 1152px)
 );

@@ -13,10 +13,7 @@ const notyf = new Notyf({
 });
 
 const audio = new Audio('/sounds/notify-open.wav');
-
-audio.volume = 0.8
-
-
+audio.volume = 0.4
 
 socket.on('notify:success',  async (message: string) => {
     notyf.success(message);

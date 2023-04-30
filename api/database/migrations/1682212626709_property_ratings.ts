@@ -1,10 +1,9 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
-
 export default class extends BaseSchema {
   protected tableName = 'property_ratings'
 
   public async up() {
-    this.schema.createTable(this.tableName, (table) => {
+    this.schema.createTable(this.tableName, async (table) => {
       table.increments()
       table
         .integer('property_id')
@@ -13,7 +12,7 @@ export default class extends BaseSchema {
         .inTable('properties')
         .onDelete('CASCADE')
       table.integer('user_id').unsigned().references('id').inTable('users').onDelete('CASCADE')
-      table.integer('rating').notNullable()
+      table.integer('rating', 1).notNullable()
       table.timestamps(true, true)
     })
   }

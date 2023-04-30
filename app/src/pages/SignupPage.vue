@@ -1,6 +1,6 @@
 <template>
-  <section class="p-4">
-    <div class="d-grid gap-3">
+  <section class="p-4 pb-8 vh-100 flex items-start justify-center lg:min-h-items-center">
+    <div class="grid gap-3">
       <div class="container-xs flex flex-col">
         <Logo class="flex justify-center mb-8" large />
         <GoogleButton />

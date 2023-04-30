@@ -11,7 +11,7 @@ import "./assets/style/main.scss";
 import { localize } from '@vee-validate/i18n';
 import fr from '@vee-validate/i18n/dist/locale/fr.json';
 import { configure, defineRule } from 'vee-validate'
-import { required, email, min } from '@vee-validate/rules';
+import { required, email, min, confirmed } from '@vee-validate/rules';
 
 /*EVENTS*/
 import './events/socket'
@@ -19,6 +19,7 @@ import './events/socket'
 // define global rules
 defineRule('required', required);
 defineRule('email', email);
+defineRule('confirmed', confirmed);
 defineRule('min', min);
 
 localize({ fr });

@@ -16,7 +16,12 @@ export default class SearchService extends BaseService {
   }
 
   public static async getById(id: number) {
-    return await Search.query().preload('location').preload('creator').where('id', id).firstOrFail()
+    return await Search.query()
+      .preload('users')
+      .preload('location')
+      .preload('creator')
+      .where('id', id)
+      .firstOrFail()
   }
 
   public static async create() {
@@ -30,6 +35,7 @@ export default class SearchService extends BaseService {
 
   public static async delete(id: number) {
     await Search.findOrFail(id).then((search) => search.delete())
+    return super.response.noContent()
   }
 
   public static async getAllForUser() {

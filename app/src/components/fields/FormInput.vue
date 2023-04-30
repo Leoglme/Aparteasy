@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col gap-1 relative">
-    <span class="flex justify-between">
+    <span class="flex justify-between" v-if="hasLink || label">
        <label class="flex items-center" :for="id" v-if="label">{{ label }} <span v-if="rules && rules.includes('required')" style="margin-left: 5px;" class="text-primary">*</span></label>
       <slot name="link"></slot>
     </span>
@@ -14,7 +14,7 @@
         v-slot="{meta, field}"
         :name="props.id"
         :placeholder="props.placeholder">
-      <input :size="size" class="input" autofocus :style="hasIcon ? 'padding-left: 40px' : null" v-bind="field" :type="typeRef" :id="props.id"
+      <input :size="size" class="input w-full" autofocus :style="hasIcon ? 'padding-left: 40px' : null" v-bind="field" :type="typeRef" :id="props.id"
              :placeholder="props.placeholder"
              :class="{error: meta.validated && !meta.valid}">
     </Field>
@@ -73,6 +73,7 @@ watch(() => props.value, (val) => {
 });
 const slot = useSlots()
 const hasIcon = !!slot['default']
+const hasLink = !!slot['link']
 </script>
 
 <style>
@@ -84,8 +85,5 @@ const hasIcon = !!slot['default']
 }
 .toggle-password svg:hover path {
   fill: var(--contrast-30);
-}
-.invalid-feedback {
-  color: var(--red);
 }
 </style>

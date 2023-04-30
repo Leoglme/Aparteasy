@@ -1,6 +1,6 @@
 <template>
   <div class="separator" :class="{empty: !text}">
-    {{ text }}
+    {{ props.text }}
   </div>
 </template>
 

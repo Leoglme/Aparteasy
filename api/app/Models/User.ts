@@ -13,6 +13,8 @@ export default class User extends BaseModel {
 
   @column()
   public name: string
+  @column()
+  public avatarUrl: string
 
   @column()
   public oauthProviderId?: string

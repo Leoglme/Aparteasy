@@ -2,5 +2,5 @@ export type SignupCommand = {
   name: string,
   email: string,
   password: string,
-  city?: string
+  password_confirmation: string
 }

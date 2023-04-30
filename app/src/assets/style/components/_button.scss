@@ -1,6 +1,7 @@
 @use 'sass:color';
 @import "../core/functions";
 @import "../core/mixins";
+@import "../core/variables";
 %reset-button {
   cursor: pointer;
   text-decoration: none;
@@ -62,24 +63,45 @@ button {
     }
 }
 
+.btn-outlined {
+  @extend %button;
+
+  @each $key, $value in $variants {
+    &[data-variant='#{"" + $key}'] {
+      color: $value;
+      border: 1px solid $value;
+
+      &:hover:not([disabled]) {
+        border-color: transparent;
+        $color: color.adjust($value, $saturation: -22%, $lightness: -10%);
+        background: $color;
+        color: text-contrast($color);
+      }
+
+      &:active:hover {
+        background: $value;
+      }
+    }
+
+  }
+}
+
+
+.btn-dashed {
+  border: 1px dashed;
+  transition: opacity 0.25s;
+  &:hover:not([disabled]) {
+    opacity: 0.65;
+  }
+  &:active:not([disabled]) {
+    opacity: 1;
+  }
+}
 .btn.square  {
   height: 40px;
   width: 40px;
   border-radius: 4px;
   padding: 0;
-}
-
-.btn-outlined {
-  @extend %button;
-  border: 1px solid var(--contrast);
-  color: var(--contrast);
-  box-shadow: none;
-
-  &:hover {
-    filter: none;
-    background: var(--contrast);
-    color: #fff;
-  }
 }
 
 .btn.google {
@@ -118,6 +140,7 @@ button {
 
 .btn-small {
   border-radius: 4px;
-  padding: 5px 10px;
-  font-size: 0.8em;
+  padding: 6px 10px;
+  font-size: 0.9em;
+  height: fit-content;
 }

@@ -10,7 +10,7 @@
 <script lang="ts" setup>
 import Button from '@/components/buttons/Button.vue';
 import FormInput from '@/components/fields/FormInput.vue';
-import { Auth } from '@/api/auth/auth';
+import { AuthService } from '@/services/auth/auth';
 import { Form } from 'vee-validate';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue'
@@ -25,8 +25,7 @@ const values = ref({
 })
 
 const login = async () => {
-  const authService = new Auth();
-  console.log(values.value)
+  const authService = new AuthService();
   const { success } = await authService.login(values.value);
   if (success) {
     await router.push('/')

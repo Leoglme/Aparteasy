@@ -10,7 +10,7 @@ import { useRoute, useRouter } from "vue-router";
 import { SITE_NAME } from "@/env";
 import { notify } from "@/plugins/notyf";
 import { useAuthStore } from "@/stores/auth.store";
-import { Auth } from "@/api/auth/auth";
+import { AuthService } from "@/services/auth/auth";
 import { ref } from "vue";
 /*HOOKS*/
 const route = useRoute()
@@ -28,7 +28,7 @@ if (!token.value) {
   handleError();
 } else {
   authStore.setToken(token.value ? token.value.toString() : undefined);
-  Auth.status().then(({ data }) => {
+  AuthService.status().then(({ data }) => {
     authStore.setUser(data.user)
     router.push("/")
   }).catch(() => {
