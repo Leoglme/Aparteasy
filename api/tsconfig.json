@@ -29,8 +29,6 @@
       "@adonisjs/core",
       "@adonisjs/lucid",
       "@adonisjs/repl",
-      "@types/faker",
-      "faker",
       "@japa/preset-adonis/build/adonis-typings",
       "@adonisjs/auth",
       "@adonisjs/ally",
