@@ -30,16 +30,18 @@ async function generateRatings(users: User[]): Promise<Rating[]> {
 export async function addRatingsToProperties(properties: Property[]) {
   for (const property of properties) {
     const search = await SearchService.getById(property.search_id)
-    const users = search.users
+    const users = search?.users
 
-    /*Ratings*/
-    const ratings = await generateRatings(users)
-    for (const { userId, rating } of ratings) {
-      await PropertyRating.create({
-        user_id: userId,
-        property_id: property.id,
-        rating,
-      })
+    if (users) {
+      /*Ratings*/
+      const ratings = await generateRatings(users)
+      for (const { userId, rating } of ratings) {
+        await PropertyRating.create({
+          user_id: userId,
+          property_id: property.id,
+          rating,
+        })
+      }
     }
     /*Status*/
     const numStatuses = chance.integer({ min: 0, max: 2 })
