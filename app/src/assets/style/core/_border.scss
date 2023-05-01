@@ -30,10 +30,10 @@ $radius-variants: (
   border-color: transparent;
 }
 @each $color-name, $color-value in $variants {
-  .border-#{$color-name} {
+  .border-#{"" + $color-name} {
     border-color: $color-value;
   }
-  .hover\:border-#{$color-name} {
+  .hover\:border-#{"" + $color-name} {
     &:hover {
       border-color: $color-value;
     }
@@ -42,7 +42,7 @@ $radius-variants: (
 
 // Generate classes for border radius
 @each $radius-name, $radius-value in $radius-variants {
-  .rounded-#{$radius-name} {
+  .rounded-#{"" + $radius-name} {
     border-radius: $radius-value;
   }
 }

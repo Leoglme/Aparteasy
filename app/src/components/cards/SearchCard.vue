@@ -13,7 +13,7 @@
         <Avatar
             :title="index <= maxDisplayUsers - 1 ? user.name : `${props.search.users.length} utilisateurs`"
             class="b-1 border-grey-500"
-            :src="index <= maxDisplayUsers - 1 ? user.avatar_url : null"
+            :src="index <= maxDisplayUsers - 1 ? user.avatar_url : undefined"
             size="32px"
             :alt="user.name"
             borderRadius="100%"
