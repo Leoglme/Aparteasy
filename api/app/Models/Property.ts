@@ -41,10 +41,14 @@ export default class Property extends BaseModel {
   @column()
   public search_id: number
 
-  @belongsTo(() => Location)
+  @belongsTo(() => Location, {
+    foreignKey: 'location_id',
+  })
   public location: BelongsTo<typeof Location>
 
-  @belongsTo(() => Search)
+  @belongsTo(() => Search, {
+    foreignKey: 'search_id',
+  })
   public search: BelongsTo<typeof Search>
 
   @manyToMany(() => Status, {
@@ -54,7 +58,9 @@ export default class Property extends BaseModel {
   })
   public status: ManyToMany<typeof Status>
 
-  @hasMany(() => PropertyRating)
+  @hasMany(() => PropertyRating, {
+    foreignKey: 'property_id',
+  })
   public ratings: HasMany<typeof PropertyRating>
 
   public total_price(): number {

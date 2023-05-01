@@ -1,6 +1,7 @@
 import './routes/auth'
 import './routes/socialAuth'
 import './routes/search'
+import './routes/properties'
 import './routes/location'
 import './routes/mail'
 import './routes/searchInvitation'

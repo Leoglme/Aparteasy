@@ -19,7 +19,9 @@ export default class PropertyRating extends BaseModel {
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
-  @belongsTo(() => Property)
+  @belongsTo(() => Property, {
+    foreignKey: 'property_id',
+  })
   public property: BelongsTo<typeof Property>
 
   @column.dateTime({ autoCreate: true })

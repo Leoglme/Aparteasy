@@ -5,6 +5,8 @@ import AuthService from 'App/Services/AuthService'
 import SearchUser from 'App/Models/SearchUser'
 import Event from '@ioc:Adonis/Core/Event'
 import LocationService from 'App/Services/LocationService'
+import User from 'App/Models/User'
+import merge from 'lodash/merge'
 
 export default class SearchService extends BaseService {
   public static async getAll() {
@@ -25,10 +27,14 @@ export default class SearchService extends BaseService {
       .where('id', id)
       .firstOrFail()
 
-    return {
-      ...search.serialize(),
-      users: this.mergeCreatorWithInvitedUsers(search),
+    if (!search) {
+      super.response.notFound()
+      return null
     }
+
+    const users = this.mergeCreatorWithInvitedUsers(search)
+    merge(search.serialize(), { users })
+    return search
   }
 
   public static async create() {
@@ -74,7 +80,7 @@ export default class SearchService extends BaseService {
     return await SearchUser.create({ search_id: searchId, user_id: userId })
   }
 
-  private static mergeCreatorWithInvitedUsers(search: Search) {
+  private static mergeCreatorWithInvitedUsers(search: Search): User[] {
     const { creator, users } = search
     return [creator, ...users]
   }

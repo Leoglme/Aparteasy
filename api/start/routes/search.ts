@@ -6,5 +6,5 @@ Route.group(() => {
   Route.get('/:id', 'SearchController.show').as('showSearch')
   Route.delete('/:id', 'SearchController.delete').as('deleteSearch')
 })
-  .prefix('/api/search')
+  .prefix('/api/searches')
   .middleware('auth')

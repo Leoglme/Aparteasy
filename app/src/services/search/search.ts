@@ -3,7 +3,7 @@ import { API_URL } from "@/env";
 import type { Search, SearchCommand, SearchInviteResponse } from '@/services/search/search.model'
 
 export class SearchService {
-    public static searchApiUrl = `${API_URL}/api/search`
+    public static searchApiUrl = `${API_URL}/api/searches`
     public static searchInvitationApiUrl = `${API_URL}/api/search-invitations`
     static async all(): Promise<{data: Search[] | never[]}> {
         return await axios.get(this.searchApiUrl)
