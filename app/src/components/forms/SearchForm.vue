@@ -23,17 +23,18 @@ import Divider from '@/components/common/Divider.vue'
 import { Form } from 'vee-validate';
 import { ref } from 'vue'
 import type { Location } from '@/services/location/location.model'
+import { useSearchStore } from '@/stores/search.store'
 
 /*REFS*/
 const values = ref({
   name: '',
-  location: null as Location | null
+  location: undefined as Location | undefined
 })
 /*METHODS*/
 const onSelectPlace = (place: Location) => {
   values.value.location = place
 }
 const createSearch = async () => {
-  console.log(values.value)
+  await useSearchStore().createSearch(values.value)
 };
 </script>

@@ -2,7 +2,7 @@
   <div class="p-10 w-full flex flex-col items-center gap-8">
     <h1 class="text-medium text-3xl">Choisir votre recherche</h1>
     <Button :to="{name: 'createSearch'}" startIcon="plus">Nouvelle recherche</Button>
-    <section id="searches" class="container-sm">
+    <section id="searches" class="min-w-md">
       <div class="flex flex-col gap-6 grid" v-if="searchStore.searches.length">
         <SearchCard v-for="search in searchStore.searches" :key="search.id" :search="search" @delete="onClickDelete"/>
       </div>

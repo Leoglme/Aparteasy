@@ -37,8 +37,8 @@ const app = createApp(App)
 /*Directives*/
 import clickOutSide from "@/directives/clickOutSide";
 app.directive("clickOutSide", clickOutSide)
-
-app.use(createPinia())
 app.use(router)
+app.use(createPinia())
+
 
 app.mount('#app')

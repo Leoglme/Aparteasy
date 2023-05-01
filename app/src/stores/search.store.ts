@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import type { Search, SearchCommand } from '@/services/search/search.model'
 import { SearchService } from '@/services/search/search'
+import router from '@/router'
 
 export const useSearchStore = defineStore("searchStore", {
   state: () => ({
@@ -17,6 +18,7 @@ export const useSearchStore = defineStore("searchStore", {
       const { data } = await SearchService.create(search);
       if (data) {
         this.searches.push(data);
+        await router.push({ name: 'properties', params: { id: data.id.toString() } });
       }
     },
     async deleteSearch(id: number) {

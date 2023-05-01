@@ -4,6 +4,7 @@ import SearchValidator from 'App/Validators/SearchValidator'
 import AuthService from 'App/Services/AuthService'
 import SearchUser from 'App/Models/SearchUser'
 import Event from '@ioc:Adonis/Core/Event'
+import LocationService from 'App/Services/LocationService'
 
 export default class SearchService extends BaseService {
   public static async getAll() {
@@ -31,7 +32,14 @@ export default class SearchService extends BaseService {
       AuthService.unauthorized()
       return
     }
-    return await Search.create({ ...data, creator_id: super.auth.user?.id })
+    const location = await LocationService.create(data.location)
+    const search = await Search.create({
+      ...data,
+      creator_id: super.auth.user?.id,
+      location_id: location.id,
+    })
+    await Event.emit('notify:success', `Votre recherche a été créée avec succès !`)
+    return search
   }
 
   public static async delete(id: number) {
