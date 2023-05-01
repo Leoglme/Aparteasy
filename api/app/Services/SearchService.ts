@@ -18,12 +18,17 @@ export default class SearchService extends BaseService {
   }
 
   public static async getById(id: number) {
-    return await Search.query()
+    const search = await Search.query()
       .preload('users')
       .preload('location')
       .preload('creator')
       .where('id', id)
       .firstOrFail()
+
+    return {
+      ...search.serialize(),
+      users: this.mergeCreatorWithInvitedUsers(search),
+    }
   }
 
   public static async create() {
@@ -39,7 +44,7 @@ export default class SearchService extends BaseService {
       location_id: location.id,
     })
     await Event.emit('notify:success', `Votre recherche a été créée avec succès !`)
-    return search
+    return await this.getById(search.id)
   }
 
   public static async delete(id: number) {

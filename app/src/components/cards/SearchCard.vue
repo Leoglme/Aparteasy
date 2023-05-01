@@ -3,11 +3,11 @@
               :class="{'search__card-creator': isCreator}"
               class="bg-grey-300 grid items-center py-3 px-5 search-card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">
-    <h4 class="text-lg text-medium">{{props.search.name}}</h4>
+    <h4 class="text-medium">{{props.search.name}}</h4>
 
     <div class="flex flex-wrap items-center gap-1" v-if="props.search.location" :title="props.search.location.address">
       <Icon name="map-pin" :width="18" :height="18" fill="var(--yellow)"/>
-      <h6 class="text-medium text-sm">{{ props.search.location.city }}</h6>
+      <h6 class="text-regular text-sm">{{ props.search.location.city }}</h6>
     </div>
 
     <div class="flex items-center">
