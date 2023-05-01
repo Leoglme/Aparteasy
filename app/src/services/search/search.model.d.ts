@@ -16,3 +16,11 @@ export type SearchCommand = {
   name: string
   location?: Location
 }
+
+export interface SearchInviteResponse extends TimeStamps {
+  id: number,
+  search_id: number,
+  sender_id: number,
+  receiver: string,
+  accepted: boolean
+}

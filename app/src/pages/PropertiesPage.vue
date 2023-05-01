@@ -1,6 +1,15 @@
 <template>
   <div>
-    <Button :to="{name: 'inviteSearch'}" class="gap-2" start-icon="user-plus">Inviter utilisateurs</Button>
+    isSearchCreator: {{ searchStore.isSearchCreator }}
+    <Button v-if="searchStore.isSearchCreator"
+            :to="{name: 'inviteSearch'}"
+            class="gap-2" start-icon="user-plus">
+      Inviter utilisateurs
+    </Button>
+    <Button :to="{name: 'searches'}"
+            class="gap-2" start-icon="user-plus">
+      Mes recherches
+    </Button>
   </div>
 </template>
 

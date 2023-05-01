@@ -5,7 +5,6 @@ import { notify } from "@/plugins/notyf";
 import { useAuthStore } from "@/stores/auth.store";
 import type { User } from "@/services/user/user.model";
 import { useRouter } from "vue-router";
-import ReferentialService from '@/services/ReferentialService'
 
 export class AuthService {
     private authStore;
@@ -33,7 +32,7 @@ export class AuthService {
             })
             .then(async (response) => {
                 await this.authStore.setToken(response.data.token.token);
-                await ReferentialService.loadDatas()
+                await this.authStore.setUser(response.data.user);
                 success = true;
             })
             .catch((err) => {
@@ -50,8 +49,8 @@ export class AuthService {
           headers: this.headers,
         })
         .then(async (response) => {
-          await this.authStore.setToken(response.data.token);
-            await ReferentialService.loadDatas()
+          await this.authStore.setToken(response.data.token.token);
+            await this.authStore.setUser(response.data.user);
           success = true;
         })
         .catch((err) => {

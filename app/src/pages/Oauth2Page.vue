@@ -36,5 +36,5 @@ if (!token.value) {
   })
 }
 /*METAS*/
-document.title = `Authentication in progress... | ${SITE_NAME}`
+document.title = `Authentification en cours... | ${SITE_NAME}`
 </script>

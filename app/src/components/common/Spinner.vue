@@ -1,5 +1,5 @@
 <template>
-  <svg class="spinner spinner-spiral" viewBox="0 0 64 64">
+  <svg class="spinner spinner-spiral" viewBox="0 0 64 64" :style="style">
     <g>
       <defs>
         <linearGradient id="sGD" gradientUnits="userSpaceOnUse" x1="35" y1="26" x2="2" y2="26">
@@ -15,11 +15,23 @@
   </svg>
 </template>
 
+<script lang="ts" setup>
+import { computed } from 'vue'
+
+const props = defineProps({
+  stroke: { type: String, default: 'var(--primary)' },
+  size: { type: Number, default: 56 },
+})
+
+const style = computed(() => ({
+      stroke: props.stroke,
+      width: `${props.size}px`,
+      height: `${props.size}px`,
+}))
+</script>
+
 <style lang="scss" scoped>
 .spinner {
-  stroke: var(--primary);
-  width: 56px;
-  height: 56px;
   animation: spin linear infinite .9s;
 }
 

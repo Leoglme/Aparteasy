@@ -6,10 +6,11 @@
              :style="styles"
              :data-variant="variant">
     <Icon :width="iconSize" :height="iconSize" style="margin-bottom: 0;" :stroke="iconStroke" :fill="iconFill"
-          :name="startIcon" v-if="startIcon"/>
-    <slot/>
+          :name="startIcon" v-if="startIcon && !load"/>
+    <slot v-if="!load"/>
     <Icon :width="iconSize" :height="iconSize" class="btn__icon--right" :stroke="iconStroke" :fill="iconFill"
-          :name="endIcon" v-if="endIcon"/>
+          :name="endIcon" v-if="endIcon && !load"/>
+    <Spinner v-if="load" stroke="var(--light)" :size="32"/>
   </component>
 </template>
 
@@ -17,6 +18,7 @@
 <script lang="ts" setup>
 import Icon from '@/components/common/Icon.vue';
 import { computed } from 'vue';
+import Spinner from "@/components/common/Spinner.vue"
 
 /*PROPS*/
 const props = defineProps({
@@ -28,6 +30,7 @@ const props = defineProps({
   endIcon: { type: String, default: null },
   small: { type: Boolean, default: false },
   square: { type: Boolean, default: false },
+  load: { type: Boolean, default: false },
   startIcon: { type: String, default: null }
 });
 
@@ -38,9 +41,13 @@ const iconFill = computed(() => props.iconMode === 'fill' ? props.color : undefi
 const classes = computed(() => ({
   'btn-small': props.small,
   'square': props.small && props.square,
+  'load': props.load,
   'btn-dashed': props.variant === 'dashed'
 }))
-const styles = computed(() => ({ background: props.background, color: props.background }))
+const styles = computed(() => ({
+  background: props.background,
+  color: props.background
+}))
 </script>
 
 

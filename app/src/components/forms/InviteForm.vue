@@ -20,7 +20,7 @@
       Ajouter Plus
     </Button>
 
-    <Button class="gap-2" :disabled="!meta.valid || !hasCompletedEmail" type="submit" startIcon="mail">
+    <Button :load="load" class="gap-2" :disabled="!meta.valid || !hasCompletedEmail" type="submit" startIcon="mail">
       <span>Envoyer Invitation<span v-if="props.emails.length > 1">s</span></span>
     </Button>
   </Form>
@@ -38,6 +38,10 @@ const props = defineProps({
     type: Array as PropType<string[]>,
     required: true
   },
+  load: {
+    type: Boolean,
+    default: false
+  }
 })
 
 /*EMIT*/

@@ -5,6 +5,10 @@ export default class BaseController extends HttpService {
     return HttpService.send(content, code)
   }
 
+  protected sendError(message: string, code = 200) {
+    return HttpService.sendError(message, code)
+  }
+
   protected get auth() {
     return HttpService.auth
   }

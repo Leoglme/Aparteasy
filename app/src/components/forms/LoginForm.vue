@@ -12,11 +12,12 @@ import Button from '@/components/buttons/Button.vue';
 import FormInput from '@/components/fields/FormInput.vue';
 import { AuthService } from '@/services/auth/auth';
 import { Form } from 'vee-validate';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ref } from 'vue'
 
 /*Hooks*/
 const router = useRouter()
+const route = useRoute()
 
 /*REFS*/
 const values = ref({
@@ -28,7 +29,8 @@ const login = async () => {
   const authService = new AuthService();
   const { success } = await authService.login(values.value);
   if (success) {
-    await router.push('/')
+    const to = route.query.redirect?.toString() || '/'
+    await router.push(to)
   }
 };
 </script>

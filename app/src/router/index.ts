@@ -4,9 +4,10 @@ import LoginPage from "@/pages/LoginPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
 import Oauth2Page from "@/pages/Oauth2Page.vue";
 import SearchesPage from "@/pages/SearchesPage.vue";
+import SearchInviteRedirectPage from "@/pages/SearchInviteRedirectPage.vue";
 import { useAuthStore } from '@/stores/auth.store'
 import Navbar from '@/components/navigations/Navbar.vue'
-import { publicPages } from '@/utils/router'
+import { publicRoutes } from '@/utils/router'
 import ReferentialService from '@/services/ReferentialService'
 import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
@@ -37,6 +38,11 @@ const router = createRouter({
       path: '/oauth2',
       name: 'oauth2',
       component: Oauth2Page,
+    },
+    {
+      path: '/search-invite',
+      name: 'searchInviteRedirect',
+      component: SearchInviteRedirectPage,
     },
     {
       path: '/searches',
@@ -76,11 +82,11 @@ let referentialLoaded = false;
 router.beforeEach(async (to) => {
   const auth = useAuthStore();
   /*MIDDLEWARE IS CONNECTED*/
-  if (!publicPages.includes(to.path) && !auth.isConnected) {
+  if (!publicRoutes.includes(to.path) && !auth.isConnected) {
     await router.push("/login");
   }
   /*MIDDLEWARE LOAD REFERENTIAL DATAS*/
-  if (!publicPages.includes(to.path) && auth.isConnected && !referentialLoaded) {
+  if (!publicRoutes.includes(to.path) && auth.isConnected && !referentialLoaded) {
     auth.setToken(auth.token)
     await ReferentialService.loadDatas()
     referentialLoaded = true

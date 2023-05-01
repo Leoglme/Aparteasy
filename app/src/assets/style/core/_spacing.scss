@@ -1,4 +1,5 @@
 @import "functions";
+@import "variables";
 $max: 10;
 
 @for $i from 0 through $max {
@@ -44,5 +45,16 @@ $max: 10;
   }
   .mt-#{$i} {
     margin-top: space($i);
+  }
+}
+
+
+@each $breakpoint, $sizes in $breakpoints {
+  @media (min-width: map-get($sizes, 'width')) {
+    @for $i from 0 through $max {
+      .#{$breakpoint}\:m-#{$i} {
+        margin-bottom: space($i)
+      }
+    }
   }
 }

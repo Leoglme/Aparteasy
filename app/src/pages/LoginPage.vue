@@ -8,7 +8,7 @@
         <LoginForm/>
       </div>
       <h6 class="text-medium text-sm mt-6 centered gap-2 flex-wrap">Vous n'avez pas de compte ?
-        <router-link class="link" to="/signup">S’inscrire</router-link>
+        <router-link class="link" :to="{name: 'signup', query: $route.query}">S’inscrire</router-link>
       </h6>
     </div>
   </section>

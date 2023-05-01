@@ -1,5 +1,6 @@
 @import "functions";
-$container: ("sm": 500px, "xs": 400px);
+@import "variables";
+$container: ("md": 600px, "sm": 500px, "xs": 400px);
 
 .container {
   margin-inline: auto;
@@ -12,6 +13,18 @@ $container: ("sm": 500px, "xs": 400px);
     margin-inline: auto;
     max-width: $size;
     width: 100%;
+  }
+}
+
+@each $breakpoint, $sizes in $breakpoints {
+  @media (max-width: map-get($sizes, 'width')) {
+    @each $name, $size in $container {
+      .max-#{$breakpoint}\:container-#{$name} {
+        margin-inline: auto;
+        max-width: $size;
+        width: 100%;
+      }
+    }
   }
 }
 

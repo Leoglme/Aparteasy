@@ -3,7 +3,7 @@
               :class="{'search__card-creator': isCreator}"
               class="bg-grey-300 grid items-center py-3 px-5 search-card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">
-    <h4 class="text-medium">{{props.search.name}}</h4>
+    <h4 class="text-medium">{{ props.search.name }}</h4>
 
     <div class="flex flex-wrap items-center gap-1" v-if="props.search.location" :title="props.search.location.address">
       <Icon name="map-pin" :width="18" :height="18" fill="var(--yellow)"/>
@@ -75,6 +75,7 @@ const deleteSearch = () => {
 .search-card:not(.search__card-creator) {
   grid-template-columns: 150px 150px auto;
 }
+
 .search__card-creator {
   grid-template-columns: 150px 150px 150px auto;
 }

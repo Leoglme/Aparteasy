@@ -8,6 +8,7 @@ import appInfos from 'Config/app-infos'
 import AuthService from 'App/Services/AuthService'
 import BaseService from 'App/Services/BaseService'
 import SearchService from 'App/Services/SearchService'
+import Event from '@ioc:Adonis/Core/Event'
 
 type SearchInvitationCommand = {
   search_id: number
@@ -52,11 +53,23 @@ export class SearchInvitationService extends BaseService {
     const invitations = await SearchInvitation.createMany(searchInvitations)
     const emails = searchInvitations.map((invitation) => invitation.receiver)
     await this.sendInvitationsEmail(emails, searchId)
+    await Event.emit(
+      'notify:success',
+      `${emails.length > 1 ? 'Les invitations ont' : "L'invitation a"} été envoyées avec succès !`
+    )
     return invitations
   }
 
-  public static generateInviteToken = (email: string, searchId: number) => {
-    return Encryption.encrypt({ email, searchId })
+  public static generateInviteToken = (payload: TokenInvite) => {
+    return Encryption.encrypt(payload)
+  }
+  public static decodeInviteToken = async (
+    token: string
+  ): Promise<(TokenInvite & { hasAccount: boolean }) | null> => {
+    const payload: TokenInvite | null = Encryption.decrypt(token.trim())
+    if (!payload) return null
+    const user = await UserService.findByEmail(payload.email)
+    return { ...payload, hasAccount: !!user }
   }
 
   public static sendInvitationsEmail = async (emails: string[], searchId: number) => {
@@ -64,9 +77,12 @@ export class SearchInvitationService extends BaseService {
     const sender = search.creator.name
 
     for (const email of emails) {
-      const inviteToken = this.generateInviteToken(email, searchId)
-      await MailService.sendMany({
-        emails,
+      const inviteToken = this.generateInviteToken({
+        email,
+        searchId: searchId.toString(),
+      })
+      await MailService.send({
+        email,
         subject: `Invitation ${appInfos.name} | ${sender} invites you to join ${search.name}`,
         viewPath: 'emails/search-invite',
         payload: {
@@ -83,9 +99,11 @@ export class SearchInvitationService extends BaseService {
     token: string,
     accepted: boolean
   ): Promise<SearchInvitation | undefined> {
-    const inviteToken: TokenInvite | null = Encryption.decrypt(token.trim())
+    const inviteToken: TokenInvite | null = await this.decodeInviteToken(token)
     const user = inviteToken ? await UserService.findByEmail(inviteToken.email) : null
     const connectedUser = super.auth.user
+
+    console.log({ inviteToken, user, connectedUser, token })
 
     if (!inviteToken || !user || user.id !== connectedUser?.id) {
       AuthService.unauthorized()

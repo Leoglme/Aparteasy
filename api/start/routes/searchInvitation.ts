@@ -6,3 +6,7 @@ Route.group(() => {
 })
   .prefix('/api')
   .middleware('auth')
+
+Route.group(() => {
+  Route.get('/search-invitations/decode-token', 'SearchInvitationController.decodeToken')
+}).prefix('/api')

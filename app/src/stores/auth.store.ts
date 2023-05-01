@@ -27,13 +27,13 @@ export const useAuthStore = defineStore("authStore", {
         localStorage.setItem("token", JSON.stringify(token));
       }
     },
-    async logout() {
+    async logout(query?: { redirect: string; } | undefined) {
       this.user = null;
       this.token = null;
       await localStorage.removeItem("token");
       await localStorage.removeItem("user");
       delete axios.defaults.headers.common["Authorization"];
-      await router.push("/login");
+      await router.push({ name: "login", query });
     },
   },
   getters: {

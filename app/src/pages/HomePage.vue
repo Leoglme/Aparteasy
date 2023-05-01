@@ -18,7 +18,7 @@ const authStore = useAuthStore()
 /*API*/
 
 /*METAS*/
-document.title = `Home | ${SITE_NAME}`
+document.title = `Accueil | ${SITE_NAME}`
 </script>
 
 <style lang="scss" scoped>
