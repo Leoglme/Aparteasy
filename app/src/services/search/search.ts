@@ -13,6 +13,7 @@ export class SearchService {
     }
 
     static async delete(id: number): Promise<null> {
-        return await axios.delete(this.searchApiUrl + id)
+        const url = `${this.searchApiUrl}/${id}`
+        return await axios.delete(url)
     }
 }

@@ -27,8 +27,8 @@ body {
   overflow-x: auto;
 }
 
-.shadow {
-  box-shadow: 0 79px 128px rgba(192, 192, 192, 0.09), 0 28.8363px 46.7221px rgba(192, 192, 192, 0.0598508), 0 13.9995px 22.6827px rgba(192, 192, 192, 0.0475723), 0 6.86281px 11.1195px rgba(192, 192, 192, 0.0380675), 0 2.71357px 4.39666px rgba(192, 192, 192, 0.0270615);
+.z-50 {
+  z-index: 50;
 }
 
 main {
@@ -85,30 +85,17 @@ p {
   }
 }
 
-/*Height && width */
-.vh-100 {
-  min-height: 100vh;
-}
 
-.max-100 {
-  max-width: 100%;
-}
-
-.h-full {
-  height: 100%;
-}
-
-.h-auto {
-  height: auto;
-}
-
-.w-full {
-  width: 100%;
-}
 
 /*Position*/
 .relative {
   position: relative;
+}
+.fixed {
+  position: fixed;
+}
+.inset-0 {
+  inset: 0;
 }
 
 

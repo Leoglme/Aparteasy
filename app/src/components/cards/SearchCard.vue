@@ -1,5 +1,7 @@
 <template>
-  <RouterLink :to="{ name: 'properties', params: { id: props.search.id }}" class="bg-grey-300 grid items-center py-3 px-5 search-card
+  <RouterLink :to="{ name: 'properties', params: { id: props.search.id }}"
+              :class="{'search__card-creator': isCreator}"
+              class="bg-grey-300 grid items-center py-3 px-5 search-card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">
     <h4 class="text-lg text-medium">{{props.search.name}}</h4>
 
@@ -24,7 +26,13 @@
       </div>
     </div>
 
-    <Button title="Supprimer la recherche" square small variant="red" startIcon="trash" @click.prevent="deleteSearch"/>
+    <Button v-if="isCreator"
+            title="Supprimer la recherche"
+            square
+            small
+            variant="red"
+            startIcon="trash"
+            @click.prevent="deleteSearch"/>
   </RouterLink>
 </template>
 
@@ -34,7 +42,13 @@ import type { Search } from '@/services/search/search.model'
 import Icon from '@/components/common/Icon.vue'
 import Button from '@/components/buttons/Button.vue'
 import Avatar from '@/components/common/Avatar.vue'
+import { useAuthStore } from '@/stores/auth.store'
+import { computed } from 'vue'
 
+/*STORE*/
+const authStore = useAuthStore()
+
+/*PROPS*/
 const props = defineProps({
   search: {
     type: Object as PropType<Search>,
@@ -42,15 +56,26 @@ const props = defineProps({
   }
 })
 
-const maxDisplayUsers = 3
+/*COMPUTED*/
+const isCreator = computed(() => {
+  return props.search.creator_id === authStore.user?.id
+})
 
+const maxDisplayUsers = 3
+/*EMIT*/
+const emit = defineEmits(['delete'])
+
+/*METHODS*/
 const deleteSearch = () => {
-  console.log("DELETE")
+  emit('delete', props.search)
 }
 </script>
 
 <style lang="scss" scoped>
-.search-card {
+.search-card:not(.search__card-creator) {
+  grid-template-columns: 150px 150px auto;
+}
+.search__card-creator {
   grid-template-columns: 150px 150px 150px auto;
 }
 </style>

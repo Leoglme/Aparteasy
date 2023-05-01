@@ -30,7 +30,7 @@ export class SearchInvitationService extends BaseService {
     const isSenderCreator = await this.isCreator(searchId, senderId)
 
     if (!isSenderCreator) {
-      throw new Error('Only the creator can send invitations.')
+      throw new Error('Seul le créateur peut envoyer des invitations.')
     }
 
     const searchInvitations: SearchInvitationCommand[] = []

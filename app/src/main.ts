@@ -16,6 +16,7 @@ import { required, email, min, confirmed } from '@vee-validate/rules';
 /*EVENTS*/
 import './events/socket'
 
+
 // define global rules
 defineRule('required', required);
 defineRule('email', email);
@@ -32,6 +33,10 @@ configure({
 });
 
 const app = createApp(App)
+
+/*Directives*/
+import clickOutSide from "@/directives/clickOutSide";
+app.directive("clickOutSide", clickOutSide)
 
 app.use(createPinia())
 app.use(router)

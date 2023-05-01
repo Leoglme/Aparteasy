@@ -3,6 +3,7 @@ import Search from 'App/Models/Search'
 import SearchValidator from 'App/Validators/SearchValidator'
 import AuthService from 'App/Services/AuthService'
 import SearchUser from 'App/Models/SearchUser'
+import Event from '@ioc:Adonis/Core/Event'
 
 export default class SearchService extends BaseService {
   public static async getAll() {
@@ -35,6 +36,7 @@ export default class SearchService extends BaseService {
 
   public static async delete(id: number) {
     await Search.findOrFail(id).then((search) => search.delete())
+    await Event.emit('notify:success', `La recherche a été supprimée avec succès !`)
     return super.response.noContent()
   }
 

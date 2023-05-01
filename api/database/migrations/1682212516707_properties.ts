@@ -15,7 +15,7 @@ export default class extends BaseSchema {
       table.float('surface_area').unsigned()
       table.integer('quality_rating', 1).unsigned()
       table.string('transport_time')
-      table.integer('search_id').unsigned().references('id').inTable('searches')
+      table.integer('search_id').unsigned().references('id').inTable('searches').onDelete('CASCADE')
       table.timestamps(true, true)
     })
   }

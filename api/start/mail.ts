@@ -3,7 +3,7 @@ import Logger from '@ioc:Adonis/Core/Logger'
 
 Mail.monitorQueue((error) => {
   if (error) {
-    return Logger.error(error, 'Unable to send email')
+    return Logger.error(error, "Impossible d'envoyer un e-mail")
   }
-  return Logger.info('Mail added to queue')
+  return Logger.info("Mail ajouté à la file d'attente")
 })
