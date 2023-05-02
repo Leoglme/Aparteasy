@@ -6,6 +6,7 @@
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
     "start": "npx nodemon server.js",
+    "start:manual": "node server.js",
     "test": "node ace test",
     "migration:run": "node ace migration:run",
     "db:seed": "node ace db:seed",
