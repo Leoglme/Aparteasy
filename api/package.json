@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node ace serve --watch",
     "build": "node ace build --production",
-    "start": "nodemon server.js",
+    "start": "npx nodemon server.js",
     "test": "node ace test",
     "migration:run": "node ace migration:run",
     "db:seed": "node ace db:seed",
