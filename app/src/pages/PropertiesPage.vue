@@ -1,6 +1,5 @@
 <template>
   <div>
-    isSearchCreator: {{ searchStore.isSearchCreator }}
     <Button v-if="searchStore.isSearchCreator"
             :to="{name: 'inviteSearch'}"
             class="gap-2" start-icon="user-plus">
@@ -10,23 +9,24 @@
             class="gap-2" start-icon="user-plus">
       Mes recherches
     </Button>
+    <div class="grid columns p-6 col-2 items-center gap-6">
+      <div v-for="(property, index) in propertyStore.properties" :key="`property-${index}`" class="h-full">
+        <PropertyCard
+            :property="property"
+            v-if="property"
+        />
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useSearchStore } from '@/stores/search.store'
-import { useRoute, useRouter } from 'vue-router'
 import Button from '@/components/buttons/Button.vue'
+import { usePropertyStore } from "@/stores/property.store";
+import PropertyCard from "@/components/cards/PropertyCard.vue";
 
-/*HOOKS*/
-const route = useRoute()
-const router = useRouter()
 /*STORE*/
 const searchStore = useSearchStore()
-
-/*MIDDLEWARES*/
-const search = searchStore.findSearchById(Number(route.params.id))
-if (!search) {
-  router.push({ name: 'searches' })
-}
+const propertyStore = usePropertyStore()
 </script>

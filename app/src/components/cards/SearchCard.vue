@@ -6,7 +6,7 @@
     <h4 class="text-medium">{{ props.search.name }}</h4>
 
     <div class="flex flex-wrap items-center gap-1" v-if="props.search.location" :title="props.search.location.address">
-      <Icon name="map-pin" :width="18" :height="18" fill="var(--yellow)"/>
+      <Icon name="map-pin" :width="18" :height="18" stroke="var(--yellow)"/>
       <h6 class="text-regular text-sm">{{ props.search.location.city }}</h6>
     </div>
 

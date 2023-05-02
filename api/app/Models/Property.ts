@@ -52,11 +52,11 @@ export default class Property extends BaseModel {
   public search: BelongsTo<typeof Search>
 
   @manyToMany(() => Status, {
-    pivotTable: 'property_status',
+    pivotTable: 'property_statuses',
     pivotForeignKey: 'property_id',
     pivotRelatedForeignKey: 'status_id',
   })
-  public status: ManyToMany<typeof Status>
+  public statuses: ManyToMany<typeof Status>
 
   @hasMany(() => PropertyRating, {
     foreignKey: 'property_id',

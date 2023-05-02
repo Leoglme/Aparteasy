@@ -13,14 +13,16 @@ export default class PropertyService extends BaseService {
     return await Property.query()
       .where('search_id', search?.id)
       .preload('location')
+      .preload('statuses')
       .preload('ratings')
       .exec()
   }
 
   public static async getById(id: number) {
     return await Property.query()
-      .preload('ratings')
       .preload('location')
+      .preload('statuses')
+      .preload('ratings')
       .where('id', id)
       .firstOrFail()
   }
