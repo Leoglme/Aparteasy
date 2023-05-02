@@ -17,5 +17,5 @@ Route.group(() => {
 }).prefix('/api/')
 
 Route.get('/', async () => {
-  return { success: true }
+  return { success: {ok: true } }
 })
