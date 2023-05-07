@@ -1,5 +1,4 @@
 import BaseService from 'App/Services/BaseService'
-import AuthService from 'App/Services/AuthService'
 import Event from '@ioc:Adonis/Core/Event'
 import LocationService from 'App/Services/LocationService'
 import Property from 'App/Models/Property'
@@ -12,34 +11,46 @@ export default class PropertyService extends BaseService {
     if (!search) return null
     return await Property.query()
       .where('search_id', search?.id)
+      .where('is_deleted', false)
       .preload('location')
       .preload('statuses')
       .preload('ratings')
       .exec()
   }
 
-  public static async getById(id: number) {
+  public static async getById(id: number, searchId: number) {
     return await Property.query()
       .preload('location')
       .preload('statuses')
       .preload('ratings')
       .where('id', id)
+      .where('search_id', searchId)
+      .where('is_deleted', false)
       .firstOrFail()
   }
 
   public static async create() {
     const data = await super.request.validate(PropertyValidator)
-    if (!super.auth.user?.id) {
-      AuthService.unauthorized()
-      return
-    }
     const location = await LocationService.create(data.location)
     const property = await Property.create({ ...data, location_id: location.id })
-    return await this.getById(property.id)
+    return await this.getById(property.id, property.search_id)
   }
 
-  public static async delete(id: number) {
-    await Property.findOrFail(id).then((property) => property.delete())
+  public static async update(id: number, searchId: number) {
+    const data = await super.request.validate(PropertyValidator)
+    const property = await Property.findOrFail(id)
+    if (property.is_deleted) {
+      super.response.notFound()
+    }
+    property.merge(data)
+    await property.save()
+    return await this.getById(property.id, searchId)
+  }
+
+  public static async delete(id: number, searchId: number) {
+    const property = await this.getById(id, searchId)
+    property.is_deleted = true
+    await property.save()
     await Event.emit('notify:success', `La propriété a été supprimée avec succès !`)
     return super.response.noContent()
   }
