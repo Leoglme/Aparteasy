@@ -41,6 +41,13 @@ export default class Property extends BaseModel {
   @column()
   public search_id: number
 
+  @column({
+    serialize: (value?: Number) => {
+      return Boolean(value)
+    },
+  })
+  public is_deleted: boolean
+
   @belongsTo(() => Location, {
     foreignKey: 'location_id',
   })

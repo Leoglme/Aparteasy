@@ -4,11 +4,11 @@ import PropertyService from 'App/Services/PropertyService'
 
 export default class PropertyController extends BaseController {
   protected async index({ params }: HttpContextContract) {
-    return await PropertyService.getSearchProperties(params.id)
+    return await PropertyService.getSearchProperties(params.search_id)
   }
 
   protected async show({ params }: HttpContextContract) {
-    return await PropertyService.getById(params.id)
+    return await PropertyService.getById(params.id, params.search_id)
   }
 
   protected async create() {
@@ -16,6 +16,6 @@ export default class PropertyController extends BaseController {
   }
 
   protected async delete({ params }: HttpContextContract) {
-    return await PropertyService.delete(params.id)
+    return await PropertyService.delete(params.id, params.search_id)
   }
 }

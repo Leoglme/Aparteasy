@@ -3,6 +3,7 @@ import type { Location } from '@/services/location/location.model'
 
 interface Property extends TimeStamps {
   id: number;
+  name: string;
   url: string;
   price: number;
   amount_of_charges: number;
@@ -16,6 +17,7 @@ interface Property extends TimeStamps {
   ratings: Rating[];
   statuses: PropertyStatus[] | never[]
   location: Location;
+  isDeleted: boolean;
 }
 
 interface Rating extends TimeStamps {

@@ -8,6 +8,7 @@
     "start": "npx nodemon server.js",
     "start:manual": "node server.js",
     "test": "node ace test",
+    "reset": "node ace migration:fresh && node ace db:seed",
     "migration:run": "node ace migration:run",
     "db:seed": "node ace db:seed",
     "lint": "eslint . --ext=.ts",
