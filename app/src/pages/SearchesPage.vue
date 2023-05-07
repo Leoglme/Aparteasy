@@ -1,6 +1,6 @@
 <template>
-  <div class="p-10 w-full flex flex-col items-center gap-8">
-    <h1 class="text-medium text-3xl">Choisir votre recherche</h1>
+  <div class="sm:p-10 px-3 py-6 w-full flex flex-col items-center gap-8">
+    <h1 class="text-medium text-3xl text-center">Choisir votre recherche</h1>
     <Button :to="{name: 'createSearch'}" startIcon="plus">Nouvelle recherche</Button>
     <section id="searches" class="min-w-md">
       <div class="flex flex-col gap-6 grid" v-if="searchStore.searches.length">
@@ -46,3 +46,13 @@ const onClickDelete = (search: Search) => {
   isOpenModal.value = true
 }
 </script>
+
+<style lang="scss" scoped>
+@import "@/assets/style/core/_mixins.scss";
+#searches {
+  @include down(600){
+    min-width: unset;
+    width: 100%;
+  }
+}
+</style>

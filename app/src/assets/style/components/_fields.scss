@@ -7,13 +7,14 @@ textarea, input {
   color: var(--light);
 }
 
-.textarea, .input {
+.input {
   background: var(--grey-400);
   border-radius: var(--radius);
   color: var(--light);
   border: 2px solid transparent;
   transition: border 0.1s ease-in;
   padding: 8px 16px;
+  resize: none;
 }
 .textarea:hover, .input:hover {
   border-color: var(--contrast-30)

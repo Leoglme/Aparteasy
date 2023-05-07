@@ -1,5 +1,5 @@
 <template>
-  <div class="container-sm pt-10 grid gap-6">
+  <div class="container-sm pt-10 grid gap-6 px-3">
     <Breadcrumb :items="breadcrumbs" class="mb-4"/>
     <h1 class="text-medium text-3xl">Nouvelle Recherche</h1>
     <SearchForm/>

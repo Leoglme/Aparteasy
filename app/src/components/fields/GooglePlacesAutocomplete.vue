@@ -1,9 +1,12 @@
 <template>
   <div class="flex flex-col gap-1 relative">
     <label class="flex items-center" for="place" v-if="label || hasLabelSlot">
-      <slot name="label" v-if="hasLabelSlot"/>
+      <span>
+         <slot name="label" v-if="hasLabelSlot"/>
       <span v-if="!hasLabelSlot">{{ label }}</span><span v-if="rules && rules.includes('required')"
                                                          style="margin-left: 5px;" class="text-primary">*</span>
+      </span>
+
     </label>
     <Field
         :rules="rules"

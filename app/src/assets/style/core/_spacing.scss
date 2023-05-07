@@ -55,6 +55,13 @@ $max: 10;
       .#{$breakpoint}\:m-#{$i} {
         margin-bottom: space($i)
       }
+      .#{$breakpoint}\:px-#{$i} {
+        padding-right: space($i);
+        padding-left: space($i);
+      }
+      .#{$breakpoint}\:p-#{$i} {
+        padding: space($i);
+      }
     }
   }
 }

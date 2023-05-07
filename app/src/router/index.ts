@@ -12,6 +12,7 @@ import ReferentialService from '@/services/ReferentialService'
 import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
 import PropertiesPage from '@/pages/PropertiesPage.vue'
+import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
 
@@ -25,6 +26,16 @@ const router = createRouter({
         default: HomePage,
         Navbar: Navbar,
       },
+      beforeEnter: async (to, from, next) => {
+        /*STORE*/
+        const searchStore = useSearchStore()
+
+        if(!searchStore.searches.length){
+          next({ name: 'createSearch' })
+        }else {
+          next({ name: 'searches' })
+        }
+      }
     },
     {
       path: '/login',
@@ -71,13 +82,21 @@ const router = createRouter({
       },
     },
     {
+      path: '/searches/:id/property/create',
+      name: 'createProperty',
+      components: {
+        default: PropertyCreatePage,
+        Navbar: Navbar,
+      },
+    },
+    {
       path: '/searches/:id/properties',
       name: 'properties',
       components: {
         default: PropertiesPage,
         Navbar: Navbar,
       },
-      beforeEnter: (to, from, next) => {
+      beforeEnter: async (to, from, next) => {
         /*STORE*/
         const searchStore = useSearchStore()
         const propertyStore = usePropertyStore()
@@ -86,8 +105,8 @@ const router = createRouter({
         const search = searchStore.findSearchById(Number(to.params.id))
         if (!search) {
           next({ name: 'searches' })
-        }else {
-          propertyStore.fetchProperties(search.id)
+        } else {
+          await propertyStore.fetchProperties(search.id)
           next()
         }
       }

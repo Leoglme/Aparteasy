@@ -1,6 +1,6 @@
 <template>
   <transition name="modal">
-    <div v-if="open" class="fixed inset-0 flex items-center justify-center z-50">
+    <div v-if="open" class="fixed inset-0 flex items-center justify-center z-50 px-2">
       <div class="bg-grey-500 rounded-lg p-6 max-w-md w-full mx-auto">
         <header class="text-lg text-medium mb-4">
           <slot name="title">Confirmer l'action</slot>
@@ -8,7 +8,7 @@
         <main class="mb-4">
           <slot name="content">Êtes-vous sûr de vouloir continuer ?</slot>
         </main>
-        <footer class="flex items-center justify-end gap-2">
+        <footer class="flex items-center justify-end gap-2 flex-wrap modal__footer">
           <Button variant="red" @click="emit('close')">Annuler</Button>
           <Button variant="green" @click="emit('confirm')">Confirmer</Button>
         </footer>
@@ -32,7 +32,15 @@ const emit = defineEmits(['confirm', 'close']);
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "@/assets/style/core/_mixins.scss";
+.modal__footer {
+  @include down(400){
+    .btn {
+      flex: 1;
+    }
+  }
+}
 .modal-enter-active,
 .modal-leave-active {
   transition: transform 0.25s;

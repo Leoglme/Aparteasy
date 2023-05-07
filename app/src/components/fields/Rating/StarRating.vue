@@ -1,10 +1,10 @@
 <template>
   <div class="rating__star-container"
-       :class="{checked: props.index <= currentStar, active: props.index === currentStar}">
-    <input :id="`rating-${props.index}`" class="rating__input" :class="`rating__input-${props.index}`" type="checkbox"
+       :class="{checked, active}">
+    <input tabindex="-1" :id="inputId" class="rating__input" :class="`rating__input-${props.index}`" type="checkbox"
            name="rating" :value="props.index" @change="setCurrentStar(props.index)">
-    <label class="rating__label" :for="`rating-${props.index}`">
-      <svg class="rating__star" width="32" height="32" viewBox="0 0 32 32" aria-hidden="true">
+    <label class="rating__label" :for="inputId">
+      <svg class="rating__star" width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
         <g transform="translate(16,16)">
           <circle class="rating__star-ring" fill="none" stroke="#000" stroke-width="16" r="8" transform="scale(0)"/>
         </g>
@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue';
+import { computed, defineProps } from 'vue';
 
 /*PROPS*/
 const props = defineProps({
@@ -42,8 +42,18 @@ const props = defineProps({
   currentStar: {
     type: Number,
     required: true,
+  },
+  uniqueId: {
+    type: String,
+    required: true,
   }
 });
+/*COMPUTED*/
+const checked = computed(() => props.index <= props.currentStar);
+const active = computed(() => props.index === props.currentStar);
+
+const inputId = computed(() => `rating-${props.uniqueId}-${props.index}`);
+
 /*EMITS*/
 const emit = defineEmits(['update:currentStar']);
 /*ACTIONS*/
@@ -52,10 +62,19 @@ const setCurrentStar = (index: number) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 :root {
   --bezier: cubic-bezier(0.42, 0, 0.58, 1);
   --trans-dur: 0.3s;
+}
+
+.rating[data-animate="true"] {
+  .rating__star-ring,
+  .rating__star-stroke,
+  .rating__star-line,
+  .rating__star-fill {
+    animation-duration: 1s;
+  }
 }
 
 .rating {
@@ -66,7 +85,6 @@ const setCurrentStar = (index: number) => {
       stroke: var(--yellow);
       transform: scale(1);
     }
-
     &.checked {
       &:not(.active):hover .rating__star-fill {
         fill: transparent;
@@ -76,7 +94,6 @@ const setCurrentStar = (index: number) => {
       .rating__star-stroke,
       .rating__star-line,
       .rating__star-fill {
-        animation-duration: 1s;
         animation-timing-function: ease-in-out;
         animation-fill-mode: forwards;
       }
@@ -113,8 +130,6 @@ const setCurrentStar = (index: number) => {
     display: block;
     overflow: visible;
     pointer-events: none;
-    width: 2em;
-    height: 2em;
 
     &-ring,
     &-fill,

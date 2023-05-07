@@ -1,5 +1,5 @@
 <template>
-  <div class="container-sm pt-10 grid gap-8">
+  <div class="container-sm pt-10 grid gap-8 px-3">
     <div class="grid gap-4">
       <Breadcrumb :items="breadcrumbs" class="mb-4"/>
       <h1 class="text-medium text-3xl">Invitez des membres dans la recherche</h1>
@@ -19,22 +19,19 @@ import InviteForm from '@/components/forms/InviteForm.vue'
 import { ref } from 'vue'
 import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
-import { useRouter } from 'vue-router'
 /*REFS*/
 const emails = ref([''])
 const loadButton = ref(false)
 
-/*HOOKS*/
-const router = useRouter()
-
 /*STORE*/
 const searchStore = useSearchStore()
+
 /*DATA*/
 const breadcrumbs = [
   {
-    text: 'Mes recherches',
-    icon: 'search',
-    to: { name: 'searches' }
+    text: 'Propriétés',
+    icon: 'home',
+    to: { name: 'properties', id: searchStore.currentSearch?.id }
   },
   {
     text: 'Invitations',
@@ -42,11 +39,6 @@ const breadcrumbs = [
     active: true
   }
 ]
-
-/*MIDDLEWARE*/
-if (!searchStore.isSearchCreator) {
-  router.push({ name: 'properties' })
-}
 
 /*API*/
 const inviteUsers = async () => {

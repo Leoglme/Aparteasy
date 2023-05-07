@@ -19,6 +19,15 @@ export const usePropertyStore = defineStore('propertyStore', {
             this.setProperties(properties.data)
             useAppStore().setPending(false);
         },
+        updateProperty(property: Property) {
+            const index = this.properties.findIndex(p => p.id === property.id);
+            if (index !== -1) {
+                this.properties[index] = property;
+            }
+        },
+        findPropertyById(id: number) {
+            return this.properties.find(property => property.id === id);
+        },
         async createProperty(property: PropertyCommand) {
             const { data } = await PropertyService.create(property);
             if (data) {

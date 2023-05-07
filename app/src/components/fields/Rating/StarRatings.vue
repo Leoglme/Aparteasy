@@ -1,15 +1,39 @@
 <template>
-  <form class="rating">
+  <form class="rating" :data-animate="animate" @click.stop>
     <div class="flex">
-      <StarRating v-for="nbStar in nbStars" :key="nbStar" :index="nbStar" v-model:current-star="currentStar"/>
+      <StarRating v-for="nbStar in props.nbStars"
+                  :uniqueId="uniqueId"
+                  :key="nbStar" :index="nbStar"
+                  :current-star="props.value"
+                  @update:current-star="setValue($event)"
+      />
     </div>
   </form>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
 import StarRating from '@/components/fields/Rating/StarRating.vue'
+import { ref } from 'vue'
 
-const nbStars = ref(5)
-const currentStar = ref(0)
+/*PROPS*/
+const props = defineProps({
+  nbStars: { type: Number, default: 5 },
+  value: { type: Number, default: 0 }
+})
+
+/*REFS*/
+const animate = ref(false);
+
+// Generate a unique ID
+const uniqueId = ref(Date.now() + Math.random().toString(36).substr(2, 5));
+
+
+/*EMITS*/
+const emit = defineEmits(['update:value'])
+
+/*METHODS*/
+const setValue = (value: number) => {
+  animate.value = true
+  emit('update:value', value)
+}
 </script>

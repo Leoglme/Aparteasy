@@ -1,20 +1,27 @@
 <template>
   <div class="flex flex-col gap-1 relative">
-    <span class="flex justify-between" v-if="hasLink || label">
-       <label class="flex items-center" :for="id" v-if="label">{{ label }} <span v-if="rules && rules.includes('required')" style="margin-left: 5px;" class="text-primary">*</span></label>
+    <span class="flex justify-between" v-if="hasLink || label || hasLabelSlot">
+       <label class="flex items-center" :for="id" v-if="label || hasLabelSlot">
+         <span>
+           <slot name="label" v-if="hasLabelSlot"/>
+            <span v-if="!hasLabelSlot">{{ label }}</span>
+           <span v-if="rules && rules.includes('required')" style="margin-left: 5px;" class="text-primary">*</span>
+          </span>
+       </label>
       <slot name="link"></slot>
     </span>
     <Field
         :as="rows ? 'textarea' : undefined"
         :rows="rows"
         :rules="rules"
-        class="h-full"
+        class="input h-full w-full"
         v-model="valueRef"
         :validateOnInput="true"
         v-slot="{meta, field}"
         :name="props.id"
         :placeholder="props.placeholder">
-      <input :size="size" class="input w-full" autofocus :style="hasIcon ? 'padding-left: 40px' : null" v-bind="field" :type="typeRef" :id="props.id"
+      <input :size="size" class="input w-full" autofocus :style="hasIcon ? 'padding-left: 40px' : null" v-bind="field"
+             :type="typeRef" :id="props.id"
              :placeholder="props.placeholder"
              :class="{error: meta.validated && !meta.valid}">
     </Field>
@@ -31,9 +38,9 @@
 
 
 <script lang="ts" setup>
-import { ref, watch, useSlots } from "vue";
-import { Field, ErrorMessage } from "vee-validate";
-import Icon from "@/components/common/Icon.vue"
+import { ref, watch, useSlots } from 'vue';
+import { Field, ErrorMessage } from 'vee-validate';
+import Icon from '@/components/common/Icon.vue'
 
 /*PROPS*/
 const props = defineProps({
@@ -74,6 +81,7 @@ watch(() => props.value, (val) => {
 const slot = useSlots()
 const hasIcon = !!slot['default']
 const hasLink = !!slot['link']
+const hasLabelSlot = !!slot['label']
 </script>
 
 <style>
@@ -83,6 +91,7 @@ const hasLink = !!slot['link']
   top: 40px;
   right: 12px;
 }
+
 .toggle-password svg:hover path {
   fill: var(--contrast-30);
 }

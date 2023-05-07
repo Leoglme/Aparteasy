@@ -5,10 +5,10 @@ interface Property extends TimeStamps {
   id: number;
   url: string;
   price: number;
-  charges: number;
+  amount_of_charges: number;
   availability_date: string;
   location_id: number;
-  number_of_bedrooms: number;
+  number_of_rooms: number;
   surface_area: number;
   quality_rating: number;
   transport_time: string;

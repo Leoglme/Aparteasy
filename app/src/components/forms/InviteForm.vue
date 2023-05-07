@@ -3,7 +3,7 @@
     <div v-for="(email, index) in props.emails"
          :key="`email-${index}`"
          :class="errors[`email-${index + 1}`] ? 'items-start' : 'items-center'"
-         class="flex gap-4">
+         class="flex gap-4 invite__row">
       <FormInput :value="email"
                  @update:value="updateEmail(index, $event)"
                  rules="email"
@@ -78,3 +78,17 @@ const removeEmail = (index: number) => {
   ]);
 }
 </script>
+
+
+<style lang="scss" scoped>
+@import "@/assets/style/core/_mixins.scss";
+
+.invite__row {
+  @include down(350) {
+    flex-direction: column;
+    .btn {
+      width: 100%;
+    }
+  }
+}
+</style>

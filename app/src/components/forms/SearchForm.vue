@@ -8,7 +8,7 @@
       </template>
     </GooglePlacesAutocomplete>
     <Divider/>
-    <div class="grid columns col-2">
+    <div class="grid columns col-1 sm:col-2">
       <Button :disabled="!meta.valid || !values.location" class="order-1" type="submit" endIcon="arrow-right">Créer la recherche</Button>
       <div></div>
     </div>

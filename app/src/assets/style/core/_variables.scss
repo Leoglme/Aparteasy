@@ -54,6 +54,7 @@ $variants: (
         grey-500: $grey-500,
         grey-400: $grey-400,
         grey-300: $grey-300,
+        grey-200: $grey-200,
         green: $green,
         yellow: $yellow,
         blue: $blue,
@@ -66,7 +67,7 @@ $variants: (
 
 
 $breakpoints: (
-        "xs": (width: 680px, height: 350px),
+        "xs": (width: 500px, height: 350px),
         "sm": (width: 680px, height: 480px),
         "md": (width: 768px, height: 600px),
         "lg": (width: 1024px, height: 850px),

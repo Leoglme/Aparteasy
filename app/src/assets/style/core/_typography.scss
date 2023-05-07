@@ -1,3 +1,5 @@
+@import "mixins";
+@import "variables";
 /* Font size */
 $text-sizes: (
         xs: (font-size: 0.75rem, line-height: 1rem),
@@ -19,6 +21,24 @@ $text-sizes: (
   .text-#{$size} {
     font-size: map-get($properties, font-size);
     line-height: map-get($properties, line-height);
+  }
+}
+
+@each $breakpoint, $sizes in $breakpoints {
+  @media (min-width: map-get($sizes, 'width')) {
+    @each $size, $properties in $text-sizes {
+      .#{$breakpoint}\:text-#{$size} {
+        font-size: map-get($properties, font-size);
+        line-height: map-get($properties, line-height);
+      }
+    }
+  }
+}
+
+.text-3xl {
+  @include down(600){
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 

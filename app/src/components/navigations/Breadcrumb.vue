@@ -4,6 +4,7 @@
       <li
           v-for="(item, index) in props.items"
           :key="index"
+          class="xs:text-base text-xs"
           :class="['flex items-center gap-2', { 'text-primary-light': item.active }]"
       >
         <template v-if="item.active">
