@@ -39,10 +39,3 @@ jobs:
           protocol: ftp
           local-dir: ./api/build/
           server-dir: aparteasy.api.dibodev.com/
-      - name: 📦 Run migrations on server
-        uses: appleboy/ssh-action@v0.1.3
-        with:
-          host: dibodev.com
-          username: ${{ secrets.FTP_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: /chemin/absolu/vers/votre/application/run_migrations.sh
