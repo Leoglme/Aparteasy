@@ -35,6 +35,9 @@ export const useSearchStore = defineStore('searchStore', {
         async decodeInvitationToken(token?: string) {
             const { data } = await SearchService.decodeInvitationToken(token);
             return data;
+        },
+        reset() {
+            this.searches = [];
         }
     },
     getters: {

@@ -13,7 +13,7 @@
         <span class="navbar__username">{{ user.name }}</span>
       </div>
 
-      <Button @click="logout" small startIcon="logout" variant="red">
+      <Button @click="() => logout()" small startIcon="logout" variant="red">
         Déconnexion
       </Button>
     </div>

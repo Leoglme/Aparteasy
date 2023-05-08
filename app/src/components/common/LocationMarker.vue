@@ -1,13 +1,13 @@
 <template>
-  <div class="flex flex-wrap items-center gap-1" v-if="props.location" :title="props.location.address">
+  <h6 :title="props.location.address" class="location-marker text-regular text-sm grid items-center gap-1">
     <Icon name="map-pin" :width="18" :height="18" stroke="var(--yellow)" style="margin-bottom: -0px;"/>
-    <h6 class="text-regular text-sm">{{ props.location.city || props.location.address }}</h6>
-  </div>
+    {{ props.location.city || props.location.address }}
+  </h6>
 </template>
 
 <script lang="ts" setup>
 import Icon from '@/components/common/Icon.vue'
-import type { PropType } from "vue";
+import type { PropType } from 'vue';
 import type { Location } from '@/services/location/location.model'
 
 const props = defineProps({
@@ -17,3 +17,9 @@ const props = defineProps({
   }
 })
 </script>
+
+<style scoped>
+.location-marker {
+  grid-template-columns: auto 1fr;
+}
+</style>

@@ -13,7 +13,6 @@ export default class PropertyService extends BaseService {
       .where('search_id', search?.id)
       .where('is_deleted', false)
       .preload('location')
-      .preload('statuses')
       .preload('ratings')
       .exec()
   }
@@ -21,7 +20,6 @@ export default class PropertyService extends BaseService {
   public static async getById(id: number, searchId: number) {
     return await Property.query()
       .preload('location')
-      .preload('statuses')
       .preload('ratings')
       .where('id', id)
       .where('search_id', searchId)
@@ -29,11 +27,16 @@ export default class PropertyService extends BaseService {
       .firstOrFail()
   }
 
-  public static async create() {
+  public static async create(searchId: number) {
     const data = await super.request.validate(PropertyValidator)
     const location = await LocationService.create(data.location)
-    const property = await Property.create({ ...data, location_id: location.id })
-    return await this.getById(property.id, property.search_id)
+    const property = await Property.create({
+      ...data,
+      location_id: location.id,
+      search_id: searchId,
+    })
+    await Event.emit('notify:success', `La propriété a été créée avec succès !`)
+    return await this.getById(property.id, searchId)
   }
 
   public static async update(id: number, searchId: number) {
@@ -44,6 +47,7 @@ export default class PropertyService extends BaseService {
     }
     property.merge(data)
     await property.save()
+    await Event.emit('notify:success', `La propriété a été modifiée avec succès !`)
     return await this.getById(property.id, searchId)
   }
 

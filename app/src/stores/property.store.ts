@@ -29,16 +29,21 @@ export const usePropertyStore = defineStore('propertyStore', {
             return this.properties.find(property => property.id === id);
         },
         async createProperty(property: PropertyCommand) {
-            const { data } = await PropertyService.create(property);
+            const searchId = useSearchStore().currentSearchId;
+            const { data } = await PropertyService.create(property, searchId);
             if (data) {
                 this.properties.push(data);
-                await router.push({ name: 'properties', params: { id: useSearchStore().currentSearchId } });
+                await router.push({ name: 'properties', params: { id: searchId } });
             }
         },
         async deleteProperty(id: number) {
-            await PropertyService.delete(id);
+            const search_id = useSearchStore().currentSearchId;
+            await PropertyService.delete(id, search_id);
             this.properties = this.properties.filter(property => property.id !== id);
         },
+        reset() {
+            this.properties = [];
+        }
     },
     getters: {}
 });

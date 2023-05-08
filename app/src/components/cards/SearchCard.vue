@@ -1,14 +1,14 @@
 <template>
   <RouterLink :to="{ name: 'properties', params: { id: props.search.id }}"
               :class="{'search__card-creator': isCreator}"
-              class="bg-grey-300 grid items-center py-3 px-5 search__card
+              class="bg-grey-300 grid items-center py-3 px-3 xs:px-5 search__card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">
     <h4 class="text-medium">{{ props.search.name }}</h4>
 
     <LocationMarker class="search__card--location" :location="props.search.location"/>
 
     <div class="flex items-center search__users">
-      <div v-for="(user, index) in props.search.users" :key="user.id" style="margin-left: -8px;">
+      <div v-for="(user, index) in props.search.users" :key="user.id" class="search__user">
         <Avatar
             :title="index <= maxDisplayUsers - 1 ? user.name : `${props.search.users.length} utilisateurs`"
             class="b-1 border-grey-500"
@@ -71,11 +71,17 @@ const deleteSearch = () => {
 <style lang="scss" scoped>
 @import "@/assets/style/core/_mixins.scss";
 .search__card:not(.search__card-creator) {
-  grid-template-columns: 150px 150px auto;
+  grid-template-columns: 150px 200px auto;
 }
 
 .search__card-creator {
-  grid-template-columns: 150px 150px 150px auto;
+  grid-template-columns: 150px 200px 150px auto;
+}
+
+.search__user {
+  @include up(450){
+    margin-left: -8px;
+  }
 }
 
 .search__card {
@@ -87,18 +93,11 @@ const deleteSearch = () => {
     min-height: 68px;
   }
   @include down(450){
-    justify-content: flex-start;
-  }
-}
-.search__users {
-  @include down(450){
-    display: none;
-  }
-}
-
-.search__card--location {
-  @include down(450){
-    margin: 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+    .btn {
+      width: 100%;
+    }
   }
 }
 </style>

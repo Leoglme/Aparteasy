@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import type { User } from "@/services/user/user.model";
 import axios from "axios";
 import router from "@/router";
+import { useAppStore } from '@/stores/app.store'
 
 const userInLocalStorage = localStorage.getItem("user");
 const tokenInLocalStorage = localStorage.getItem("token");
@@ -28,13 +29,16 @@ export const useAuthStore = defineStore("authStore", {
       }
     },
     async logout(query?: { redirect: string; } | undefined) {
-      this.user = null;
-      this.token = null;
-      await localStorage.removeItem("token");
-      await localStorage.removeItem("user");
-      delete axios.defaults.headers.common["Authorization"];
+      useAppStore().resetStores()
       await router.push({ name: "login", query });
     },
+    reset() {
+        this.user = null;
+        this.token = null;
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        delete axios.defaults.headers.common["Authorization"];
+    }
   },
   getters: {
     isConnected: (state): boolean => !!state.token && !!state.user,
