@@ -3,17 +3,34 @@ import LocationService from 'App/Services/LocationService'
 import Property from 'App/Models/Property'
 import PropertyValidator from 'App/Validators/PropertyValidator'
 import SearchService from 'App/Services/SearchService'
+import { GoogleMapsService } from 'App/Services/GoogleMapsService'
 
 export default class PropertyService extends BaseService {
   public static async getSearchProperties(searchId: number): Promise<Property[] | null> {
     const search = await SearchService.getById(searchId)
     if (!search) return null
-    return await Property.query()
+
+    const properties = await Property.query()
       .where('search_id', search?.id)
       .where('is_deleted', false)
       .preload('location')
       .preload('ratings')
       .exec()
+
+    try {
+      const travelTimes = await GoogleMapsService.getTravelTimes(
+        { lat: search.location.lat, lng: search.location.lng },
+        { lat: properties[0].location.lat, lng: properties[0].location.lng },
+        ['driving', 'walking', 'transit']
+      )
+      console.log({ lat: search.location.lat, lng: search.location.lng })
+      console.log({ lat: properties[0].location.lat, lng: properties[0].location.lng })
+      console.log(travelTimes)
+    } catch (e) {
+      return e
+    }
+
+    return properties
   }
 
   public static async getById(id: number, searchId: number) {

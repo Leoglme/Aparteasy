@@ -9,10 +9,10 @@ export default class BaseService extends HttpService {
     await Event.emit(eventName, { ...payload, socketId })
   }
   protected static async sendPrivateErrorNotification(message: string) {
-    await this.sendPrivateSocketEvent({ message }, 'notify:success')
+    await this.sendPrivateSocketEvent({ message }, 'notify:error')
   }
   protected static async sendPrivateSuccessNotification(message: string) {
-    await this.sendPrivateSocketEvent({ message }, 'notify:error')
+    await this.sendPrivateSocketEvent({ message }, 'notify:success')
   }
 
   protected static async sendError(message: string, code = 200) {

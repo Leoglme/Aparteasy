@@ -17,7 +17,7 @@ export const usePropertyStore = defineStore('propertyStore', {
         async fetchProperties(searchId: number) {
             useAppStore().setPending(true);
             const properties = await PropertyService.all(searchId);
-            this.setProperties(properties.data)
+            this.setProperties(properties.data || [])
             useAppStore().setPending(false);
         },
         updateProperty(property: Property) {
