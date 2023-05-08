@@ -3,7 +3,6 @@ import Search from 'App/Models/Search'
 import SearchValidator from 'App/Validators/SearchValidator'
 import AuthService from 'App/Services/AuthService'
 import SearchUser from 'App/Models/SearchUser'
-import Event from '@ioc:Adonis/Core/Event'
 import LocationService from 'App/Services/LocationService'
 import User from 'App/Models/User'
 import merge from 'lodash/merge'
@@ -49,13 +48,13 @@ export default class SearchService extends BaseService {
       creator_id: super.auth.user?.id,
       location_id: location.id,
     })
-    await Event.emit('notify:success', `Votre recherche a été créée avec succès !`)
+    await super.sendPrivateSuccessNotification(`Votre recherche a été créée avec succès !`)
     return await this.getById(search.id)
   }
 
   public static async delete(id: number) {
     await Search.findOrFail(id).then((search) => search.delete())
-    await Event.emit('notify:success', `La recherche a été supprimée avec succès !`)
+    await super.sendPrivateSuccessNotification(`Votre recherche a été supprimée avec succès !`)
     return super.response.noContent()
   }
 

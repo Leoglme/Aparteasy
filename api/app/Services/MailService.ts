@@ -1,4 +1,3 @@
-import Event from '@ioc:Adonis/Core/Event'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import type { MailMessage, MailsMessages } from '@ioc:Adonis/Addons/Mail'
 import View from '@ioc:Adonis/Core/View'
@@ -40,7 +39,6 @@ export default class MailService {
         .replyTo(mail.replyTo.email || mail.to, mail.replyTo.name)
         .html(html)
     })
-    await Event.emit('mail:send', mail.to)
   }
 
   public static async sendMany({
@@ -81,7 +79,6 @@ export default class MailService {
           .html(html)
       })
     })
-    await Event.emit('mail:send', mails.to)
   }
 
   protected static getHtml(viewPath: string, payload?: Record<string, unknown>): string {

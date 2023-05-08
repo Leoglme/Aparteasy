@@ -56,6 +56,7 @@ import SearchBar from '@/components/fields/SearchBar.vue'
 import { ref } from 'vue'
 import type { Property } from '@/services/property/property.model'
 import ConfirmDeletePropertyModal from '@/components/Modal/ConfirmDeletePropertyModal.vue'
+import { SITE_NAME } from '@/env'
 
 /*DATA*/
 const breadcrumbs = [
@@ -78,6 +79,10 @@ const propertyToDelete = ref<Property | null>(null)
 
 /*STORE*/
 const propertyStore = usePropertyStore()
+
+
+/*METAS*/
+document.title = `Propriétés | ${SITE_NAME}`
 
 /*METHODS*/
 const setQualityRating = (params: { id: number, value: number }) => {

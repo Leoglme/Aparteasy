@@ -8,7 +8,6 @@ import appInfos from 'Config/app-infos'
 import AuthService from 'App/Services/AuthService'
 import BaseService from 'App/Services/BaseService'
 import SearchService from 'App/Services/SearchService'
-import Event from '@ioc:Adonis/Core/Event'
 
 type SearchInvitationCommand = {
   search_id: number
@@ -53,8 +52,7 @@ export class SearchInvitationService extends BaseService {
     const invitations = await SearchInvitation.createMany(searchInvitations)
     const emails = searchInvitations.map((invitation) => invitation.receiver)
     await this.sendInvitationsEmail(emails, searchId)
-    await Event.emit(
-      'notify:success',
+    await super.sendPrivateSuccessNotification(
       `${emails.length > 1 ? 'Les invitations ont' : "L'invitation a"} été envoyées avec succès !`
     )
     return invitations

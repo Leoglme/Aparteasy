@@ -19,6 +19,7 @@ import InviteForm from '@/components/forms/InviteForm.vue'
 import { ref } from 'vue'
 import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
+import { SITE_NAME } from '@/env'
 /*REFS*/
 const emails = ref([''])
 const loadButton = ref(false)
@@ -39,6 +40,9 @@ const breadcrumbs = [
     active: true
   }
 ]
+
+/*METAS*/
+document.title = `Invitation recherche | ${SITE_NAME}`
 
 /*API*/
 const inviteUsers = async () => {

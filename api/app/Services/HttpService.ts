@@ -1,6 +1,5 @@
 import HttpContext from '@ioc:Adonis/Core/HttpContext'
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Event from '@ioc:Adonis/Core/Event'
 
 export default class HttpService {
   protected static ctx: HttpContextContract
@@ -14,7 +13,6 @@ export default class HttpService {
   }
 
   protected static async sendError(message: string, code = 200) {
-    await Event.emit('notify:error', message)
     return this.response.status(code).send(message)
   }
 

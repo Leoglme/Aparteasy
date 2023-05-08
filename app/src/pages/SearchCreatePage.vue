@@ -9,6 +9,7 @@
 <script lang="ts" setup>
 import SearchForm from '@/components/forms/SearchForm.vue'
 import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
+import { SITE_NAME } from '@/env'
 
 const breadcrumbs = [
   {
@@ -22,4 +23,7 @@ const breadcrumbs = [
     active: true
   }
 ]
+
+/*METAS*/
+document.title = `Création recherche | ${SITE_NAME}`
 </script>

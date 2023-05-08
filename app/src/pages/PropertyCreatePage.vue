@@ -12,10 +12,14 @@ import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
 import type { PropertyCommand } from '@/services/property/property.model'
 import { usePropertyStore } from '@/stores/property.store'
+import { SITE_NAME } from '@/env'
 
 /*STORE*/
 const searchStore = useSearchStore()
 const propertyStore = usePropertyStore()
+
+/*METAS*/
+document.title = `Création propriété | ${SITE_NAME}`
 
 /*DATA*/
 const breadcrumbs = [

@@ -1,7 +1,6 @@
 import BaseService from 'App/Services/BaseService'
 import RegisterValidator from 'App/Validators/RegisterValidator'
 import User from 'App/Models/User'
-import Event from '@ioc:Adonis/Core/Event'
 import { AuthenticationException } from '@adonisjs/auth/build/standalone'
 import { UserService } from 'App/Services/UserService'
 import FakeService from 'App/Services/FakeService'
@@ -12,7 +11,7 @@ export default class AuthService extends BaseService {
     const avatarUrl = FakeService.generateDiceBearURL(data.name)
     const user = await User.create({ ...data, avatarUrl })
     const token = await this.generateToken(data.email, data.password)
-    await Event.emit('new:user', user)
+    await super.sendPrivateSocketEvent({ user }, 'new:user')
     return super.response.created({ token: token.toJSON(), user: user.serialize() })
   }
   public static async login() {
@@ -22,7 +21,7 @@ export default class AuthService extends BaseService {
 
     if (findUserByEmail?.oauthProviderName) {
       const message = `You must sign in with your ${findUserByEmail?.oauthProviderName} account`
-      await Event.emit('notify:error', message)
+      await super.sendPrivateErrorNotification(message)
       return super.response.badRequest(message)
     }
 
@@ -30,7 +29,7 @@ export default class AuthService extends BaseService {
 
     const user = super.auth.user
     delete user?.password
-    await Event.emit('login', user)
+    await super.sendPrivateSocketEvent({ user }, 'login')
     return super.send({ token: token.toJSON(), user })
   }
 

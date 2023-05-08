@@ -5,6 +5,6 @@ export const notify = new Notyf({
   dismissible: true,
   position: {
     x: "center",
-    y: "bottom"
+    y: "top"
   }
 });

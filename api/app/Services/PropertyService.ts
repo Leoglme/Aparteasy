@@ -1,5 +1,4 @@
 import BaseService from 'App/Services/BaseService'
-import Event from '@ioc:Adonis/Core/Event'
 import LocationService from 'App/Services/LocationService'
 import Property from 'App/Models/Property'
 import PropertyValidator from 'App/Validators/PropertyValidator'
@@ -35,7 +34,7 @@ export default class PropertyService extends BaseService {
       location_id: location.id,
       search_id: searchId,
     })
-    await Event.emit('notify:success', `La propriété a été créée avec succès !`)
+    await super.sendPrivateSuccessNotification(`La propriété a été créée avec succès !`)
     return await this.getById(property.id, searchId)
   }
 
@@ -47,7 +46,7 @@ export default class PropertyService extends BaseService {
     }
     property.merge(data)
     await property.save()
-    await Event.emit('notify:success', `La propriété a été modifiée avec succès !`)
+    await super.sendPrivateSuccessNotification(`La propriété a été modifiée avec succès !`)
     return await this.getById(property.id, searchId)
   }
 
@@ -55,7 +54,7 @@ export default class PropertyService extends BaseService {
     const property = await this.getById(id, searchId)
     property.is_deleted = true
     await property.save()
-    await Event.emit('notify:success', `La propriété a été supprimée avec succès !`)
+    await super.sendPrivateSuccessNotification(`La propriété a été supprimée avec succès !`)
     return super.response.noContent()
   }
 }

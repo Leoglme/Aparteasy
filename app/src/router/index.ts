@@ -16,6 +16,8 @@ import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
 import { useAppStore } from '@/stores/app.store'
+import { deleteCookie, getCookie } from '@/utils/cookie'
+import { notify } from '@/plugins/notyf'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -133,6 +135,13 @@ router.beforeEach(async (to) => {
   // if ((!auth.token || !auth.user || !auth.is_admin()) && to.path.includes('administration')) {
   //   await router.push('/')
   // }
+
+  /*COOKIES*/
+  const error = getCookie('error_message')
+  if(error?.message){
+    notify.error(error.message)
+    deleteCookie('error_message')
+  }
 });
 
 export default router

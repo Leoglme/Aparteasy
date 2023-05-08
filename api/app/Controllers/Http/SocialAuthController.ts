@@ -1,8 +1,8 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import SocialAuthService from 'App/Services/SocialAuthService'
 import BaseController from 'App/Controllers/Http/BaseController'
-import Event from '@ioc:Adonis/Core/Event'
 import Env from '@ioc:Adonis/Core/Env'
+import { DateTime } from 'luxon'
 
 export default class SocialAuthController extends BaseController {
   public redirect({ ally, params }: HttpContextContract) {
@@ -16,20 +16,21 @@ export default class SocialAuthController extends BaseController {
 
     if ('error' in userOrError) {
       const redirectUrl = `${Env.get('APP_URL')}/login`
+      response.plainCookie('error_message', userOrError.error, {
+        expires: DateTime.local().plus({ minutes: 5 }).toJSDate(),
+        httpOnly: false,
+        sameSite: true,
+      })
       response.redirect(redirectUrl)
-      setTimeout(async () => {
-        await Event.emit('notify:error', userOrError.error)
-      }, 2500)
       return
     }
 
     const token = await SocialAuthService.generateToken(userOrError, params.provider)
-    await Event.emit('login', userOrError)
 
     const redirectUrl = `${Env.get('APP_URL')}/oauth2?token=${token.token}`
     response.redirect(redirectUrl)
     setTimeout(async () => {
-      await Event.emit('login', userOrError)
+      await super.sendPrivateSocketEvent({ user: socialUser }, 'login')
     }, 2500)
   }
 }
