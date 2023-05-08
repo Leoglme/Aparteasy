@@ -2,7 +2,7 @@
   <section id="create-property" class="py-10 grid gap-6 px-3">
     <Breadcrumb :items="breadcrumbs" class="mb-4"/>
     <h1 class="text-medium text-3xl">Ajouter une propriété à votre recherche</h1>
-    <PropertyForm/>
+    <PropertyForm @submit="createProperty"/>
   </section>
 </template>
 
@@ -10,9 +10,12 @@
 import PropertyForm from '@/components/forms/PropertyForm.vue'
 import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
+import type { PropertyCommand } from '@/services/property/property.model'
+import { usePropertyStore } from '@/stores/property.store'
 
 /*STORE*/
 const searchStore = useSearchStore()
+const propertyStore = usePropertyStore()
 
 /*DATA*/
 const breadcrumbs = [
@@ -27,6 +30,11 @@ const breadcrumbs = [
     active: true
   }
 ]
+
+/*METHODS*/
+const createProperty = (property: PropertyCommand) => {
+  propertyStore.createProperty(property)
+}
 </script>
 
 <style lang="scss" scoped>

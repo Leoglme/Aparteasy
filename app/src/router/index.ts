@@ -15,6 +15,7 @@ import PropertiesPage from '@/pages/PropertiesPage.vue'
 import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
+import { useAppStore } from '@/stores/app.store'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -113,18 +114,19 @@ const router = createRouter({
     },
   ]
 })
-let referentialLoaded = false;
+
 router.beforeEach(async (to) => {
   const auth = useAuthStore();
+  const appStore = useAppStore();
   /*MIDDLEWARE IS CONNECTED*/
   if (!publicRoutes.includes(to.path) && !auth.isConnected) {
     await router.push("/login");
   }
   /*MIDDLEWARE LOAD REFERENTIAL DATAS*/
-  if (!publicRoutes.includes(to.path) && auth.isConnected && !referentialLoaded) {
+  if (!publicRoutes.includes(to.path) && auth.isConnected && !appStore.referentialLoaded) {
     auth.setToken(auth.token)
     await ReferentialService.loadDatas()
-    referentialLoaded = true
+    appStore.setReferentialLoaded(true)
   }
 
   // /*MIDDLEWARE IS ADMIN*/

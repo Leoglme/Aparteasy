@@ -1,15 +1,17 @@
 import { DateTime } from 'luxon'
-import { column, BaseModel, belongsTo, manyToMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import type { ManyToMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, BaseModel, belongsTo, hasMany } from '@ioc:Adonis/Lucid/Orm'
+import type { HasMany } from '@ioc:Adonis/Lucid/Orm'
 import type { BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Search from 'App/Models/Search'
 import Location from 'App/Models/Location'
-import Status from 'App/Models/Status'
 import PropertyRating from 'App/Models/PropertyRating'
 
 export default class Property extends BaseModel {
   @column({ isPrimary: true })
   public id: number
+
+  @column()
+  public name: string
 
   @column()
   public url: string
@@ -18,7 +20,7 @@ export default class Property extends BaseModel {
   public price: number
 
   @column()
-  public charges: number
+  public amount_of_charges: number
 
   @column.dateTime()
   public availability_date: DateTime
@@ -27,7 +29,7 @@ export default class Property extends BaseModel {
   public location_id: number
 
   @column()
-  public number_of_bedrooms: number
+  public number_of_rooms: number
 
   @column()
   public surface_area: number
@@ -36,7 +38,7 @@ export default class Property extends BaseModel {
   public quality_rating: number
 
   @column()
-  public transport_time: string
+  public comment: string | null
 
   @column()
   public search_id: number
@@ -48,6 +50,20 @@ export default class Property extends BaseModel {
   })
   public is_deleted: boolean
 
+  @column({
+    serialize: (value?: Number) => {
+      return Boolean(value)
+    },
+  })
+  public contacted: boolean
+
+  @column({
+    serialize: (value?: Number) => {
+      return Boolean(value)
+    },
+  })
+  public available: boolean
+
   @belongsTo(() => Location, {
     foreignKey: 'location_id',
   })
@@ -58,20 +74,13 @@ export default class Property extends BaseModel {
   })
   public search: BelongsTo<typeof Search>
 
-  @manyToMany(() => Status, {
-    pivotTable: 'property_statuses',
-    pivotForeignKey: 'property_id',
-    pivotRelatedForeignKey: 'status_id',
-  })
-  public statuses: ManyToMany<typeof Status>
-
   @hasMany(() => PropertyRating, {
     foreignKey: 'property_id',
   })
   public ratings: HasMany<typeof PropertyRating>
 
   public total_price(): number {
-    return this.price + this.charges
+    return this.price + this.amount_of_charges
   }
 
   @column.dateTime({ autoCreate: true })

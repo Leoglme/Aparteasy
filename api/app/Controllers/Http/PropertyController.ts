@@ -11,8 +11,8 @@ export default class PropertyController extends BaseController {
     return await PropertyService.getById(params.id, params.search_id)
   }
 
-  protected async create() {
-    return await PropertyService.create()
+  protected async create({ params }: HttpContextContract) {
+    return await PropertyService.create(params.search_id)
   }
 
   protected async delete({ params }: HttpContextContract) {

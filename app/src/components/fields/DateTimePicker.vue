@@ -1,8 +1,8 @@
 <template>
-  <VDatePicker color="blue" is-dark ref="calendar" v-model="date" :popover="false">
+  <VDatePicker color="blue" is-dark ref="calendar" v-model="date" :popover="{visibility: 'click'}">
     <template #default="{ togglePopover, inputValue, inputEvents }">
       <div class="flex date__picker--group">
-        <Button class="date__picker--button" @click.prevent="() => togglePopover()">
+        <Button class="date__picker--button" @click.prevent="togglePopover">
           <Icon :width="20" :height="20" style="margin-bottom: 0;" stroke="var(--light)" name="calendar"/>
         </Button>
         <input id="date-picker" class="input date__picker--input w-full" type="text" :value="inputValue" v-on="inputEvents"
@@ -13,13 +13,27 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
 import Button from '@/components/buttons/Button.vue';
 import Icon from '@/components/common/Icon.vue'
 
 const calendar = ref(null);
 const date = ref(new Date());
 const currentYear = ref(date.value.getFullYear())
+
+onBeforeMount(() => {
+  window.addEventListener('keydown', handleKeyDown);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('keydown', handleKeyDown);
+});
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+  }
+};
 </script>
 
 

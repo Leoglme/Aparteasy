@@ -3,8 +3,6 @@ import Property from 'App/Models/Property'
 import PropertyRating from 'App/Models/PropertyRating'
 import User from 'App/Models/User'
 import SearchService from 'App/Services/SearchService'
-import PropertyStatus from 'App/Models/PropertyStatus'
-import Status from 'App/Models/Status'
 
 const chance = new Chance()
 
@@ -42,17 +40,6 @@ export async function addRatingsToProperties(properties: Property[]) {
           rating,
         })
       }
-    }
-    /*Status*/
-    const numStatuses = chance.integer({ min: 0, max: 2 })
-    for (let i = 0; i < numStatuses; i++) {
-      const statuses = await Status.all()
-      const status = chance.pickone(statuses)
-      await PropertyStatus.create({
-        property_id: property.id,
-        status_id: status.id,
-        is_active: chance.bool(),
-      })
     }
   }
 }
