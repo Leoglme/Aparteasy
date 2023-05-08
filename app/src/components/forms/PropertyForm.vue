@@ -62,7 +62,7 @@ import { Form } from 'vee-validate';
 import { ref } from 'vue'
 import type { Location } from '@/services/location/location.model'
 import DateTimePicker from '@/components/fields/DateTimePicker.vue'
-import { convertToNumber } from '@/utils/formats'
+import { convertToNumber } from '@/utils/formats.utils'
 import type { PropertyCommand } from '@/services/property/property.model'
 
 

@@ -44,7 +44,7 @@ $max-columns: 6;
 /* Responsive min-width */
 @each $breakpoint, $sizes in $breakpoints {
   @media (min-width: map-get($sizes, 'width')) {
-    @for $i from 1 through 3 {
+    @for $i from 1 through $max-columns {
       .#{$breakpoint}\:order-#{$i} {
         order: #{$i};
       }

@@ -26,6 +26,7 @@ button {
   filter: brightness(1);
   white-space: nowrap;
   transform: translateZ(0);
+  cursor: pointer;
 
   &[disabled] {
     cursor: default;

@@ -7,7 +7,7 @@ import SearchesPage from "@/pages/SearchesPage.vue";
 import SearchInviteRedirectPage from "@/pages/SearchInviteRedirectPage.vue";
 import { useAuthStore } from '@/stores/auth.store'
 import Navbar from '@/components/navigations/Navbar.vue'
-import { publicRoutes } from '@/utils/router'
+import { publicRoutes } from '@/utils/router.utils'
 import ReferentialService from '@/services/ReferentialService'
 import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
@@ -16,7 +16,7 @@ import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
 import { useAppStore } from '@/stores/app.store'
-import { deleteCookie, getCookie } from '@/utils/cookie'
+import { deleteCookie, getCookie } from '@/utils/cookie.utils'
 import { notify } from '@/plugins/notyf'
 
 const router = createRouter({

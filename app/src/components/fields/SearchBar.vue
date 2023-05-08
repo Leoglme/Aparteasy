@@ -1,13 +1,14 @@
 <template>
-  <div class="grid items-center search__bar">
+  <div class="grid items-center search__bar" :title="props.title">
     <div class="h-full bg-grey-200 flex items-center search__bar--prefix p-2">
       <Icon :width="20" :height="20" name="search" stroke="var(--light)" style="margin-bottom: 0;"/>
     </div>
 
     <input ref="searchInput"
-           v-model="valueRef"
+           :value="value"
            class="input w-full search__bar--input"
            type="search"
+           @input="setRouteSearch"
            placeholder="Rechercher (Ctrl + E)">
   </div>
 </template>
@@ -15,26 +16,25 @@
 
 <script lang="ts" setup>
 import Icon from '@/components/common/Icon.vue'
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
+import { useRouterStore } from '@/stores/router.store'
 
 /*PROPS*/
 const props = defineProps({
-  value: { type: String, default: '' }
+  title: { type: String, default: null }
 });
+
+/*STORE*/
+const routerStore = useRouterStore()
 
 /*REFS*/
-const valueRef = ref(props.value)
+const value = ref(routerStore.search)
 
-/*EMIT*/
-const emit = defineEmits(['update:value'])
+/*METHODS*/
+const setRouteSearch = (event: Event) => {
+  routerStore.setRouteSearch((event.target as HTMLInputElement).value)
+}
 
-/*WATCHERS*/
-watch(() => valueRef.value, (val) => {
-  emit('update:value', val)
-});
-watch(() => props.value, (val) => {
-  valueRef.value = val
-});
 
 /*FOCUS ON CTRL+E*/
 const searchInput = ref<HTMLInputElement | null>(null);

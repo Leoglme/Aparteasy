@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { useSearchStore } from '@/stores/search.store'
 import { usePropertyStore } from '@/stores/property.store'
 import { useAuthStore } from '@/stores/auth.store'
+import { useRouterStore } from '@/stores/router.store'
 
 export const useAppStore = defineStore('appStore', {
   state: () => ({
@@ -15,10 +16,11 @@ export const useAppStore = defineStore('appStore', {
     setReferentialLoaded(referentialLoaded: boolean) {
         this.referentialLoaded = referentialLoaded;
     },
-    resetStores() {
+    async resetStores() {
       useAuthStore().reset()
       useSearchStore().reset()
       usePropertyStore().reset()
+      await useRouterStore().reset()
       this.setReferentialLoaded(false)
     }
   }

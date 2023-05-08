@@ -29,7 +29,7 @@ export const useAuthStore = defineStore("authStore", {
       }
     },
     async logout(query?: { redirect: string; } | undefined) {
-      useAppStore().resetStores()
+      await useAppStore().resetStores()
       await router.push({ name: "login", query });
     },
     reset() {
