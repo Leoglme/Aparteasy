@@ -32,17 +32,12 @@
         <div class="flex items-center gap-4">
           <span>{{ props.property.number_of_rooms }} pièce(s) - <span>{{ props.property.surface_area }}m<span
               class="text-lg">²</span></span></span>
-          <div class="flex items-center gap-2 flex-wrap">
-            <Badge v-for="(status, index) in props.property.statuses"
-                   :color="StatusInfos[status.name].color"
-                   :backgroundColor="StatusInfos[status.name].backgroundColor"
-                   :key="`${status}-${index}`">
-              {{ StatusInfos[status.name].title }}
-            </Badge>
-          </div>
+          <StatusBadges :available="props.property.available" :contacted="props.property.contacted"/>
         </div>
         <span
-            class="flex items-center gap-2"><span>Prix: {{ props.property.price || 0 }}€</span><span>Charges: {{ props.property.amount_of_charges || 0 }}€</span></span>
+            class="flex items-center gap-2"><span>Prix: {{
+            props.property.price || 0
+          }}€</span><span>Charges: {{ props.property.amount_of_charges || 0 }}€</span></span>
 
         <div class="flex items-center gap-2">
           <span>Rapport qualité prix:</span>
@@ -94,7 +89,7 @@ import LocationMarker from '@/components/common/LocationMarker.vue'
 import Icon from '@/components/common/Icon.vue'
 import Button from '@/components/buttons/Button.vue'
 import Badge from '@/components/common/Badge.vue'
-import { StatusInfos } from '@/utils/statuses'
+import StatusBadges from '@/components/common/StatusBadges.vue'
 import StarRatings from '@/components/fields/Rating/StarRatings.vue'
 import { useSearchStore } from '@/stores/search.store'
 import { ref } from 'vue'
