@@ -1,17 +1,17 @@
 <template>
   <Form v-slot="{meta}" class="flex flex-col gap-6" @submit="handleSubmit">
     <Divider/>
-    <div class="grid columns sm:col-2 gap-6">
+    <div class="grid columns sm:col-2 gap-6 items-baseline">
       <FormInput v-model:value="values.name" label="Nom" id="name"/>
       <FormInput v-model:value="values.url" label="Url de l'annonce" id="url" rules="required|url" type="url" />
     </div>
 
-    <div class="grid columns sm:col-2 gap-6">
+    <div class="grid columns sm:col-2 gap-6 items-baseline">
       <FormInput v-model:value="values.price" label="Prix" id="price" rules="required|numeric" type="number" />
       <FormInput v-model:value="values.amount_of_charges" label="Montant des charges" id="amount_of_charges" rules="numeric" type="number"/>
     </div>
 
-    <div class="grid columns sm:col-2 gap-6">
+    <div class="grid columns sm:col-2 gap-6 items-baseline">
       <FormInput v-model:value="values.number_of_rooms" label="Nombre de pièces" id="number_of_rooms" rules="required|numeric" type="number"/>
       <FormInput v-model:value="values.surface_area" id="surface_area" rules="required|numeric" type="number">
         <template #label>
@@ -20,7 +20,7 @@
       </FormInput>
     </div>
 
-    <div class="grid columns sm:col-2 gap-6">
+    <div class="grid columns sm:col-2 gap-6 items-baseline">
       <GooglePlacesAutocomplete @place-selected="onSelectPlace" rules="required">
         <template #label>
           <span>Lieu de la propriété</span>
@@ -64,7 +64,10 @@ import type { Location } from '@/services/location/location.model'
 import DateTimePicker from '@/components/fields/DateTimePicker.vue'
 import { convertToNumber } from '@/utils/formats.utils'
 import type { PropertyCommand } from '@/services/property/property.model'
+import { usePropertyStore } from "@/stores/property.store";
 
+/*STORE*/
+const propertyStore = usePropertyStore()
 
 /*REFS*/
 const values = ref({
@@ -72,7 +75,7 @@ const values = ref({
   url: '',
   price: "",
   amount_of_charges: "",
-  number_of_rooms: "",
+  number_of_rooms: propertyStore.lastPropertyNumberOfRooms || "",
   surface_area: "",
   availability_date: undefined,
   quality_rating: 0,

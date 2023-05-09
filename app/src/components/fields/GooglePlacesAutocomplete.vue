@@ -88,6 +88,8 @@ const initAutoComplete = () => {
       lng,
     };
 
+    console.log(result)
+
     emit('place-selected', result);
   });
 };

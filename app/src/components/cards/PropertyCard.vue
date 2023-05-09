@@ -38,7 +38,7 @@
       <div class="flex items-center flex-wrap gap-2">
         <span v-if="props.property.availability_date">Disponible le {{
             formatDate(props.property.availability_date, 'dd/MM/yyyy')
-          }}</span> -
+          }}</span> <span v-if="props.property.availability_date">-</span>
         <span>Ajouté le {{ formatDate(props.property.created_at, 'dd/MM/yyyy') }}</span>
       </div>
 
@@ -47,6 +47,12 @@
           <span class="text-contrast-70">Durée trajet depuis:</span>
           <LocationMarker address :location="props.property.location"/>
         </div>
+
+        <TravelTimesDisplay :travel-times="{
+          driving: 7136,
+          walking: 3600,
+          transit: 3600
+        }"/>
       </div>
 
       <div class="grid gap-2" v-if="props.property.comment">
@@ -77,6 +83,7 @@ import Icon from '@/components/common/Icon.vue'
 import Button from '@/components/buttons/Button.vue'
 import StatusBadges from '@/components/common/StatusBadges.vue'
 import StarRatings from '@/components/fields/Rating/StarRatings.vue'
+import TravelTimesDisplay from '@/components/common/TravelTimesDisplay.vue'
 import { useSearchStore } from '@/stores/search.store'
 import { ref } from 'vue'
 import { formatDate } from '@/filters/dates'

@@ -33,7 +33,10 @@ export const usePropertyStore = defineStore('propertyStore', {
             const searchId = useSearchStore().currentSearchId;
             const { data } = await PropertyService.create(property, searchId);
             if (data) {
-                this._properties.push(data);
+                if(!this._properties) {
+                    this.setProperties([]);
+                }
+                this._properties.push(data)
                 await router.push({ name: 'properties', params: { id: searchId } });
             }
         },
@@ -52,5 +55,9 @@ export const usePropertyStore = defineStore('propertyStore', {
                 ['name', 'price', 'comment', 'location.city', 'location.address']
             )
         },
+        lastPropertyNumberOfRooms: (): number => {
+            const properties = usePropertyStore()._properties;
+            return properties.length > 0 ? properties[properties.length - 1].number_of_rooms : 0;
+        }
     }
 });

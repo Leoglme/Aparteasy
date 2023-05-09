@@ -10,8 +10,8 @@ export default class extends BaseSchema {
       table.string('city')
       table.string('region')
       table.string('country')
-      table.float('lat')
-      table.float('lng')
+      table.float('lat', 9, 6)
+      table.float('lng', 9, 6)
       table.timestamps(true, true)
     })
   }
