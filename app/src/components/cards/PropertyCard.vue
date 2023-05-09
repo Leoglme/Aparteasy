@@ -48,11 +48,7 @@
           <LocationMarker address :location="props.property.location"/>
         </div>
 
-        <TravelTimesDisplay :travel-times="{
-          driving: 7136,
-          walking: 3600,
-          transit: 3600
-        }"/>
+        <TravelTimesDisplay :travel-times="props.property.travelTimes"/>
       </div>
 
       <div class="grid gap-2" v-if="props.property.comment">
