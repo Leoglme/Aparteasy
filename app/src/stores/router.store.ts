@@ -7,7 +7,7 @@ export const useRouterStore = defineStore('routerStore', {
     }),
     actions: {
         applySearch<T>(items: Array<T>, fields: Array<string>): Array<T> {
-          return filterBySearchText<T>(items, this.search, fields)
+          return this.search ? filterBySearchText<T>(items, this.search, fields) : items;
         },
         async setRouteSearch(search?: string) {
             await router.push({ query: { ...router.currentRoute.value.query, search } });

@@ -12,7 +12,8 @@ $justify-options: (
 $align-items-options: (
         start: start,
         center: center,
-        end: end
+        end: end,
+        baseline: baseline
 );
 
 @each $key, $value in $justify-options {

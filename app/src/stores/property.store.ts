@@ -17,7 +17,7 @@ export const usePropertyStore = defineStore('propertyStore', {
         async fetchProperties(searchId: number) {
             useAppStore().setPending(true);
             const properties = await PropertyService.all(searchId);
-            this.setProperties(properties.data)
+            this.setProperties(properties.data || [])
             useAppStore().setPending(false);
         },
         updateProperty(property: Property) {
@@ -33,7 +33,10 @@ export const usePropertyStore = defineStore('propertyStore', {
             const searchId = useSearchStore().currentSearchId;
             const { data } = await PropertyService.create(property, searchId);
             if (data) {
-                this._properties.push(data);
+                if(!this._properties) {
+                    this.setProperties([]);
+                }
+                this._properties.unshift(data)
                 await router.push({ name: 'properties', params: { id: searchId } });
             }
         },
@@ -52,5 +55,9 @@ export const usePropertyStore = defineStore('propertyStore', {
                 ['name', 'price', 'comment', 'location.city', 'location.address']
             )
         },
+        lastPropertyNumberOfRooms: (): number => {
+            const properties = usePropertyStore()._properties;
+            return properties.length > 0 ? properties[properties.length - 1].number_of_rooms : 0;
+        }
     }
 });

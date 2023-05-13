@@ -1,6 +1,6 @@
 <template>
   <RouterLink :to="{ name: 'properties', params: { id: props.property.id }}" class="bg-grey-500 flex flex-col search-card h-full
-  b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg">
+  b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg property-card">
 
     <!--  Header  -->
     <header class="flex justify-center flex-col h-fit gap-3 bb-1 border-contrast-30 p-3">
@@ -38,15 +38,17 @@
       <div class="flex items-center flex-wrap gap-2">
         <span v-if="props.property.availability_date">Disponible le {{
             formatDate(props.property.availability_date, 'dd/MM/yyyy')
-          }}</span> -
+          }}</span> <span v-if="props.property.availability_date">-</span>
         <span>Ajouté le {{ formatDate(props.property.created_at, 'dd/MM/yyyy') }}</span>
       </div>
 
-      <div v-if="searchLocation">
+      <div v-if="showTravelTimes" class="grid gap-3">
         <div class="flex flex-wrap gap-2">
           <span class="text-contrast-70">Durée trajet depuis:</span>
-          <LocationMarker address :location="props.property.location"/>
+          <LocationMarker address :location="searchLocation"/>
         </div>
+
+        <TravelTimesDisplay :travel-times="props.property.travelTimes"/>
       </div>
 
       <div class="grid gap-2" v-if="props.property.comment">
@@ -77,8 +79,9 @@ import Icon from '@/components/common/Icon.vue'
 import Button from '@/components/buttons/Button.vue'
 import StatusBadges from '@/components/common/StatusBadges.vue'
 import StarRatings from '@/components/fields/Rating/StarRatings.vue'
+import TravelTimesDisplay from '@/components/common/TravelTimesDisplay.vue'
 import { useSearchStore } from '@/stores/search.store'
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { formatDate } from '@/filters/dates'
 
 /*STORE*/
@@ -86,6 +89,12 @@ const searchStore = useSearchStore()
 
 /*REF*/
 const searchLocation = ref(searchStore.currentSearch?.location)
+
+/*COMPUTED*/
+const showTravelTimes = computed(() => {
+  const hasTravelTimes = props.property?.travelTimes?.driving || props.property?.travelTimes?.transit || props.property?.travelTimes?.walking
+  return searchLocation.value && hasTravelTimes
+})
 
 /*PROPS*/
 const props = defineProps({

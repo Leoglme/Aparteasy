@@ -1,19 +1,38 @@
 import BaseService from 'App/Services/BaseService'
 import LocationService from 'App/Services/LocationService'
-import Property from 'App/Models/Property'
+import Property, { TravelTimes } from 'App/Models/Property'
 import PropertyValidator from 'App/Validators/PropertyValidator'
 import SearchService from 'App/Services/SearchService'
 
+interface PropertyWithTravelTimes extends Property {
+  travelTimes: TravelTimes
+}
+
 export default class PropertyService extends BaseService {
-  public static async getSearchProperties(searchId: number): Promise<Property[] | null> {
+  public static async getSearchProperties(
+    searchId: number
+  ): Promise<PropertyWithTravelTimes[] | null> {
     const search = await SearchService.getById(searchId)
     if (!search) return null
-    return await Property.query()
+
+    const properties = await Property.query()
       .where('search_id', search?.id)
       .where('is_deleted', false)
       .preload('location')
       .preload('ratings')
+      .orderBy('created_at', 'desc')
       .exec()
+
+    return await Promise.all(
+      properties.map(async (property) => {
+        const travelTimes = await property.getTravelTimes({
+          lat: search.location.lat,
+          lng: search.location.lng,
+        })
+
+        return { ...property.toJSON(), travelTimes } as PropertyWithTravelTimes
+      })
+    )
   }
 
   public static async getById(id: number, searchId: number) {

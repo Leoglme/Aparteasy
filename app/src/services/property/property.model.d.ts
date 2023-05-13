@@ -1,6 +1,13 @@
 import type { TimeStamps } from "@/services/model";
 import type { Location } from '@/services/location/location.model'
 
+export type TravelTimes = {
+  driving: number
+  walking: number
+  transit: number
+}
+
+
 interface Property extends TimeStamps {
   id: number;
   name: string;
@@ -19,7 +26,7 @@ interface Property extends TimeStamps {
   isDeleted: boolean;
   contacted: boolean;
   available: boolean;
-
+  travelTimes: TravelTimes;
   comment: string
 }
 

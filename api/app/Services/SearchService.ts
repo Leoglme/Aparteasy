@@ -72,6 +72,7 @@ export default class SearchService extends BaseService {
       .preload('location')
       .preload('creator')
       .preload('users')
+      .orderBy('created_at', 'desc')
       .exec()
   }
 

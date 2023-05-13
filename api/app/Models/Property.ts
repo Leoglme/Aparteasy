@@ -5,13 +5,20 @@ import type { BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import Search from 'App/Models/Search'
 import Location from 'App/Models/Location'
 import PropertyRating from 'App/Models/PropertyRating'
+import { GoogleMapsService } from 'App/Services/GoogleMapsService'
+
+export interface TravelTimes {
+  driving: number
+  walking: number
+  transit: number
+}
 
 export default class Property extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public name: string | null
 
   @column()
   public url: string
@@ -79,8 +86,22 @@ export default class Property extends BaseModel {
   })
   public ratings: HasMany<typeof PropertyRating>
 
-  public total_price(): number {
+  public get total_price(): number {
     return this.price + this.amount_of_charges
+  }
+
+  public async getTravelTimes(origin: { lat: number; lng: number }): Promise<TravelTimes> {
+    const destination = {
+      lat: this.location.lat,
+      lng: this.location.lng,
+    }
+    const travelTimes = await GoogleMapsService.getTravelTimes(origin, destination)
+
+    return {
+      driving: travelTimes.driving || 0,
+      walking: travelTimes.walking || 0,
+      transit: travelTimes.transit || 0,
+    }
   }
 
   @column.dateTime({ autoCreate: true })
