@@ -20,6 +20,7 @@ interface PropertyType {
   contacted: boolean
   available: boolean
   comment: string | null
+  name: string | null
 }
 
 export async function generateProperties(searchId: number, max = 20): Promise<PropertyType[]> {
@@ -38,8 +39,11 @@ export async function generateProperties(searchId: number, max = 20): Promise<Pr
     const contacted = chance.bool()
     const available = chance.bool()
     const shouldAddComment = chance.bool({ likelihood: 75 })
+    const shouldAddName = chance.bool({ likelihood: 75 })
     const comment = shouldAddComment ? chance.sentence({ words: 10 }) : null
+    const name = shouldAddName ? chance.name() : null
     properties.push({
+      name,
       url,
       price,
       amount_of_charges: amountOfCharges,

@@ -18,7 +18,7 @@ export const useSearchStore = defineStore('searchStore', {
         async createSearch(search: SearchCommand) {
             const { data } = await SearchService.create(search);
             if (data) {
-                this.searches.push(data);
+                this.searches.unshift(data);
                 await router.push({ name: 'properties', params: { id: data.id.toString() } });
             }
         },

@@ -13,7 +13,7 @@ export default class FakeDatasSeeder extends BaseSeeder {
     const users = generateUsers(10)
     const createdUsers = await User.createMany(users)
 
-    const locations = generateLocations(10)
+    const locations = await generateLocations(20)
     await Location.createMany(locations)
 
     const searches = await generateSearches(10, createdUsers)

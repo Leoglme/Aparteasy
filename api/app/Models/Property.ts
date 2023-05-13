@@ -18,7 +18,7 @@ export default class Property extends BaseModel {
   public id: number
 
   @column()
-  public name: string
+  public name: string | null
 
   @column()
   public url: string

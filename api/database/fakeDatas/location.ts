@@ -1,4 +1,5 @@
 import { Chance } from 'chance'
+import axios from 'axios'
 
 interface LocationData {
   address: string
@@ -9,7 +10,11 @@ interface LocationData {
   lng: number
 }
 
-export function generateLocations(n: number): LocationData[] {
+interface OsmReverseResponse {
+  class?: string
+}
+
+export async function generateLocations(n: number): Promise<LocationData[]> {
   const chance = new Chance()
   const locations: LocationData[] = []
 
@@ -18,6 +23,16 @@ export function generateLocations(n: number): LocationData[] {
     maxLat: 51.5,
     minLng: -5.5,
     maxLng: 10.0,
+  }
+
+  async function isLand(lat: number, lng: number): Promise<boolean> {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`
+    try {
+      const response = await axios.get<OsmReverseResponse>(url)
+      return response.data.class !== 'water'
+    } catch (error) {
+      return false
+    }
   }
 
   function randomFranceLatLng() {
@@ -34,13 +49,19 @@ export function generateLocations(n: number): LocationData[] {
     return { lat, lng }
   }
 
-  for (let i = 0; i < n; i++) {
+  while (locations.length < n) {
     const address = chance.address()
     const city = chance.city()
     const region = chance.state()
     const country = 'France'
-    const { lat, lng } = randomFranceLatLng()
-    console.log({ lat, lng })
+    let { lat, lng } = randomFranceLatLng()
+
+    while (!(await isLand(lat, lng))) {
+      const newCoords = randomFranceLatLng()
+      lat = newCoords.lat
+      lng = newCoords.lng
+    }
+
     locations.push({ address, city, region, country, lat, lng })
   }
 

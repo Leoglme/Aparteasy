@@ -36,7 +36,7 @@ export const usePropertyStore = defineStore('propertyStore', {
                 if(!this._properties) {
                     this.setProperties([]);
                 }
-                this._properties.push(data)
+                this._properties.unshift(data)
                 await router.push({ name: 'properties', params: { id: searchId } });
             }
         },

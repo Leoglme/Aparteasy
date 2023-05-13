@@ -123,9 +123,13 @@ const onClickDelete = (property: Property) => {
 @import "@/assets/style/core/_mixins.scss";
 
 #properties {
-  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  grid-template-columns: repeat(auto-fit, 420px);
 
-  @include down(400) {
+  @include down(1350) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include down(800) {
     grid-template-columns: auto;
   }
 }
