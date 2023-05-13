@@ -75,7 +75,7 @@ const values = ref({
   url: '',
   price: "",
   amount_of_charges: "",
-  number_of_rooms: propertyStore.lastPropertyNumberOfRooms || "",
+  number_of_rooms: propertyStore.lastPropertyNumberOfRooms?.toString() || "",
   surface_area: "",
   availability_date: undefined,
   quality_rating: 0,

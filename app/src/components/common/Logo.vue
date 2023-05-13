@@ -1,6 +1,6 @@
 <template>
   <div class="logo">
-    <img :width="size" :height="size" src="/images/logo-color.png" alt="epidget logo">
+    <img :width="size" :height="size" src="/images/logo-color.png" :alt="SITE_NAME + ' logo'">
     <span class="logo-text" v-if="props.large">{{ SITE_NAME }}</span>
   </div>
 </template>

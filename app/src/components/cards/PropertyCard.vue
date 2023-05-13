@@ -42,7 +42,7 @@
         <span>Ajouté le {{ formatDate(props.property.created_at, 'dd/MM/yyyy') }}</span>
       </div>
 
-      <div v-if="showTravelTimes" class="grid gap-3">
+      <div v-if="showTravelTimes && searchLocation" class="grid gap-3">
         <div class="flex flex-wrap gap-2">
           <span class="text-contrast-70">Durée trajet depuis:</span>
           <LocationMarker address :location="searchLocation"/>
@@ -83,12 +83,13 @@ import TravelTimesDisplay from '@/components/common/TravelTimesDisplay.vue'
 import { useSearchStore } from '@/stores/search.store'
 import { computed, ref } from 'vue'
 import { formatDate } from '@/filters/dates'
+import type { Location } from '@/services/location/location.model'
 
 /*STORE*/
 const searchStore = useSearchStore()
 
 /*REF*/
-const searchLocation = ref(searchStore.currentSearch?.location)
+const searchLocation = ref<Location | undefined>(searchStore.currentSearch?.location)
 
 /*COMPUTED*/
 const showTravelTimes = computed(() => {
