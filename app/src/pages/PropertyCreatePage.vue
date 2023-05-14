@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import PropertyForm from '@/components/forms/PropertyForm.vue'
-import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
+import Breadcrumb from '@/components/layout/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
 import type { PropertyCommand } from '@/services/property/property.model'
 import { usePropertyStore } from '@/stores/property.store'

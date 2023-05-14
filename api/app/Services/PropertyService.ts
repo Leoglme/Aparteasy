@@ -6,6 +6,7 @@ import SearchService from 'App/Services/SearchService'
 
 interface PropertyWithTravelTimes extends Property {
   travelTimes: TravelTimes
+  average_ratings?: number
 }
 
 export default class PropertyService extends BaseService {
@@ -36,13 +37,27 @@ export default class PropertyService extends BaseService {
   }
 
   public static async getById(id: number, searchId: number) {
-    return await Property.query()
+    const property = await Property.query()
       .preload('location')
-      .preload('ratings')
+      .preload('ratings', (query) => query.preload('user'))
       .where('id', id)
       .where('search_id', searchId)
       .where('is_deleted', false)
       .firstOrFail()
+
+    const search = await SearchService.getById(searchId)
+    if (!search) return null
+
+    const travelTimes = await property.getTravelTimes({
+      lat: search.location.lat,
+      lng: search.location.lng,
+    })
+
+    return {
+      ...property.toJSON(),
+      travelTimes,
+      average_ratings: property.averageRating,
+    } as PropertyWithTravelTimes
   }
 
   public static async create(searchId: number) {
@@ -71,6 +86,9 @@ export default class PropertyService extends BaseService {
 
   public static async delete(id: number, searchId: number) {
     const property = await this.getById(id, searchId)
+    if (!property) {
+      return super.response.notFound()
+    }
     property.is_deleted = true
     await property.save()
     await super.sendPrivateSuccessNotification(`La propriété a été supprimée avec succès !`)

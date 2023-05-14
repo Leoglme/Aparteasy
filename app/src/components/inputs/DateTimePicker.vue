@@ -15,7 +15,7 @@
 <script lang="ts" setup>
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue';
 import Button from '@/components/buttons/Button.vue';
-import Icon from '@/components/common/Icon.vue'
+import Icon from '@/components/ui/Icon.vue'
 
 const calendar = ref(null);
 const date = ref(new Date());

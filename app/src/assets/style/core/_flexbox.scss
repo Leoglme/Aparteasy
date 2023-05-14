@@ -57,19 +57,42 @@ $align-items-options: (
 
 
 /*Responsive flex-box*/
-/* Responsive min-width */
+/* Responsive justify-content */
 @each $breakpoint, $sizes in $breakpoints {
   @media (min-width: map-get($sizes, 'width')) {
     .#{$breakpoint}\:justify-start {
       justify-content: start;
     }
+    .#{$breakpoint}\:justify-between {
+      justify-content: space-between;
+    }
   }
 }
-/* Responsive min-height */
+/* Responsive align-items */
 @each $breakpoint, $sizes in $breakpoints {
-  @media (min-height: map-get($sizes, 'height')) {
-       .#{$breakpoint}\:min-h-items-center {
+  @media (min-width: map-get($sizes, 'width')) {
+       .#{$breakpoint}\:items-center {
          align-items: center;
        }
+  }
+  @media (min-height: map-get($sizes, 'height')) {
+    .#{$breakpoint}\:min-h-items-center {
+      align-items: center;
+    }
+  }
+}
+
+/* Responsive flex direction */
+@each $breakpoint, $sizes in $breakpoints {
+  @media (min-width: map-get($sizes, 'width')) {
+    .#{$breakpoint}\:flex-col {
+      flex-direction: column;
+    }
+    .#{$breakpoint}\:flex-row {
+      flex-direction: row;
+    }
+    .#{$breakpoint}\:flex-row-reverse {
+      flex-direction: row-reverse;
+    }
   }
 }

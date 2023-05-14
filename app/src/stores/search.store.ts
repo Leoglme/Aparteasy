@@ -41,7 +41,7 @@ export const useSearchStore = defineStore('searchStore', {
         }
     },
     getters: {
-        currentSearchId: (): number => Number(router.currentRoute.value.params.id),
+        currentSearchId: (): number => Number(router.currentRoute.value.params.searchId),
         currentSearch(): Search | undefined {
             return useSearchStore().findSearchById(this.currentSearchId);
         },

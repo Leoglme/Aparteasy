@@ -16,7 +16,9 @@ export default class PropertyRating extends BaseModel {
   @column()
   public rating: number
 
-  @belongsTo(() => User)
+  @belongsTo(() => User, {
+    foreignKey: 'user_id',
+  })
   public user: BelongsTo<typeof User>
 
   @belongsTo(() => Property, {

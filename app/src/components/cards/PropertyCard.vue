@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="{ name: 'properties', params: { id: props.property.id }}" class="bg-grey-500 flex flex-col search-card h-full
+  <RouterLink v-if="props.property" :to="{ name: 'property', params: { searchId, propertyId: props.property.id } }" class="bg-grey-500 flex flex-col search-card h-full
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg property-card">
 
     <!--  Header  -->
@@ -74,21 +74,28 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import type { Property } from '@/services/property/property.model';
-import LocationMarker from '@/components/common/LocationMarker.vue'
-import Icon from '@/components/common/Icon.vue'
+import LocationMarker from '@/components/ui/LocationMarker.vue'
+import Icon from '@/components/ui/Icon.vue'
 import Button from '@/components/buttons/Button.vue'
-import StatusBadges from '@/components/common/StatusBadges.vue'
-import StarRatings from '@/components/fields/Rating/StarRatings.vue'
-import TravelTimesDisplay from '@/components/common/TravelTimesDisplay.vue'
+import StatusBadges from '@/components/ui/badges/StatusBadges.vue'
+import StarRatings from '@/components/ratings/StarRatings.vue'
+import TravelTimesDisplay from '@/components/ui/TravelTimesDisplay.vue'
 import { useSearchStore } from '@/stores/search.store'
 import { computed, ref } from 'vue'
 import { formatDate } from '@/filters/dates'
 import type { Location } from '@/services/location/location.model'
+import { useRoute } from 'vue-router'
 
 /*STORE*/
 const searchStore = useSearchStore()
 
+/*Hooks*/
+const route = useRoute()
+
+
+
 /*REF*/
+const searchId = ref<string>(route.params.id.toString())
 const searchLocation = ref<Location | undefined>(searchStore.currentSearch?.location)
 
 /*COMPUTED*/
@@ -104,7 +111,6 @@ const props = defineProps({
     required: true
   }
 })
-
 /*EMIT*/
 const emit = defineEmits(['delete', 'setQualityRating'])
 

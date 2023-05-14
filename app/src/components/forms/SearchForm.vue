@@ -17,9 +17,9 @@
 
 <script lang="ts" setup>
 import Button from "@/components/buttons/Button.vue";
-import FormInput from "@/components/fields/FormInput.vue";
-import GooglePlacesAutocomplete from '@/components/fields/GooglePlacesAutocomplete.vue'
-import Divider from '@/components/common/Divider.vue'
+import FormInput from "@/components/inputs/FormInput.vue";
+import GooglePlacesAutocomplete from '@/components/inputs/GooglePlacesAutocomplete.vue'
+import Divider from '@/components/ui/Divider.vue'
 import { Form } from 'vee-validate';
 import { ref } from 'vue'
 import type { Location } from '@/services/location/location.model'

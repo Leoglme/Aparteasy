@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import Button from '@/components/buttons/Button.vue';
-import FormInput from '@/components/fields/FormInput.vue';
+import FormInput from '@/components/inputs/FormInput.vue';
 import { AuthService } from '@/services/auth/auth';
 import { Form } from 'vee-validate';
 import { useRoute, useRouter } from 'vue-router';

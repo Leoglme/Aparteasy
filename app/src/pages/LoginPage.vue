@@ -17,8 +17,8 @@
 <script lang="ts" setup>
 import LoginForm from '@/components/forms/LoginForm.vue'
 import GoogleButton from '@/components/buttons/GoogleButton.vue'
-import Divider from '@/components/common/Divider.vue'
-import Logo from '@/components/common/Logo.vue'
+import Divider from '@/components/ui/Divider.vue'
+import Logo from '@/components/ui/Logo.vue'
 import { SITE_NAME } from '@/env'
 
 /*METAS*/

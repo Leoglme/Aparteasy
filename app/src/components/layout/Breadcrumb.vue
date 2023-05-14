@@ -35,7 +35,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue'
-import Icon from '@/components/common/Icon.vue'
+import Icon from '@/components/ui/Icon.vue'
 
 interface BreadcrumbItem {
   active?: boolean

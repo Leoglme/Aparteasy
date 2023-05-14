@@ -30,7 +30,7 @@
 import type { PropType } from 'vue'
 import { Form } from 'vee-validate';
 import Button from '@/components/buttons/Button.vue';
-import FormInput from '@/components/fields/FormInput.vue';
+import FormInput from '@/components/inputs/FormInput.vue';
 import { computed, nextTick } from 'vue'
 /*PROPS*/
 const props = defineProps({

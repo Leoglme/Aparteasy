@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import InviteForm from '@/components/forms/InviteForm.vue'
 import { ref } from 'vue'
-import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
+import Breadcrumb from '@/components/layout/Breadcrumb.vue'
 import { useSearchStore } from '@/stores/search.store'
 import { SITE_NAME } from '@/env'
 /*REFS*/

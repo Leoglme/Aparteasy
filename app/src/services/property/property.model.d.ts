@@ -1,5 +1,6 @@
 import type { TimeStamps } from "@/services/model";
 import type { Location } from '@/services/location/location.model'
+import type { User } from '@/services/user/user.model'
 
 export type TravelTimes = {
   driving: number
@@ -14,11 +15,12 @@ interface Property extends TimeStamps {
   url: string;
   price: number;
   amount_of_charges: number;
-  availability_date: string;
+  availability_date: Date;
   location_id: number;
   number_of_rooms: number;
   surface_area: number;
   quality_rating: number;
+  average_ratings: number;
   transport_time: string;
   search_id: number;
   ratings: Rating[];
@@ -34,6 +36,7 @@ interface Rating extends TimeStamps {
   id: number;
   property_id: number;
   user_id: number;
+  user: User
   rating: number;
 }
 
@@ -48,4 +51,10 @@ type PropertyCommand = {
   availability_date?: Date;
   quality_rating?: number;
   comment?: string;
+}
+
+
+interface UpdatePropertyCommand extends PropertyCommand{
+  contacted: boolean;
+  available: boolean;
 }

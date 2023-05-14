@@ -90,6 +90,19 @@ export default class Property extends BaseModel {
     return this.price + this.amount_of_charges
   }
 
+  public get averageRating(): number {
+    const ratingsCount = this.ratings.length
+    const totalRating = this.ratings.reduce((sum, rating) => sum + rating.rating, 0)
+    const averageRating = totalRating / ratingsCount || 0
+
+    const totalQualityRating = this.quality_rating
+    const averageQualityRating = totalQualityRating / ratingsCount || 0
+
+    const combinedAverageRating = (averageRating + averageQualityRating) / 2
+
+    return Math.round(combinedAverageRating)
+  }
+
   public async getTravelTimes(origin: { lat: number; lng: number }): Promise<TravelTimes> {
     const destination = {
       lat: this.location.lat,

@@ -15,7 +15,7 @@
 
 <script lang="ts" setup>
 import { Form } from 'vee-validate';
-import FormInput from '@/components/fields/FormInput.vue'
+import FormInput from '@/components/inputs/FormInput.vue'
 import Button from '@/components/buttons/Button.vue'
 import { AuthService } from '@/services/auth/auth';
 import { useRoute, useRouter } from 'vue-router';

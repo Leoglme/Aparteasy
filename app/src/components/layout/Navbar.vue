@@ -22,9 +22,9 @@
 </template>
 
 <script lang="ts" setup>
-import Logo from "@/components/common/Logo.vue"
+import Logo from "@/components/ui/Logo.vue"
 import Button from '@/components/buttons/Button.vue'
-import Avatar from '@/components/common/Avatar.vue'
+import Avatar from '@/components/ui/Avatar.vue'
 import { useAuthStore } from '@/stores/auth.store'
 
 const { logout } = useAuthStore()

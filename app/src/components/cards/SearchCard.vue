@@ -37,10 +37,10 @@
 import type { PropType } from 'vue'
 import type { Search } from '@/services/search/search.model'
 import Button from '@/components/buttons/Button.vue'
-import Avatar from '@/components/common/Avatar.vue'
+import Avatar from '@/components/ui/Avatar.vue'
 import { useAuthStore } from '@/stores/auth.store'
 import { computed } from 'vue'
-import LocationMarker from '@/components/common/LocationMarker.vue'
+import LocationMarker from '@/components/ui/LocationMarker.vue'
 
 /*STORE*/
 const authStore = useAuthStore()

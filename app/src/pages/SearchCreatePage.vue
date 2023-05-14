@@ -8,7 +8,7 @@
 
 <script lang="ts" setup>
 import SearchForm from '@/components/forms/SearchForm.vue'
-import Breadcrumb from '@/components/navigations/Breadcrumb.vue'
+import Breadcrumb from '@/components/layout/Breadcrumb.vue'
 import { SITE_NAME } from '@/env'
 
 const breadcrumbs = [

@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import Spinner from '@/components/common/Spinner.vue'
+import Spinner from '@/components/ui/Spinner.vue'
 import { useRoute, useRouter } from 'vue-router';
 import { SITE_NAME } from '@/env';
 import { useAuthStore } from '@/stores/auth.store';

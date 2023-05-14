@@ -24,7 +24,7 @@ import { useSearchStore } from '@/stores/search.store'
 import SearchCard from '@/components/cards/SearchCard.vue'
 import type { Search } from '@/services/search/search.model'
 import { ref } from 'vue'
-import ConfirmDeleteSearchModal from '@/components/Modal/ConfirmDeleteSearchModal.vue'
+import ConfirmDeleteSearchModal from '@/components/modals/ConfirmDeleteSearchModal.vue'
 
 /*METAS*/
 document.title = 'Mes recherches | ' + SITE_NAME

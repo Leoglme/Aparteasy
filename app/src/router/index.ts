@@ -6,13 +6,15 @@ import Oauth2Page from "@/pages/Oauth2Page.vue";
 import SearchesPage from "@/pages/SearchesPage.vue";
 import SearchInviteRedirectPage from "@/pages/SearchInviteRedirectPage.vue";
 import { useAuthStore } from '@/stores/auth.store'
-import Navbar from '@/components/navigations/Navbar.vue'
+import Navbar from '@/components/layout/Navbar.vue'
+import Footer from '@/components/layout/Footer.vue'
 import { publicRoutes } from '@/utils/router.utils'
 import ReferentialService from '@/services/ReferentialService'
 import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
 import PropertiesPage from '@/pages/PropertiesPage.vue'
 import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
+import PropertyPage from '@/pages/PropertyPage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
 import { useAppStore } from '@/stores/app.store'
@@ -28,6 +30,7 @@ const router = createRouter({
       components: {
         default: HomePage,
         Navbar: Navbar,
+        Footer: Footer,
       },
       beforeEnter: async (to, from, next) => {
         /*STORE*/
@@ -66,6 +69,7 @@ const router = createRouter({
       components: {
         default: SearchesPage,
         Navbar: Navbar,
+        Footer: Footer,
       },
     },
     {
@@ -74,6 +78,7 @@ const router = createRouter({
       components: {
         default: SearchCreatePage,
         Navbar: Navbar,
+        Footer: Footer,
       },
     },
     {
@@ -82,6 +87,7 @@ const router = createRouter({
       components: {
         default: SearchInvitePage,
         Navbar: Navbar,
+        Footer: Footer,
       },
     },
     {
@@ -90,14 +96,31 @@ const router = createRouter({
       components: {
         default: PropertyCreatePage,
         Navbar: Navbar,
+        Footer: Footer,
       },
     },
     {
-      path: '/searches/:id/properties',
+      path: '/searches/:searchId/property/:propertyId',
+      name: 'property',
+      components: {
+        default: PropertyPage,
+        Navbar: Navbar,
+        Footer: Footer,
+      },
+      beforeEnter: async (to, from, next) => {
+        /*STORE*/
+        const propertyStore = usePropertyStore()
+        await propertyStore.fetchProperty(Number(to.params.searchId), Number(to.params.propertyId))
+        next()
+      }
+    },
+    {
+      path: '/searches/:searchId/properties',
       name: 'properties',
       components: {
         default: PropertiesPage,
         Navbar: Navbar,
+        Footer: Footer,
       },
       beforeEnter: async (to, from, next) => {
         /*STORE*/
@@ -105,7 +128,7 @@ const router = createRouter({
         const propertyStore = usePropertyStore()
 
         /*MIDDLEWARES*/
-        const search = searchStore.findSearchById(Number(to.params.id))
+        const search = searchStore.findSearchById(Number(to.params.searchId))
         if (!search) {
           next({ name: 'searches' })
         } else {

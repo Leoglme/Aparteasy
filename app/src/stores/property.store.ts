@@ -1,18 +1,24 @@
 import { defineStore } from 'pinia';
 import router from '@/router'
-import type { Property, PropertyCommand } from '@/services/property/property.model';
+import type { Property, PropertyCommand, UpdatePropertyCommand } from '@/services/property/property.model';
 import { PropertyService } from '@/services/property/property';
 import { useSearchStore } from '@/stores/search.store';
 import { useAppStore } from '@/stores/app.store';
 import { useRouterStore } from '@/stores/router.store'
+import { useRouter } from 'vue-router'
+import { th } from 'date-fns/locale'
 
 export const usePropertyStore = defineStore('propertyStore', {
     state: () => ({
         _properties: [] as Property[],
+        _property: {} as Property,
     }),
     actions: {
         setProperties(properties: Property[]) {
             this._properties = properties;
+        },
+        setProperty(property: Property) {
+            this._property = property;
         },
         async fetchProperties(searchId: number) {
             useAppStore().setPending(true);
@@ -20,11 +26,25 @@ export const usePropertyStore = defineStore('propertyStore', {
             this.setProperties(properties.data || [])
             useAppStore().setPending(false);
         },
-        updateProperty(property: Property) {
-            const index = this._properties.findIndex(p => p.id === property.id);
-            if (index !== -1) {
-                this._properties[index] = property;
+        async fetchProperty(searchId: number, propertyId: number) {
+            useAppStore().setPending(true);
+            const property = await PropertyService.getById(searchId, propertyId);
+            if (property.data){
+                this.setProperty(property.data)
+            }else {
+             await useRouter().push({ name: 'properties', params: { id: searchId } });
             }
+            useAppStore().setPending(false);
+        },
+        async updateProperty(property: UpdatePropertyCommand, propertyId: number, searchId: number) {
+            if (this._property.id === propertyId) {
+                this._property = { ...this._property, ...property };
+            }
+            const index = this._properties.findIndex(p => p.id === propertyId);
+            if (index !== -1) {
+                this._properties[index] = { ...this._properties[index], ...property };
+            }
+            // await PropertyService.update(property, propertyId, searchId);
         },
         findPropertyById(id: number) {
             return this._properties.find(property => property.id === id);
@@ -50,6 +70,7 @@ export const usePropertyStore = defineStore('propertyStore', {
         }
     },
     getters: {
+        property: (state): Property => state._property,
         properties: (): Property[] => {
             return useRouterStore().applySearch(usePropertyStore()._properties,
                 ['name', 'price', 'comment', 'location.city', 'location.address']
