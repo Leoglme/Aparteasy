@@ -1,11 +1,12 @@
 <template>
-  <form class="rating" :data-animate="animate" @click.stop>
+  <form class="rating" :data-animate="animate && !props.disabled" @click.stop>
     <div class="flex">
       <StarRating v-for="nbStar in props.nbStars"
                   :uniqueId="uniqueId"
                   :key="nbStar" :index="nbStar"
                   :current-star="props.value"
-                  @update:current-star="setValue($event)"
+                  :disabled="props.disabled"
+                  @update:current-star="props.disabled ? null : setValue($event)"
       />
     </div>
   </form>
@@ -18,7 +19,8 @@ import { ref } from 'vue'
 /*PROPS*/
 const props = defineProps({
   nbStars: { type: Number, default: 5 },
-  value: { type: Number, default: 0 }
+  value: { type: Number, default: 0 },
+  disabled: { type: Boolean, default: false },
 })
 
 /*REFS*/

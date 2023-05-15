@@ -37,6 +37,7 @@ interface Rating extends TimeStamps {
   property_id: number;
   user_id: number;
   user: User
+  isUser: boolean;
   rating: number;
 }
 

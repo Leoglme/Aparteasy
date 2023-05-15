@@ -14,7 +14,7 @@
 
             <div class="flex flex-col sm:flex-row gap-3">
                 <Button startIcon="edit" variant="blue" to="edit">Modifier</Button>
-                <Button startIcon="trash" variant="red">Supprimer</Button>
+                <Button startIcon="trash" variant="red" @click="isOpenModal = true">Supprimer</Button>
                 <Button v-if="propertyStore.property.url" startIcon="link" :href="propertyStore.property.url"
                         externalLink target="_blank">
                     Voir l’annonce
@@ -33,11 +33,13 @@
 
                     <section class="flex items-center gap-6 flex-wrap" id="statuses">
                         <div class="flex items-center gap-3">
-                            <Switch :value="propertyStore.property.available" @update:value="updateAvailable"/>
+                            <Switch :value="propertyStore.property.available"
+                                    @update:value="updateProperty({available: $event})"/>
                             <AvailableBadge :value="propertyStore.property.available"/>
                         </div>
                         <div class="flex items-center gap-3">
-                            <Switch :value="propertyStore.property.contacted" @update:value="updateContacted"/>
+                            <Switch :value="propertyStore.property.contacted"
+                                    @update:value="updateProperty({contacted: $event})"/>
                             <ContactedBadge :value="propertyStore.property.contacted"/>
                         </div>
                     </section>
@@ -48,8 +50,13 @@
                         <Icon name="star" :width="20" :height="20" stroke="var(--yellow)" style="margin-bottom: 0;"/>
                         <span>Notes</span>
                     </h1>
-                    {{propertyStore.property.average_ratings}}
-                    <RatingsCard :ratings="propertyStore.property.ratings"/>
+
+                    <RatingsCard :averageRatings="propertyStore.property.average_ratings"
+                                 :qualityRating="propertyStore.property.quality_rating"
+                                 @update:qualityRating="updateProperty({quality_rating: $event}); propertyStore.updateAverageRating()"
+                                 @update:userRating="updateUserRating($event)"
+                                 :ratings="propertyStore.property.ratings"
+                    />
                 </div>
             </div>
             <div class="infos__right grid gap-3 w-full">
@@ -72,6 +79,12 @@
                 </div>
             </div>
         </section>
+
+        <ConfirmDeletePropertyModal
+                :property-to-delete="propertyStore.property"
+                :open="isOpenModal"
+                @close="closeModal"
+        />
     </div>
 </template>
 
@@ -87,15 +100,16 @@ import Button from '@/components/buttons/Button.vue'
 import RatingsCard from '@/components/cards/RatingsCard.vue'
 import TravelTimesDisplay from '@/components/ui/TravelTimesDisplay.vue'
 import Breadcrumb from '@/components/layout/Breadcrumb.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { usePropertyStore } from '@/stores/property.store'
 import { computed, ref } from 'vue'
 import type { Location } from '@/services/location/location.model'
 import { useSearchStore } from '@/stores/search.store'
+import ConfirmDeletePropertyModal from "@/components/modals/ConfirmDeletePropertyModal.vue";
 
 /*HOOKS*/
 const route = useRoute()
-
+const router = useRouter();
 
 /*Store*/
 const propertyStore = usePropertyStore()
@@ -103,6 +117,7 @@ const searchStore = useSearchStore()
 
 /*REFS*/
 const searchLocation = ref<Location | undefined>(searchStore.currentSearch?.location)
+const isOpenModal = ref(false)
 
 /*DATA*/
 const searchId = route.params.searchId
@@ -145,17 +160,18 @@ if (propertyStore.property?.location?.address) {
 document.title = `${prefix} | ${SITE_NAME}`
 
 /*METHODS*/
-const updateAvailable = (value: boolean) => {
+const closeModal = async () => {
+    isOpenModal.value = false
+    await router.push({ name: 'properties', params: { searchId } });
+}
+const updateProperty = (value: { [key: string]: string | boolean }) => {
     propertyStore.updateProperty(
-        { ...propertyStore.property, available: value },
+        { ...propertyStore.property, ...value },
         propertyStore.property.id,
         Number(searchId))
 }
-const updateContacted = (value: boolean) => {
-    propertyStore.updateProperty(
-        { ...propertyStore.property, contacted: value },
-        propertyStore.property.id,
-        Number(searchId))
+const updateUserRating = (value: number) => {
+    propertyStore.updateUserRating(value, propertyStore.property.id, Number(searchId))
 }
 </script>
 

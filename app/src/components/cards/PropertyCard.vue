@@ -1,5 +1,5 @@
 <template>
-  <RouterLink v-if="props.property" :to="{ name: 'property', params: { searchId, propertyId: props.property.id } }" class="bg-grey-500 flex flex-col search-card h-full
+  <RouterLink v-if="props.property" :to="{ name: 'property', params: { searchId: searchId, propertyId: props.property.id } }" class="bg-grey-500 flex flex-col search-card h-full
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg property-card">
 
     <!--  Header  -->
@@ -95,7 +95,7 @@ const route = useRoute()
 
 
 /*REF*/
-const searchId = ref<string>(route.params.id.toString())
+const searchId = ref<string>(route.params.searchId.toString())
 const searchLocation = ref<Location | undefined>(searchStore.currentSearch?.location)
 
 /*COMPUTED*/

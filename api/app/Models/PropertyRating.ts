@@ -3,6 +3,14 @@ import { column, BaseModel, belongsTo } from '@ioc:Adonis/Lucid/Orm'
 import type { BelongsTo } from '@ioc:Adonis/Lucid/Orm'
 import User from 'App/Models/User'
 import Property from 'App/Models/Property'
+
+export interface PropertyRatingWithUser {
+  property_id: number
+  user_id: number
+  rating: number
+  isUser: boolean
+}
+
 export default class PropertyRating extends BaseModel {
   @column({ isPrimary: true })
   public id: number

@@ -93,12 +93,12 @@ export default class Property extends BaseModel {
   public get averageRating(): number {
     const ratingsCount = this.ratings.length
     const totalRating = this.ratings.reduce((sum, rating) => sum + rating.rating, 0)
-    const averageRating = totalRating / ratingsCount || 0
+    const averageRating = ratingsCount > 0 ? totalRating / ratingsCount : 0
 
-    const totalQualityRating = this.quality_rating
-    const averageQualityRating = totalQualityRating / ratingsCount || 0
+    const averageQualityRating = this.quality_rating
 
-    const combinedAverageRating = (averageRating + averageQualityRating) / 2
+    const combinedAverageRating =
+      ratingsCount > 0 ? (averageRating + averageQualityRating) / 2 : averageQualityRating
 
     return Math.round(combinedAverageRating)
   }

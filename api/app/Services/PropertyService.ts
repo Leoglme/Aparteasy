@@ -3,16 +3,16 @@ import LocationService from 'App/Services/LocationService'
 import Property, { TravelTimes } from 'App/Models/Property'
 import PropertyValidator from 'App/Validators/PropertyValidator'
 import SearchService from 'App/Services/SearchService'
+import type { PropertyRatingWithUser } from 'App/Models/PropertyRating'
 
-interface PropertyWithTravelTimes extends Property {
+interface ServiceProperty extends Omit<Property, 'ratings'> {
   travelTimes: TravelTimes
   average_ratings?: number
+  ratings: PropertyRatingWithUser[]
 }
 
 export default class PropertyService extends BaseService {
-  public static async getSearchProperties(
-    searchId: number
-  ): Promise<PropertyWithTravelTimes[] | null> {
+  public static async getSearchProperties(searchId: number): Promise<ServiceProperty[] | null> {
     const search = await SearchService.getById(searchId)
     if (!search) return null
 
@@ -31,33 +31,44 @@ export default class PropertyService extends BaseService {
           lng: search.location.lng,
         })
 
-        return { ...property.toJSON(), travelTimes } as PropertyWithTravelTimes
-      })
+        return { ...property.toJSON(), travelTimes } as ServiceProperty
+      }),
     )
   }
 
-  public static async getById(id: number, searchId: number) {
-    const property = await Property.query()
-      .preload('location')
-      .preload('ratings', (query) => query.preload('user'))
-      .where('id', id)
-      .where('search_id', searchId)
-      .where('is_deleted', false)
-      .firstOrFail()
+  public static async findById(id: number, searchId: number) {
+    const property = await this.getById(id, searchId)
 
     const search = await SearchService.getById(searchId)
-    if (!search) return null
+    if (!search || !property) return super.response.notFound()
 
     const travelTimes = await property.getTravelTimes({
       lat: search.location.lat,
       lng: search.location.lng,
     })
 
+    const propertyObj: Property = property.toJSON() as Property
+
+    const ratings: PropertyRatingWithUser[] = propertyObj.ratings.map((rating) => {
+      return { ...rating, isUser: rating.user_id === super.auth.user?.id }
+    })
+
     return {
-      ...property.toJSON(),
+      ...propertyObj,
       travelTimes,
+      ratings,
       average_ratings: property.averageRating,
-    } as PropertyWithTravelTimes
+    } as ServiceProperty
+  }
+
+  public static async getById(id: number, searchId: number) {
+    return await Property.query()
+      .preload('location')
+      .preload('ratings', (query) => query.preload('user'))
+      .where('id', id)
+      .where('search_id', searchId)
+      .where('is_deleted', false)
+      .firstOrFail()
   }
 
   public static async create(searchId: number) {

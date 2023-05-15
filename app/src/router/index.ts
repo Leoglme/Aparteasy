@@ -82,7 +82,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/searches/:id/invite',
+      path: '/searches/:searchId/invite',
       name: 'inviteSearch',
       components: {
         default: SearchInvitePage,
@@ -91,7 +91,7 @@ const router = createRouter({
       },
     },
     {
-      path: '/searches/:id/property/create',
+      path: '/searches/:searchId/property/create',
       name: 'createProperty',
       components: {
         default: PropertyCreatePage,
@@ -110,8 +110,12 @@ const router = createRouter({
       beforeEnter: async (to, from, next) => {
         /*STORE*/
         const propertyStore = usePropertyStore()
-        await propertyStore.fetchProperty(Number(to.params.searchId), Number(to.params.propertyId))
-        next()
+        try {
+          await propertyStore.fetchProperty(Number(to.params.searchId), Number(to.params.propertyId))
+          next()
+        }catch (e) {
+            next({ name: 'properties', params: { searchId: to.params.searchId } })
+        }
       }
     },
     {

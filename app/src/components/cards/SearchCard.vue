@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="{ name: 'properties', params: { id: props.search.id }}"
+  <RouterLink :to="{ name: 'properties', params: { searchId: props.search.id }}"
               :class="{'search__card-creator': isCreator}"
               class="bg-grey-300 grid items-center py-3 px-3 xs:px-5 search__card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">

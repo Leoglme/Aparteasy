@@ -1,8 +1,8 @@
 <template>
   <div class="rating__star-container"
-       :class="{checked, active}">
+       :class="{checked, active, disabled }">
     <input tabindex="-1" :id="inputId" class="rating__input" :class="`rating__input-${props.index}`" type="checkbox"
-           name="rating" :value="props.index" @change="setCurrentStar(props.index)">
+           name="rating" :value="props.index" @change="props.disabled ? null : setCurrentStar(props.index)">
     <label class="rating__label" :for="inputId">
       <svg class="rating__star" width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
         <g transform="translate(16,16)">
@@ -46,7 +46,11 @@ const props = defineProps({
   uniqueId: {
     type: String,
     required: true,
-  }
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
 });
 /*COMPUTED*/
 const checked = computed(() => props.index <= props.currentStar);
@@ -81,10 +85,23 @@ const setCurrentStar = (index: number) => {
   &__star-container {
     display: flex;
 
+    &.disabled {
+      pointer-events: none;
+
+      .rating__star-fill {
+        fill: var(--contrast-70);
+      }
+
+      .rating__star-ring, .rating__star-fill, .rating__star-line {
+        stroke: var(--contrast-70);
+      }
+    }
+
     &:not(.checked):hover .rating__star-stroke {
       stroke: var(--yellow);
       transform: scale(1);
     }
+
     &.checked {
       &:not(.active):hover .rating__star-fill {
         fill: transparent;

@@ -16,5 +16,7 @@ export default class PropertyValidator {
     availability_date: schema.date.optional({ format: 'iso' }),
     quality_rating: schema.number.optional([rules.unsigned(), rules.range(1, 5)]),
     comment: schema.string.optional(),
+    available: schema.boolean.optional(),
+    contacted: schema.boolean.optional(),
   })
 }

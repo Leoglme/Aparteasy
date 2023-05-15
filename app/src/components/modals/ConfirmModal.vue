@@ -60,8 +60,9 @@ const emit = defineEmits(['confirm', 'close']);
 .backdrop {
   background: rgba(0, 0, 0, 0.4);
   width: 100%;
-  height: 100vh;
+  height: 100%;
   position: absolute;
+  left: 0;
   top: 0;
   z-index: 10;
 }
