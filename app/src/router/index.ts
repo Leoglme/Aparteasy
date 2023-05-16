@@ -14,6 +14,7 @@ import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
 import PropertiesPage from '@/pages/PropertiesPage.vue'
 import PropertyCreatePage from '@/pages/PropertyCreatePage.vue'
+import PropertyEditPage from '@/pages/PropertyEditPage.vue'
 import PropertyPage from '@/pages/PropertyPage.vue'
 import { useSearchStore } from "@/stores/search.store";
 import { usePropertyStore } from "@/stores/property.store";
@@ -115,6 +116,25 @@ const router = createRouter({
           next()
         }catch (e) {
             next({ name: 'properties', params: { searchId: to.params.searchId } })
+        }
+      }
+    },
+    {
+      path: '/searches/:searchId/property/:propertyId/edit',
+      name: 'editProperty',
+      components: {
+        default: PropertyEditPage,
+        Navbar: Navbar,
+        Footer: Footer,
+      },
+      beforeEnter: async (to, from, next) => {
+        /*STORE*/
+        const propertyStore = usePropertyStore()
+        try {
+          await propertyStore.fetchProperty(Number(to.params.searchId), Number(to.params.propertyId))
+          next()
+        }catch (e) {
+          next({ name: 'properties', params: { searchId: to.params.searchId } })
         }
       }
     },

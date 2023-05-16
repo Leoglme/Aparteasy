@@ -29,7 +29,7 @@ const breadcrumbs = [
     to: { name: 'properties', id: searchStore.currentSearch?.id }
   },
   {
-    text: 'Nouvelle recherche',
+    text: 'Nouvelle propriété',
     icon: 'plus',
     active: true
   }

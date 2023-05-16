@@ -30,13 +30,14 @@ import { Field, ErrorMessage } from "vee-validate";
 /*PROPS*/
 const props = defineProps({
   placeholder: {type: String, default: null},
+  initialPlace: {type: String, default: null},
   label: { type: String, default: null },
   rules: { type: String, default: null },
 })
 
 /*REFS*/
 const autocompleteInput = ref<HTMLInputElement | null>(null);
-const search = ref<string>('');
+const search = ref<string>(props.initialPlace || '');
 const autocomplete = ref<google.maps.places.Autocomplete | null>(null);
 
 /*EMIT*/
@@ -88,8 +89,6 @@ const initAutoComplete = () => {
       lng,
     };
 
-    console.log(result)
-
     emit('place-selected', result);
   });
 };
@@ -118,7 +117,7 @@ onMounted(() => {
   background-color: var(--grey-500);
 }
 
-.pac-icon {
+.pac-icon, .hdpi .pac-icon {
   background-size: 16px;
   background-image: url('/public/images/map-pin.svg');
   background-position: unset;

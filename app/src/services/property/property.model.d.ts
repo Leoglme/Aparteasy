@@ -56,6 +56,6 @@ type PropertyCommand = {
 
 
 interface UpdatePropertyCommand extends PropertyCommand{
-  contacted: boolean;
-  available: boolean;
+  contacted?: boolean;
+  available?: boolean;
 }

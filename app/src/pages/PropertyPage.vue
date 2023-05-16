@@ -13,7 +13,11 @@
             </div>
 
             <div class="flex flex-col sm:flex-row gap-3">
-                <Button startIcon="edit" variant="blue" to="edit">Modifier</Button>
+                <Button startIcon="edit"
+                        variant="blue"
+                        :to="{name: 'editProperty'}">
+                    Modifier
+                </Button>
                 <Button startIcon="trash" variant="red" @click="isOpenModal = true">Supprimer</Button>
                 <Button v-if="propertyStore.property.url" startIcon="link" :href="propertyStore.property.url"
                         externalLink target="_blank">
