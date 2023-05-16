@@ -35,7 +35,7 @@ export default class PropertyService extends BaseService {
         } catch (e) {
           console.log(e)
         }
-        return { ...property.toJSON(), travelTimes } as PropertyWithTravelTimes
+        return { ...property.toJSON(), travelTimes } as ServiceProperty
       })
     )
   }
