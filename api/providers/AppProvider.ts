@@ -1,6 +1,4 @@
 import type { ApplicationContract } from '@ioc:Adonis/Core/Application'
-import { GoogleMapsService } from 'App/Services/GoogleMapsService'
-import Env from '@ioc:Adonis/Core/Env'
 
 export default class AppProvider {
   constructor(protected app: ApplicationContract) {}
@@ -10,7 +8,6 @@ export default class AppProvider {
   }
 
   public async boot() {
-    GoogleMapsService.init(Env.get('GOOGLE_API_KEY'))
   }
 
   public async ready() {

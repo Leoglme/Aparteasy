@@ -1,4 +1,5 @@
 import { createClient, Client } from '@google/maps'
+import Env from '@ioc:Adonis/Core/Env'
 
 export class GoogleMapsService {
   private static client: Client
@@ -14,6 +15,7 @@ export class GoogleMapsService {
     origin: { lat: number; lng: number },
     destination: { lat: number; lng: number }
   ): Promise<{ driving?: number; walking?: number; transit?: number }> {
+    this.init(Env.get('GOOGLE_API_KEY'))
     const result: { driving?: number; walking?: number; transit?: number } = {}
     const modes = ['driving', 'walking', 'transit']
     for (const mode of modes) {

@@ -26,13 +26,17 @@ export default class PropertyService extends BaseService {
 
     return await Promise.all(
       properties.map(async (property) => {
-        const travelTimes = await property.getTravelTimes({
-          lat: search.location.lat,
-          lng: search.location.lng,
-        })
-
-        return { ...property.toJSON(), travelTimes } as ServiceProperty
-      }),
+        let travelTimes = { driving: 0, transit: 0, walking: 0 }
+        try {
+          travelTimes = await property.getTravelTimes({
+            lat: search.location.lat,
+            lng: search.location.lng,
+          })
+        } catch (e) {
+          console.log(e)
+        }
+        return { ...property.toJSON(), travelTimes } as PropertyWithTravelTimes
+      })
     )
   }
 
