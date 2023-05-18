@@ -7,8 +7,7 @@ export default class AppProvider {
     // Register your own bindings
   }
 
-  public async boot() {
-  }
+  public async boot() {}
 
   public async ready() {
     // App is ready

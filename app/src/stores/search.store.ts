@@ -19,7 +19,7 @@ export const useSearchStore = defineStore('searchStore', {
             const { data } = await SearchService.create(search);
             if (data) {
                 this.searches.unshift(data);
-                await router.push({ name: 'properties', params: { id: data.id.toString() } });
+                await router.push({ name: 'properties', params: { searchId: data.id.toString() } });
             }
         },
         async deleteSearch(id: number) {

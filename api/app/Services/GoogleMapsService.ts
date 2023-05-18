@@ -1,35 +1,28 @@
-import { createClient, Client } from '@google/maps'
+import { Client, TravelMode } from '@googlemaps/google-maps-services-js'
 import Env from '@ioc:Adonis/Core/Env'
 
 export class GoogleMapsService {
-  private static client: Client
-
-  public static init(apiKey: string) {
-    this.client = createClient({
-      key: apiKey,
-      Promise: Promise,
-    })
-  }
+  private static client = new Client({})
 
   public static async getTravelTimes(
     origin: { lat: number; lng: number },
     destination: { lat: number; lng: number }
   ): Promise<{ driving?: number; walking?: number; transit?: number }> {
-    this.init(Env.get('GOOGLE_API_KEY'))
     const result: { driving?: number; walking?: number; transit?: number } = {}
-    const modes = ['driving', 'walking', 'transit']
+    const modes: TravelMode[] = [TravelMode.driving, TravelMode.walking, TravelMode.transit]
     for (const mode of modes) {
-      const response = await this.client
-        .distanceMatrix({
-          origins: [origin],
-          destinations: [destination],
+      const response = await this.client.directions({
+        params: {
+          origin: `${origin.lat},${origin.lng}`,
+          destination: `${destination.lat},${destination.lng}`,
           mode: mode,
-        })
-        .asPromise()
+          key: Env.get('GOOGLE_API_KEY'),
+        },
+      })
 
-      const element = response.json.rows[0].elements[0]
-      if (element.status === 'OK') {
-        result[mode] = element.duration.value // SECONDES
+      if (response.data.status === 'OK') {
+        const leg = response.data.routes[0].legs[0]
+        result[mode] = leg.duration.value // SECONDS
       }
     }
 
