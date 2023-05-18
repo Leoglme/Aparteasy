@@ -23,6 +23,7 @@ import { usePropertyStore } from "@/stores/property.store";
 import { useAppStore } from '@/stores/app.store'
 import { deleteCookie, getCookie } from '@/utils/cookie.utils'
 import { notify } from '@/plugins/notyf'
+import TutorialPage from '@/pages/TutorialPage.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +71,11 @@ const router = createRouter({
       path: '/oauth2',
       name: 'oauth2',
       component: Oauth2Page,
+    },
+    {
+      path: '/tutorial',
+      name: 'tutorial',
+      component: TutorialPage,
     },
     {
       path: '/search-invite',
