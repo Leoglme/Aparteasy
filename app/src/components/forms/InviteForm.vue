@@ -21,7 +21,7 @@
     </Button>
 
     <Button :load="load" class="gap-2" :disabled="!meta.valid || !hasCompletedEmail" type="submit" startIcon="mail">
-      <span>Envoyer Invitation<span v-if="props.emails.length > 1">s</span></span>
+      <span>Envoyer Invitation<span v-if="props.emails && props.emails.length > 1">s</span></span>
     </Button>
   </Form>
 </template>

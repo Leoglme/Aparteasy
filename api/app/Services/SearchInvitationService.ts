@@ -8,6 +8,7 @@ import appInfos from 'Config/app-infos'
 import AuthService from 'App/Services/AuthService'
 import BaseService from 'App/Services/BaseService'
 import SearchService from 'App/Services/SearchService'
+import User from 'App/Models/User'
 
 type SearchInvitationCommand = {
   search_id: number
@@ -27,9 +28,13 @@ export class SearchInvitationService extends BaseService {
     senderId: number,
     receivers: string[]
   ): Promise<SearchInvitation[]> {
-    const isSenderCreator = await this.isCreator(searchId, senderId)
+    const sender = await User.find(senderId)
+    if (!sender) {
+      throw new Error('Expéditeur non trouvé.')
+    }
+    const isSenderMember = await this.userAlreadyMember(sender.email, searchId)
 
-    if (!isSenderCreator) {
+    if (!isSenderMember) {
       throw new Error('Seul le créateur peut envoyer des invitations.')
     }
 
@@ -49,6 +54,7 @@ export class SearchInvitationService extends BaseService {
         })
       }
     }
+
     const invitations = await SearchInvitation.createMany(searchInvitations)
     const emails = searchInvitations.map((invitation) => invitation.receiver)
     await this.sendInvitationsEmail(emails, searchId)

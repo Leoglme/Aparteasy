@@ -39,7 +39,7 @@ const acceptInvitation = async () => {
     if (decodedToken.hasAccount) {
       if (authStore.user.email === invitedUserEmail) {
         await searchStore.acceptInvitation(token.value);
-        await router.push({ name: 'properties', params: { id: decodedToken.searchId } });
+        await router.push({ name: 'properties', params: { searchId: decodedToken.searchId } });
       } else {
         handleError();
       }
