@@ -3,6 +3,8 @@ import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import SignupPage from "@/pages/SignupPage.vue";
 import Oauth2Page from "@/pages/Oauth2Page.vue";
+import ForgotPassword from "@/pages/ForgotPassword.vue";
+import ResetPassword from "@/pages/ResetPassword.vue";
 import SearchesPage from "@/pages/SearchesPage.vue";
 import SearchInviteRedirectPage from "@/pages/SearchInviteRedirectPage.vue";
 import { useAuthStore } from '@/stores/auth.store'
@@ -53,6 +55,16 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: SignupPage,
+    },
+    {
+      path: '/forgot-password',
+      name: 'forgotPassword',
+      component: ForgotPassword,
+    },
+    {
+      path: '/reset-password',
+      name: 'resetPassword',
+      component: ResetPassword,
     },
     {
       path: '/oauth2',

@@ -4,7 +4,12 @@
     <FormInput v-model:value="values.email" placeholder="email@gmail.com" rules="required|email" label="Email" type="email" id="email"/>
     <FormInput v-model:value="values.password" rules="required|min:6" label="Mot de passe" type="password" id="password"/>
     <FormInput v-model:value="values.password_confirmation" rules="required|confirmed:@password" label="Confirmation mot de passe" type="password" id="password_confirmation"/>
-    <Button :disabled="!meta.valid" class="sm:order-1" type="submit" endIcon="arrow-right" variant="primary">
+    <Button :disabled="!meta.valid"
+            :load="buttonLoading"
+            class="sm:order-1"
+            type="submit"
+            endIcon="arrow-right"
+            variant="primary">
       Créer mon compte
     </Button>
     <h6 class="text-medium text-sm centered sm:justify-start gap-2 flex-wrap">Vous avez déjà un compte ?
@@ -32,14 +37,17 @@ const values = ref({
   password_confirmation: '',
   name: ''
 } as SignupCommand)
+const buttonLoading = ref(false)
 
 const signup = async () => {
+  buttonLoading.value = true
   const authService = new AuthService();
   const { success } = await authService.signup(values.value);
   if (success) {
     const to = route.query.redirect?.toString() || '/'
     await router.push(to)
   }
+  buttonLoading.value = false
 };
 </script>
 

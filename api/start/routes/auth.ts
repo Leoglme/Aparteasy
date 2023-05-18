@@ -6,4 +6,6 @@ Route.group(() => {
   Route.get('status', 'AuthController.status').as('status')
   Route.post('login', 'AuthController.login').as('login')
   Route.get('logout', 'AuthController.logout').as('logout')
+  Route.post('forgot-password', 'AuthController.forgotPassword').as('forgotPassword')
+  Route.post('reset-password', 'AuthController.resetPassword').as('resetPassword')
 }).prefix('/api/auth/')

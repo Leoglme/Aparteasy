@@ -11,6 +11,12 @@ export default class BaseService extends HttpService {
   protected static async sendPrivateErrorNotification(message: string) {
     await this.sendPrivateSocketEvent({ message }, 'notify:error')
   }
+
+  protected static async badRequest(message: string) {
+    await this.sendPrivateErrorNotification(message)
+    return super.badRequest(message)
+  }
+
   protected static async sendPrivateSuccessNotification(message: string) {
     await this.sendPrivateSocketEvent({ message }, 'notify:success')
   }

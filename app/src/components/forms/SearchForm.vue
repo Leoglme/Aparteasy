@@ -9,7 +9,13 @@
     </GooglePlacesAutocomplete>
     <Divider/>
     <div class="grid columns col-1 sm:col-2">
-      <Button :disabled="!meta.valid || !values.location" class="order-1" type="submit" endIcon="arrow-right">Créer la recherche</Button>
+      <Button :disabled="!meta.valid || !values.location"
+              :load="buttonLoading"
+              class="order-1"
+              type="submit"
+              endIcon="arrow-right">
+          Créer la recherche
+      </Button>
       <div></div>
     </div>
   </Form>
@@ -30,11 +36,14 @@ const values = ref({
   name: '',
   location: undefined as Location | undefined
 })
+const buttonLoading = ref(false)
 /*METHODS*/
 const onSelectPlace = (place: Location) => {
   values.value.location = place
 }
 const createSearch = async () => {
+  buttonLoading.value = true
   await useSearchStore().createSearch(values.value)
+  buttonLoading.value = false
 };
 </script>

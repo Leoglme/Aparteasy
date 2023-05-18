@@ -19,6 +19,11 @@ export default class HttpService {
   protected static get response() {
     return this.ctx.response
   }
+
+  protected static badRequest(message: string) {
+    return this.response.badRequest(message)
+  }
+
   protected static get request() {
     return this.ctx.request
   }

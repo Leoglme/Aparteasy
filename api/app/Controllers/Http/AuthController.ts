@@ -18,4 +18,13 @@ export default class AuthController extends BaseController {
   protected async status() {
     return await AuthService.status()
   }
+
+  // Send password reset link
+  protected async forgotPassword() {
+    return await AuthService.forgotPassword()
+  }
+
+  protected async resetPassword() {
+    return await AuthService.resetPassword()
+  }
 }

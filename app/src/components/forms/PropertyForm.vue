@@ -25,9 +25,9 @@
 
         <div class="grid columns sm:col-2 gap-6 items-baseline">
             <GooglePlacesAutocomplete
-                :initialPlace="values.location?.address"
-                @place-selected="onSelectPlace"
-                rules="required">
+                    :initialPlace="values.location?.address"
+                    @place-selected="onSelectPlace"
+                    rules="required">
                 <template #label>
                     <span>Lieu de la propriété</span>
                 </template>
@@ -51,7 +51,10 @@
         <FormInput v-model:value="values.comment" label="Commentaire" id="comment" :rows="3"/>
         <Divider/>
         <div class="grid columns col-1 sm:col-2">
-            <Button :disabled="!meta.valid || !values.location" class="order-1" type="submit" endIcon="arrow-right">
+            <Button :disabled="!meta.valid || !values.location"
+                    class="order-1"
+                    type="submit"
+                    endIcon="arrow-right">
                 {{ isUpdate ? 'Modifier la propriété' : 'Créer la propriété' }}
             </Button>
             <div></div>
@@ -60,8 +63,8 @@
 </template>
 
 <script lang="ts" setup>
-import Button from "@/components/buttons/Button.vue";
-import FormInput from "@/components/inputs/FormInput.vue";
+import Button from '@/components/buttons/Button.vue';
+import FormInput from '@/components/inputs/FormInput.vue';
 import GooglePlacesAutocomplete from '@/components/inputs/GooglePlacesAutocomplete.vue'
 import Divider from '@/components/ui/Divider.vue'
 import StarRatings from '@/components/ratings/StarRatings.vue'
@@ -72,7 +75,7 @@ import type { Location } from '@/services/location/location.model'
 import DateTimePicker from '@/components/inputs/DateTimePicker.vue'
 import { convertToNumber } from '@/utils/formats.utils'
 import type { Property, PropertyCommand } from '@/services/property/property.model'
-import { usePropertyStore } from "@/stores/property.store";
+import { usePropertyStore } from '@/stores/property.store';
 
 /*STORE*/
 const propertyStore = usePropertyStore()
@@ -87,15 +90,15 @@ const props = defineProps({
 
 /*REFS*/
 const values = ref({
-    name: props.initialValues.name || "",
-    url: props.initialValues.url || "",
-    price: props.initialValues.price?.toString() || "",
-    amount_of_charges: props.initialValues.amount_of_charges?.toString() || "",
-    number_of_rooms: props.initialValues?.number_of_rooms?.toString() || (propertyStore.lastPropertyNumberOfRooms?.toString() || ""),
-    surface_area: props.initialValues?.surface_area?.toString() || "",
+    name: props.initialValues.name || '',
+    url: props.initialValues.url || '',
+    price: props.initialValues.price?.toString() || '',
+    amount_of_charges: props.initialValues.amount_of_charges?.toString() || '',
+    number_of_rooms: props.initialValues?.number_of_rooms?.toString() || (propertyStore.lastPropertyNumberOfRooms?.toString() || ''),
+    surface_area: props.initialValues?.surface_area?.toString() || '',
     availability_date: props.initialValues.availability_date || undefined,
     quality_rating: props.initialValues.quality_rating || 0,
-    comment: props.initialValues.comment || "",
+    comment: props.initialValues.comment || '',
     location: props.initialValues?.location || undefined as Location | undefined
 })
 

@@ -26,6 +26,7 @@ export default class ExceptionHandler extends HttpExceptionHandler {
     error: { message: string; messages?: [key: string] },
     ctx: HttpContextContract
   ) {
+    console.log('PASSE')
     const socketId = ctx.request.header('socketId')
     await Event.emit('notify:error', { message: error.message, socketId })
     ctx.response.send(error.messages || error.message)
