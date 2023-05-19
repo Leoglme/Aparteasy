@@ -67,7 +67,7 @@
         </section>
     </main>
 
-    <footer class="tutorial-footer bg-grey-500 bt-1 border-grey-300 z-50 grid px-6 pt-3 pb-6 gap-4 items-center">
+    <footer class="tutorial-footer mt-10 relative bg-grey-500 bt-1 border-grey-300 z-50 grid px-6 pt-3 pb-6 gap-4 items-center">
         <div class="flex items-center gap-2 flex-wrap justify-between">
             <Logo :size="30" large/>
             <Button
@@ -140,6 +140,8 @@ const stepRefs = ref(null as HTMLElement[] | null);
 const stepsContainer = ref(null as HTMLElement | null);
 const activeStep = ref(0);
 const stepLineHeight = ref(0);
+
+const isSafari = ref(/^((?!chrome|android).)*safari/i.test(navigator.userAgent));
 
 /*COMPUTED*/
 const showHeader = computed(() => {
@@ -218,6 +220,15 @@ onMounted(() => {
     updateStepLineHeight();
     window.addEventListener('scroll', updateScroll);
     window.addEventListener('resize', updateScreenSizes);
+
+    if (isSafari.value) {
+        const element = document.querySelector('.glow') as HTMLElement;
+        if (element){
+            element.style.mixBlendMode = 'normal';
+            element.style.filter = 'blur(180px) brightness(70%) contrast(140%)';
+            element.style.opacity = '0.5';
+        }
+    }
 });
 
 onUnmounted(() => {
@@ -250,7 +261,7 @@ onUnmounted(() => {
   top: -60px;
 }
 
-.tutorial-landing, .tutorial-about {
+.tutorial-landing, .tutorial-about, .tutorial-footer {
   z-index: 1;
 }
 
@@ -286,17 +297,16 @@ onUnmounted(() => {
 }
 
 .glow {
-  background: linear-gradient(90deg, rgb(255, 58, 66) 0%, rgb(254, 5, 142) 40%);
-  filter: blur(180px);
-  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-  mix-blend-mode: soft-light;
-  will-change: transform;
-  opacity: .7;
-  transform: translate(-107px, 25vh);
-  position: fixed;
-  width: 65vw;
-  height: 51vh;
-  border-radius: 80% 200% 20% 200%;
-  z-index: 100;
+    background: linear-gradient(90deg, rgb(255, 58, 66) 0%, rgb(254, 5, 142) 40%);
+    filter: blur(180px);
+    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    mix-blend-mode: soft-light;
+    will-change: transform;
+    opacity: .7;
+    transform: translate(-107px, 25vh);
+    position: fixed;
+    width: 65vw;
+    height: 51vh;
+    border-radius: 80% 200% 20% 200%;
 }
 </style>
