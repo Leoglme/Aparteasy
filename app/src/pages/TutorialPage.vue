@@ -297,6 +297,6 @@ onUnmounted(() => {
   width: 65vw;
   height: 51vh;
   border-radius: 80% 200% 20% 200%;
-  z-index: 1;
+  z-index: 100;
 }
 </style>
