@@ -16,7 +16,8 @@
 
                 <h1 class="text-medium text-3xl">Guide d'Utilisation</h1>
                 <p class="text-contrast-70 text-left">
-                    Bienvenue dans notre Guide d'Utilisation étape par étape. Cette page a été conçue pour vous aider à comprendre
+                    Bienvenue dans notre Guide d'Utilisation étape par étape. Cette page a été conçue pour vous aider à
+                    comprendre
                     comment simplifier votre recherche de logement grâce à notre application.
                 </p>
                 <Button class="tutorial-cta" @click="scrollToSteps">Découvrir</Button>
@@ -70,14 +71,14 @@
         <div class="flex items-center gap-2 flex-wrap justify-between">
             <Logo :size="30" large/>
             <Button
-                externalLink
-                target="_blank"
-                href="https://github.com/Leoglme/Aparteasy"
-                class="b-1 border-contrast-30"
-                small
-                square
-                variant="dark"
-                title="Github - source code">
+                    externalLink
+                    target="_blank"
+                    href="https://github.com/Leoglme/Aparteasy"
+                    class="b-1 border-contrast-30"
+                    small
+                    square
+                    variant="dark"
+                    title="Github - source code">
                 <Icon :height="24" :width="24" stroke="var(--light)" name="github"/>
             </Button>
         </div>
@@ -207,7 +208,7 @@ const scrollToSteps = () => {
 
     window.scrollTo({
         top: finalPosition,
-        behavior: "smooth"
+        behavior: 'smooth'
     });
 };
 
@@ -296,5 +297,6 @@ onUnmounted(() => {
   width: 65vw;
   height: 51vh;
   border-radius: 80% 200% 20% 200%;
+  z-index: 1;
 }
 </style>
