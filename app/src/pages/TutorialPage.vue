@@ -1,14 +1,31 @@
 <template>
-    <section id="tutorial" class="tutorial-container">
+    <header class="bg-grey-500 bb-1 border-grey-300 gap-2 flex-wrap tutorial-header z-50
+    flex px-6 py-2 justify-between items-center" :class="showHeader ? 'opacity-1': 'opacity-0'">
+        <Logo :size="30" large/>
+        <Button :to="{name: 'signup'}" class="tutorial-cta">Créer mon compte</Button>
+    </header>
+    <main id="tutorial" class="tutorial-container flex flex-col items-center px-4">
         <div class="glow"></div>
-        <div class="tutorial-header">
-            <div class="flex items-center gap-1">
-                <Logo :size="64"/>
-                <span class="text-2xl text-medium">{{ SITE_NAME }}</span>
-            </div>
+        <section id="home" class="tutorial-landing relative flex w-full
+        flex-col items-center justify-center gap-8 vh-100">
+            <div class="grid justify-center items-center gap-8 tutorial__cta--container">
+                <div class="flex items-center">
+                    <Logo :size="64"/>
+                    <h1 class="text-2xl text-medium">{{ SITE_NAME }}</h1>
+                </div>
 
-            <h1 class="text-medium text-3xl">Guide d'Utilisation</h1>
-            <p class="text-contrast-70" style="text-align: left">
+                <h1 class="text-medium text-3xl">Guide d'Utilisation</h1>
+                <p class="text-contrast-70 text-left">
+                    Bienvenue dans notre Guide d'Utilisation étape par étape. Cette page a été conçue pour vous aider à comprendre
+                    comment simplifier votre recherche de logement grâce à notre application.
+                </p>
+                <Button class="tutorial-cta" @click="scrollToSteps">Découvrir</Button>
+            </div>
+        </section>
+
+        <section id="about" class="tutorial-about mt-10">
+            <h2 class="text-2xl text-medium w-full text-left mb-6">En savoir plus</h2>
+            <p class="text-contrast-70 text-left">
                 Découvrez notre nouvelle application web dédiée à la gestion et à la facilitation de vos recherches
                 d'appartement,
                 que vous cherchiez seul ou en groupe. <br><br>
@@ -23,35 +40,63 @@
 
                 Simplifiez vos recherches et trouvez votre nouveau chez-vous en toute simplicité !
             </p>
-            <Button style="min-width: 200px" @click="scrollToSteps">Commencer</Button>
-        </div>
-        <div class="tutorial-steps" ref="stepsContainer">
-            <div class="steps-line"></div>
-            <div class="steps-line-active" :style="{ height: `${scrollPosition}px` }"></div>
-            <div class="step" v-for="(step, index) in steps" :key="index">
-                <div class="step-number">{{ index + 1 }}</div>
-                <div class="step-content">
+        </section>
+        <section id="steps" class="tutorial-steps relative" ref="stepsContainer">
+            <div class="steps-line bg-grey-300" :style="{ height: `${stepLineHeightUnitOfMeasure}` }"/>
+            <div class="steps-line-active bg-light" :style="{ height: `${stepLinePosition}px` }"></div>
+            <div class="step flex"
+                 v-for="(step, index) in steps" ref="stepRefs"
+                 :key="index">
+                <div :class="{ active: index <= activeStep }"
+                     class="step-number bg-grey-300 text-light flex items-center
+                justify-center text-bold">
+                    {{ index + 1 }}
+                </div>
+                <div class="step-content ml-5 grid gap-6">
                     <h2>{{ step.title }}</h2>
                     <p>{{ step.description }}</p>
-                    <div class="step-gif-card">
-                        <img src="https://s11.gifyu.com/images/GIF-Recording-2023-05-18-at-10.28.13-PM.gif" alt="Aparteasy authentification presentation gif">
+                    <div class="step__gif--card rounded-lg border-contrast-30 b-1">
+                        <img
+                                class="rounded-lg"
+                                src="https://s11.gifyu.com/images/GIF-Recording-2023-05-18-at-10.28.13-PM.gif"
+                                alt="Aparteasy authentification presentation gif">
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+    </main>
 
-        <footer>
-            Profitez de notre application pour centraliser toutes vos annonces immobilières favorites, les partager avec vos amis ou colocataires, et faciliter votre recherche du logement idéal.
-        </footer>
-    </section>
+    <footer class="tutorial-footer bg-grey-500 bt-1 border-grey-300 z-50 grid px-6 pt-3 pb-6 gap-4 items-center">
+        <div class="flex items-center gap-2 flex-wrap justify-between">
+            <Logo :size="30" large/>
+            <Button
+                externalLink
+                target="_blank"
+                href="https://github.com/Leoglme/Aparteasy"
+                class="b-1 border-contrast-30"
+                small
+                square
+                variant="dark"
+                title="Github - source code">
+                <Icon :height="24" :width="24" stroke="var(--light)" name="github"/>
+            </Button>
+        </div>
+        <p>Profitez de notre application pour centraliser toutes vos annonces immobilières favorites, les partager avec
+            vos
+            amis ou colocataires, et faciliter votre recherche du logement idéal.</p>
+
+        <p>© <a class="link" href="https://dibodev.com">Dibodev.com</a> - {{ currentYear }}</p>
+    </footer>
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed, onMounted, onUnmounted, ref } from 'vue';
 import Button from '@/components/buttons/Button.vue'
 import Logo from '@/components/ui/Logo.vue'
+import Icon from '@/components/ui/Icon.vue'
 import { SITE_NAME } from '@/env'
 
+/*REFS*/
 const steps = ref([
     {
         title: 'Connexion',
@@ -85,124 +130,171 @@ const steps = ref([
         title: 'Édition d\'une Propriété',
         description: 'Si nécessaire, vous pouvez éditer les informations d\'une annonce, par exemple pour corriger une erreur de prix ou d\'URL.',
     },
-    // Ajoutez les autres étapes ici
 ]);
-
+const currentYear = ref(new Date().getFullYear());
 const scrollPosition = ref(0);
+const viewportWidth = ref(window.innerWidth || document.documentElement.clientWidth);
+const viewportHeight = ref(window.innerHeight || document.documentElement.clientHeight);
+const stepRefs = ref(null as HTMLElement[] | null);
+const stepsContainer = ref(null as HTMLElement | null);
+const activeStep = ref(0);
+const stepLineHeight = ref(0);
 
+/*COMPUTED*/
+const showHeader = computed(() => {
+    return scrollPosition.value >= 1000;
+});
+
+const stepLinePosition = computed(() => {
+    const res = scrollPosition.value - 1000;
+    if (res > stepLineHeight.value) {
+        return stepLineHeight.value;
+    }
+    return res
+});
+
+const thresold = computed(() => {
+    return viewportWidth.value <= 480 ? 0.2 : 0.45;
+});
+
+const stepLineHeightUnitOfMeasure = computed(() => {
+    return stepLineHeight.value ? `${stepLineHeight.value}px` : '100%';
+});
+
+
+/*METHODS*/
+const updateActiveStep = () => {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const i = entry.target.getAttribute('data-index');
+                if (i) {
+                    activeStep.value = parseInt(i);
+                }
+            }
+        });
+    }, {
+        threshold: thresold.value,
+    });
+
+    stepRefs.value?.forEach((step, index) => {
+        step.setAttribute('data-index', index.toString());
+        observer.observe(step);
+    });
+}
 const updateScroll = () => {
-    console.log(window.scrollY - 800)
-    scrollPosition.value = (window.scrollY - 500);
+    scrollPosition.value = window.scrollY;
+    updateActiveStep();
+    updateStepLineHeight();
 };
 
+const updateStepLineHeight = () => {
+    const height = stepsContainer.value?.clientHeight
+    const marginBottomHeight = viewportHeight.value * 0.25;
+    stepLineHeight.value = (height ? (height - marginBottomHeight) : 0);
+};
+
+const updateScreenSizes = () => {
+    viewportWidth.value = window.innerWidth || document.documentElement.clientWidth;
+    viewportHeight.value = window.innerHeight || document.documentElement.clientHeight;
+    updateStepLineHeight();
+};
+
+const scrollToSteps = () => {
+    const topPosition = stepsContainer.value?.getBoundingClientRect().top || 0;
+    const offset = 100;
+    const finalPosition = topPosition - offset + window.scrollY;
+
+    window.scrollTo({
+        top: finalPosition,
+        behavior: "smooth"
+    });
+};
+
+
+/*LIFECYCLE*/
 onMounted(() => {
+    updateStepLineHeight();
     window.addEventListener('scroll', updateScroll);
+    window.addEventListener('resize', updateScreenSizes);
 });
 
 onUnmounted(() => {
     window.removeEventListener('scroll', updateScroll);
+    window.removeEventListener('resize', updateScreenSizes);
 });
-
-
-let refContainer = ref();
-const scrollToSteps = () => {
-    const container = refContainer.value;
-    if (container) {
-        const stepsContainer = container.querySelector('.tutorial-steps');
-        if (stepsContainer) {
-            window.scrollTo({
-                top: stepsContainer.offsetTop,
-                behavior: 'smooth',
-            });
-        }
-    }
-};
-
 </script>
 
-<style>
+<style lang="scss" scoped>
+.tutorial-cta {
+  max-width: 300px;
+}
+
 .tutorial-container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.tutorial-about {
+  margin-bottom: 20vh;
 }
 
 .tutorial-header {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 32px;
-    justify-content: center;
-    text-align: center;
-    margin-bottom: 40px;
-    height: 100vh;
+  position: sticky;
+  top: 0;
+  transition: opacity .25s ease-in-out;
+}
+
+.tutorial-landing {
+  top: -60px;
+}
+
+.tutorial-landing, .tutorial-about {
+  z-index: 1;
 }
 
 .tutorial-steps {
-    position: relative;
-    z-index: 1;
-    margin-top: 60px;
+  z-index: 1;
+  margin-top: 60px;
 }
 
 .steps-line, .steps-line-active {
-    position: absolute;
-    top: 0;
-    left: 15px;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100%;
-    background-color: #333;
-    z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 15px;
+  transform: translateX(-50%);
+  width: 2px;
+  z-index: -1;
 }
 
-.steps-line-active {
-    background-color: #fff;
-}
 .step {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 25vh;
+  margin-bottom: 25vh;
 }
 
 .step-number {
-    flex-shrink: 0;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background-color: #333;
-    color: #fff;
-    font-size: 16px;
-    font-weight: bold;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 16px;
+
+  &.active {
+    background: var(--light);
+    color: var(--grey-700);
+  }
 }
 
-.step-content {
-    margin-left: 20px;
-    display: grid;
-    gap: 24px;
-}
-.step-gif-card {
-    border-radius: 12px;
-    border: 1px solid var(--contrast-30);
-}
-.step-gif-card img {
-    border-radius: 12px;
-}
 .glow {
-    background: linear-gradient(90deg, rgb(255, 58, 66) 0%, rgb(254, 5, 142) 40%);
-    filter: blur(180px);
-    transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    mix-blend-mode: soft-light;
-    will-change: transform;
-    opacity: .7;
-    transform: translate(-107px, 25vh);
-    position: fixed;
-    width: 65vw;
-    height: 51vh;
-    border-radius: 80% 200% 20% 200%;
+  background: linear-gradient(90deg, rgb(255, 58, 66) 0%, rgb(254, 5, 142) 40%);
+  filter: blur(180px);
+  transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  mix-blend-mode: soft-light;
+  will-change: transform;
+  opacity: .7;
+  transform: translate(-107px, 25vh);
+  position: fixed;
+  width: 65vw;
+  height: 51vh;
+  border-radius: 80% 200% 20% 200%;
 }
 </style>
