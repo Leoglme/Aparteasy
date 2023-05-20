@@ -1,5 +1,4 @@
 import io from 'socket.io-client';
-import { Notyf } from 'notyf';
 import { API_URL } from '@/env'
 import axios from 'axios'
 import { notify } from '@/plugins/notyf'

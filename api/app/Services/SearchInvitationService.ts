@@ -33,9 +33,10 @@ export class SearchInvitationService extends BaseService {
       throw new Error('Expéditeur non trouvé.')
     }
     const isSenderMember = await this.userAlreadyMember(sender.email, searchId)
+    const isSenderCreator = await this.isCreator(searchId, senderId)
 
-    if (!isSenderMember) {
-      throw new Error('Seul le créateur peut envoyer des invitations.')
+    if (!isSenderMember && !isSenderCreator) {
+      throw new Error('Seul le créateur ou un membre peut envoyer des invitations.')
     }
 
     const searchInvitations: SearchInvitationCommand[] = []

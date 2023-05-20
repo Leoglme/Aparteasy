@@ -6,7 +6,7 @@
       <div class="flex flex-col gap-6 grid" v-if="searchStore.searches.length">
         <SearchCard v-for="search in searchStore.searches" :key="search.id" :search="search" @delete="onClickDelete"/>
       </div>
-      <h3 class="text-xl" v-else>Aucune recherche de propriétés</h3>
+      <h3 class="text-xl text-center" v-else>Aucune recherche de propriétés</h3>
     </section>
   </div>
   <ConfirmDeleteSearchModal

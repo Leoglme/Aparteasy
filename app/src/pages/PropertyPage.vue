@@ -166,7 +166,6 @@ document.title = `${prefix} | ${SITE_NAME}`
 /*METHODS*/
 const closeModal = async () => {
     isOpenModal.value = false
-    await router.push({ name: 'properties', params: { searchId } });
 }
 const updateProperty = (value: { [key: string]: string | boolean }) => {
     propertyStore.updateProperty(

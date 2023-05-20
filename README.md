@@ -20,11 +20,53 @@ Simplifiez vos recherches et trouvez votre nouveau chez-vous en toute simplicit�
 
 ## Menu
 
-- [Authentification](#auth)
-
+1. [Authentification](#auth)
+2. [Création ou sélection d'une recherche](#create-search)
+3. [Invitation d'utilisateurs](#invite)
+4. [Création d'une annonce](#create-property)
+5. [Notation d'une propriété](#rating)
+6. [Gestion du statut d'une propriété](#statuses)
+7. [Consultation de la carte](#maps)
+8. [Édition d'une propriété](#edit-property)
 
 ## Guide d'Utilisation
 
-1. [Authentification](#auth) 
+### [1. Authentification](#auth)
+
+  <p>Connectez-vous à notre application pour commencer à explorer.</p>
+  <img src="/app/public/docs/gifs/auth.gif" alt="Aparteasy authentification presentation gif">
+
+### [2. Création ou sélection d'une recherche](#create-search)
+
 <p>Connectez-vous à notre application pour commencer à explorer.</p>
-<img src="https://d1gfixkhrc5ubb.cloudfront.net/oe4o%2Fpreview%2F51513936%2Fmain_large.gif?response-content-disposition=inline%3Bfilename%3D%22main_large.gif%22%3B&response-content-type=image%2Fgif&Expires=1684442353&Signature=hqOTlplIilmipOVLZfiNarYfJfIEt83QTPDA64dZfCf67Y4XZpUnHG4o2hBuunWFUg9d5zx2TEOdGqsMCnyIG4NsE0tdkI2~~kChMOaUZVEJcu5CM62lV4RGJzWPHQ86qb-XLleDT9bdYLTl0ngSQSMGru9dqDCWG4YybBcD5KQ-UXsg5kbqoxN9iqkWL8A~h-K7UmQgcpvab7pXW9TDxrw8nymc1Ej~LBr71YaHLjU223kd1R2bjnId9XS3AOT4JnMd9Z3b8~6Nml9T5Iwakqh-jZVD7brDXGVdTMeDZy8mzNO4V3QV08ZgaAhVa5m6Hp2zLS-JiFrLkMEyBZ8TLw__&Key-Pair-Id=APKAJT5WQLLEOADKLHBQ" alt="Aparteasy authentification presentation gif">
+<img src="/app/public/docs/gifs/create-search.gif" alt="Aparteasy create search presentation gif">
+
+### [3. Invitation d'utilisateurs](#invite)
+
+<p>Vous pouvez inviter d'autres utilisateurs à se joindre à votre recherche afin de partager et gérer ensemble les annonces trouvées.</p>
+<img src="/app/public/docs/gifs/invite.gif" alt="Aparteasy invite users presentation gif">
+
+### [4. Création d'une annonce](#create-property)
+
+<p>Ajoutez une nouvelle annonce en entrant les informations pertinentes telles que le prix, les charges, le nombre de pièces, la localisation, l'URL de l'annonce, etc.</p>
+<img src="/app/public/docs/gifs/create-property.gif" alt="Aparteasy create property presentation gif">
+
+### [5. Notation d'une propriété](#rating)
+
+<p>Attribuez une note sur 5 étoiles à chaque annonce pour évaluer son rapport qualité-prix. Chaque utilisateur peut noter une propriété, et une note moyenne est ensuite calculée et affichée.</p>
+<img src="/app/public/docs/gifs/rating.gif" alt="Aparteasy rating presentation gif">
+
+### [6. Gestion du statut d'une propriété](#statuses)
+
+<p>Vous pouvez modifier le statut d'une annonce, par exemple pour indiquer si vous avez déjà appelé l'annonceur ou si la propriété est toujours disponible.</p>
+<img src="/app/public/docs/gifs/statuses.gif" alt="Aparteasy statuses presentation gif">
+
+### [7. Consultation de la carte](#maps)
+
+<p>Consultez la carte pour voir l'emplacement de la propriété par rapport à votre lieu de recherche. Vous pouvez voir un itinéraire et les temps de trajet estimés en voiture, à pied ou en transport en commun.</p>
+<img src="/app/public/docs/gifs/maps.gif" alt="Aparteasy maps presentation gif">
+
+### [8. Édition d'une propriété](#edit-property)
+
+<p>Si nécessaire, vous pouvez éditer les informations d'une annonce, par exemple pour corriger une erreur de prix ou d'url.</p>
+<img src="/app/public/docs/gifs/edit-property.gif" alt="Aparteasy edit property presentation gif">
