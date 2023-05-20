@@ -21,7 +21,7 @@ Simplifiez vos recherches et trouvez votre nouveau chez-vous en toute simplicit�
 ## Menu
 
 1. [Authentification](#auth)
-2. [Création ou sélection d'une recherche](#create-search)
+2. [Création ou sélection d'une recherche](#2-création-ou-sélection-dune-recherche)
 3. [Invitation d'utilisateurs](#invite)
 4. [Création d'une annonce](#create-property)
 5. [Notation d'une propriété](#rating)
@@ -36,7 +36,7 @@ Simplifiez vos recherches et trouvez votre nouveau chez-vous en toute simplicit�
   <p>Connectez-vous à notre application pour commencer à explorer.</p>
   <img src="/app/public/docs/gifs/auth.gif" alt="Aparteasy authentification presentation gif">
 
-### [2. Création ou sélection d'une recherche](#create-search)
+### [2. Création ou sélection d'une recherche](#2-création-ou-sélection-dune-recherche)
 
 <p>Connectez-vous à notre application pour commencer à explorer.</p>
 <img src="/app/public/docs/gifs/create-search.gif" alt="Aparteasy create search presentation gif">
