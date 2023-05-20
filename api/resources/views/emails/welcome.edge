@@ -1,0 +1,74 @@
+@layout('emails/layouts/main')
+
+@section('body')
+<mj-section background-color="#222B39" border-radius="8px" padding="24px" text-align="center">
+  <mj-column>
+    <mj-text align="left" line-height="40px" padding-right="0" padding-left="0px" padding-bottom="24px" font-weight="700" align="left" font-size="18px">
+      Bienvenue sur {{app_name}} - Votre guide pour une recherche d'appartement facile
+    </mj-text>
+
+    <mj-text font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      Bonjour {{username}}, <br>
+
+      Bienvenue sur {{app_name}}, l'outil ultime pour faciliter votre recherche d'appartement. <br>
+
+      Nous sommes ravis de vous accueillir dans notre communauté. <br>
+
+      Pour vous aider à bien démarrer, nous avons préparé un tutoriel rapide : <br><br>
+    </mj-text>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      1. Connexion : Connectez-vous à notre application pour commencer à explorer.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/auth.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      2. Création ou Sélection d'une Recherche : Créez ou sélectionnez une recherche en y attribuant un nom et une localisation.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/create-search.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      3. Invitation d'Utilisateurs : Invitez d'autres utilisateurs pour partager et gérer ensemble les annonces trouvées.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/invite.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      4. Création d'une Annonce : Ajoutez une nouvelle annonce en entrant les informations pertinentes.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/create-property.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      5. Notation d'une Propriété : Attribuez une note à chaque annonce pour évaluer son rapport qualité-prix.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/rating.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      6. Gestion du Statut d'une Propriété : Modifiez le statut d'une annonce selon vos interactions.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/statuses.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      7. Consultation de la Carte : Consultez l'emplacement de la propriété et les itinéraires.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/maps.gif"></mj-image>
+
+    <mj-text font-weight="500" font-size="14px" padding="0" align="left" padding-left="0px" align="left" letter-spacing="0.2px" line-height="32px">
+      8. Édition d'une Propriété : Éditez les informations d'une annonce si nécessaire.
+    </mj-text>
+    <mj-image padding-left="0" padding-bottom="24px" src="https://raw.githubusercontent.com/Leoglme/Aparteasy/main/app/public/docs/gifs/edit-property.gif"></mj-image>
+
+
+    <mj-text font-size="13px" color="#BACAE3" padding-left="0px" align="left" letter-spacing="0.2px" line-height="24px">
+      Nous espérons que ce guide vous aidera à tirer le meilleur parti de notre application. Pour plus de détails, n'hésitez pas à consulter notre <a href="{{app_url}}/tutorial" style="color: {{ lightOrDarkColor(primary_color, 25) }}">page de tutoriel complet</a>.
+      <br/><br/>
+      Si vous avez des questions ou besoin d'aide, n'hésitez pas à nous contacter. Nous sommes là pour vous aider.
+      <br/><br/>
+      Bonne recherche avec {{app_name}} !
+      <br/><br/>
+      Cordialement,
+      <br/>
+      L'équipe d'{{app_name}}
+    </mj-text>
+  </mj-column>
+</mj-section>
+@end

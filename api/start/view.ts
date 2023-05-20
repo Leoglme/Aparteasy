@@ -23,6 +23,7 @@ View.global('lightOrDarkColor', (color, percent) => {
 
 /* Global view variables */
 View.global('app_name', appInfos.name)
+View.global('app_url', appInfos.url)
 View.global('primary_color', appInfos.color)
 View.global('app_logo', appInfos.logo)
 View.global('support_mail', appInfos.emails.support)
