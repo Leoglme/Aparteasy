@@ -1,17 +1,17 @@
 <template>
-  <div class="w-full flex items-center justify-center vh-100">
-    <Spinner/>
-  </div>
+    <div class="w-full flex items-center justify-center vh-100">
+        <Spinner/>
+    </div>
 </template>
 
 <script lang="ts" setup>
-import Spinner from "@/components/ui/Spinner.vue"
-import { useRoute, useRouter } from "vue-router";
-import { SITE_NAME } from "@/env";
-import { notify } from "@/plugins/notyf";
-import { useAuthStore } from "@/stores/auth.store";
-import { AuthService } from "@/services/auth/auth";
-import { ref } from "vue";
+import Spinner from '@/components/ui/Spinner.vue'
+import { useRoute, useRouter } from 'vue-router';
+import { SITE_NAME } from '@/env';
+import { notify } from '@/plugins/notyf';
+import { useAuthStore } from '@/stores/auth.store';
+import { AuthService } from '@/services/auth/auth';
+import { ref } from 'vue';
 /*HOOKS*/
 const route = useRoute()
 const router = useRouter()
@@ -19,21 +19,30 @@ const router = useRouter()
 const authStore = useAuthStore();
 /*REFS*/
 const token = ref(route.query.token || undefined as String | undefined)
+const inviteToken = ref(localStorage.getItem('inviteToken') || undefined as String | undefined)
 /*METHODS*/
 const handleError = () => {
-  router.push("/login")
-  notify.error('An error occurred while logging in, please try again')
+    if (inviteToken.value) {
+        router.push({ name: 'login', query: { redirect: `/search-invite?inviteToken=${inviteToken.value}` } })
+    } else {
+        router.push({ name: 'login' })
+    }
+    notify.error('An error occurred while logging in, please try again')
 }
 if (!token.value) {
-  handleError();
-} else {
-  authStore.setToken(token.value ? token.value.toString() : undefined);
-  AuthService.status().then(({ data }) => {
-    authStore.setUser(data.user)
-    router.push("/")
-  }).catch(() => {
     handleError();
-  })
+} else {
+    authStore.setToken(token.value ? token.value.toString() : undefined);
+    AuthService.status().then(({ data }) => {
+        authStore.setUser(data.user)
+        if (inviteToken.value) {
+            router.push({ name: 'searchInviteRedirect', query: { inviteToken: inviteToken.value.toString() } })
+        } else {
+            router.push('/')
+        }
+    }).catch(() => {
+        handleError();
+    })
 }
 /*METAS*/
 document.title = `Authentification en cours... | ${SITE_NAME}`

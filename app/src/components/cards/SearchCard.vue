@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="{ name: 'properties', params: { searchId: props.search.id }}"
+  <RouterLink v-if="props.search" :to="{ name: 'properties', params: { searchId: props.search.id }}"
               :class="{'search__card-creator': isCreator}"
               class="bg-grey-300 grid items-center py-3 px-3 xs:px-5 search__card
   b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg gap-2">
@@ -79,8 +79,9 @@ const deleteSearch = () => {
 }
 
 .search__user {
-  @include up(450){
-    margin-left: -8px;
+  margin-left: -8px;
+  @include down(600){
+    margin-left: 0;
   }
 }
 

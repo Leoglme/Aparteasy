@@ -91,7 +91,7 @@ export class SearchInvitationService extends BaseService {
         subject: `Invitation ${appInfos.name} | ${sender} invites you to join ${search.name}`,
         viewPath: 'emails/search-invite',
         payload: {
-          url: `${appInfos.url}/search-invite?token=${inviteToken}`,
+          url: `${appInfos.url}/search-invite?inviteToken=${inviteToken}`,
           sender,
           searchName: search.name,
           inviteToken,
@@ -107,8 +107,6 @@ export class SearchInvitationService extends BaseService {
     const inviteToken: TokenInvite | null = await this.decodeInviteToken(token)
     const user = inviteToken ? await UserService.findByEmail(inviteToken.email) : null
     const connectedUser = super.auth.user
-
-    console.log({ inviteToken, user, connectedUser, token })
 
     if (!inviteToken || !user || user.id !== connectedUser?.id) {
       AuthService.unauthorized()

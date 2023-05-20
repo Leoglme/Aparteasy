@@ -2,7 +2,7 @@ export const publicRoutes = [
     '/login',
     '/signup',
     '/oauth2',
-    'search-invite',
+    '/search-invite',
     '/forgot-password',
     '/reset-password',
     '/tutorial',
