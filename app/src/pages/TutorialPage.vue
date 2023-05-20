@@ -53,15 +53,21 @@
                 justify-center text-bold">
                     {{ index + 1 }}
                 </div>
-                <div class="step-content ml-5 grid gap-6">
+                <div class="step-content w-full ml-5 grid gap-6">
                     <h2>{{ step.title }}</h2>
                     <p>{{ step.description }}</p>
-                    <div class="step__gif--card rounded-lg border-contrast-30 b-1">
-                        <video v-if="step.video" autoplay loop class="rounded-lg">
+                    <div class="step__gif--video rounded-lg border-contrast-30 b-1">
+                        <video v-if="step.video"
+                               v-show="!step.isLoading"
+                               autoplay
+                               @loadstart="step.isLoading = true"
+                               @canplaythrough="step.isLoading = false"
+                               loop
+                               class="rounded-lg">
                             <source :src="step.video" type="video/webm">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
-
+                        <Spinner v-if="step.isLoading"/>
                     </div>
                 </div>
             </div>
@@ -97,48 +103,57 @@ import Button from '@/components/buttons/Button.vue'
 import Logo from '@/components/ui/Logo.vue'
 import Icon from '@/components/ui/Icon.vue'
 import { SITE_NAME } from '@/env'
+import Spinner from '@/components/ui/Spinner.vue'
 
 /*REFS*/
 const steps = ref([
     {
         title: 'Connexion',
         description: 'Connectez-vous à notre application pour commencer à explorer.',
-        video: '/docs/webm/auth.webm'
+        video: '/docs/webm/auth.webm',
+        isLoading: false
     },
     {
         title: 'Création ou sélection d\'une recherche',
         description: 'Sélectionnez une recherche existante ou créez-en une nouvelle en y attribuant un nom et une localisation de départ.',
-        video: '/docs/webm/create-search.webm'
+        video: '/docs/webm/create-search.webm',
+        isLoading: false
     },
     {
         title: 'Invitation d\'utilisateurs',
         description: 'Vous pouvez inviter d\'autres utilisateurs à se joindre à votre recherche afin de partager et gérer ensemble les annonces trouvées.',
-        video: '/docs/webm/invite.webm'
+        video: '/docs/webm/invite.webm',
+        isLoading: false
     },
     {
         title: 'Création d\'une annonce',
         description: 'Ajoutez une nouvelle annonce en entrant les informations pertinentes telles que le prix, les charges, le nombre de pièces, la localisation, l\'URL de l\'annonce, etc.',
-        video: '/docs/webm/create-property.webm'
+        video: '/docs/webm/create-property.webm',
+        isLoading: false
     },
     {
         title: 'Notation d\'une propriété',
         description: 'Attribuez une note sur 5 étoiles à chaque annonce pour évaluer son rapport qualité-prix. Chaque utilisateur peut noter une propriété, et une note moyenne est ensuite calculée et affichée.',
-        video: '/docs/webm/rating.webm'
+        video: '/docs/webm/rating.webm',
+        isLoading: false
     },
     {
         title: 'Gestion du statut d\'une propriété',
         description: 'Vous pouvez modifier le statut d\'une annonce, par exemple pour indiquer si vous avez déjà appelé l\'annonceur ou si la propriété est toujours disponible.',
-        video: '/docs/webm/statuses.webm'
+        video: '/docs/webm/statuses.webm',
+        isLoading: false
     },
     {
         title: 'Consultation de la carte',
         description: 'Consultez la carte pour voir l\'emplacement de la propriété par rapport à votre lieu de recherche. Vous pouvez voir un itinéraire et les temps de trajet estimés en voiture, à pied ou en transport en commun.',
-        video: '/docs/webm/maps.webm'
+        video: '/docs/webm/maps.webm',
+        isLoading: false
     },
     {
         title: 'Édition d\'une propriété',
         description: 'Si nécessaire, vous pouvez éditer les informations d\'une annonce, par exemple pour corriger une erreur de prix ou d\'url.',
-        video: '/docs/webm/edit-property.webm'
+        video: '/docs/webm/edit-property.webm',
+        isLoading: false
     },
 ]);
 const currentYear = ref(new Date().getFullYear());
@@ -268,6 +283,14 @@ onUnmounted(() => {
 
 .tutorial-landing {
   top: -60px;
+}
+
+.step__gif--video {
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .tutorial-landing, .tutorial-about, .tutorial-footer {
