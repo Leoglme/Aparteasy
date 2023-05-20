@@ -92,6 +92,11 @@ const hasLabelSlot = !!slot['label']
   right: 12px;
 }
 
+.toggle-password svg {
+    top: 4px;
+    position: relative;
+}
+
 .toggle-password svg:hover path {
   fill: var(--contrast-30);
 }

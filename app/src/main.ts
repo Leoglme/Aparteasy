@@ -36,12 +36,6 @@ configure({
 
 const app = createApp(App)
 
-if (process.env.NODE_ENV === "production") {
-    console.log = () => { };
-}
-
-console.log("test log")
-
 /*Directives*/
 import clickOutSide from "@/directives/clickOutSide";
 app.directive("clickOutSide", clickOutSide)
