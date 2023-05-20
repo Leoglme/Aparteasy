@@ -179,6 +179,10 @@ const router = createRouter({
         }
       }
     },
+    {
+      path: '/:catchAll(.*)',
+      redirect: '/tutorial'
+    }
   ]
 })
 
