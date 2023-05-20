@@ -108,6 +108,8 @@ export class SearchInvitationService extends BaseService {
     const user = inviteToken ? await UserService.findByEmail(inviteToken.email) : null
     const connectedUser = super.auth.user
 
+    console.log({ inviteToken, user, connectedUser, token })
+
     if (!inviteToken || !user || user.id !== connectedUser?.id) {
       AuthService.unauthorized()
       return
