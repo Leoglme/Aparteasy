@@ -57,10 +57,11 @@
                     <h2>{{ step.title }}</h2>
                     <p>{{ step.description }}</p>
                     <div class="step__gif--card rounded-lg border-contrast-30 b-1">
-                        <img v-if="step.gif"
-                                class="rounded-lg"
-                                :src="step.gif"
-                                :alt="`${SITE_NAME} ${step.title} présentation gif`">
+                        <video v-if="step.video" autoplay loop class="rounded-lg">
+                            <source :src="step.video" type="video/webm">
+                            {{ `${SITE_NAME} ${step.title} présentation video` }}
+                        </video>
+
                     </div>
                 </div>
             </div>
@@ -102,42 +103,42 @@ const steps = ref([
     {
         title: 'Connexion',
         description: 'Connectez-vous à notre application pour commencer à explorer.',
-        gif: '/docs/gifs/auth.gif'
+        video: '/docs/webm/auth.webm'
     },
     {
         title: 'Création ou sélection d\'une recherche',
         description: 'Sélectionnez une recherche existante ou créez-en une nouvelle en y attribuant un nom et une localisation de départ.',
-        gif: '/docs/gifs/create-search.gif'
+        video: '/docs/webm/create-search.webm'
     },
     {
         title: 'Invitation d\'utilisateurs',
         description: 'Vous pouvez inviter d\'autres utilisateurs à se joindre à votre recherche afin de partager et gérer ensemble les annonces trouvées.',
-        gif: '/docs/gifs/invite.gif'
+        video: '/docs/webm/invite.webm'
     },
     {
         title: 'Création d\'une annonce',
         description: 'Ajoutez une nouvelle annonce en entrant les informations pertinentes telles que le prix, les charges, le nombre de pièces, la localisation, l\'URL de l\'annonce, etc.',
-        gif: '/docs/gifs/create-property.gif'
+        video: '/docs/webm/create-property.webm'
     },
     {
         title: 'Notation d\'une propriété',
         description: 'Attribuez une note sur 5 étoiles à chaque annonce pour évaluer son rapport qualité-prix. Chaque utilisateur peut noter une propriété, et une note moyenne est ensuite calculée et affichée.',
-        gif: '/docs/gifs/rating.gif'
+        video: '/docs/webm/rating.webm'
     },
     {
         title: 'Gestion du statut d\'une propriété',
         description: 'Vous pouvez modifier le statut d\'une annonce, par exemple pour indiquer si vous avez déjà appelé l\'annonceur ou si la propriété est toujours disponible.',
-        gif: '/docs/gifs/statuses.gif'
+        video: '/docs/webm/statuses.webm'
     },
     {
         title: 'Consultation de la carte',
         description: 'Consultez la carte pour voir l\'emplacement de la propriété par rapport à votre lieu de recherche. Vous pouvez voir un itinéraire et les temps de trajet estimés en voiture, à pied ou en transport en commun.',
-        gif: '/docs/gifs/maps.gif'
+        video: '/docs/webm/maps.webm'
     },
     {
         title: 'Édition d\'une propriété',
         description: 'Si nécessaire, vous pouvez éditer les informations d\'une annonce, par exemple pour corriger une erreur de prix ou d\'url.',
-        gif: '/docs/gifs/edit-property.gif'
+        video: '/docs/webm/edit-property.webm'
     },
 ]);
 const currentYear = ref(new Date().getFullYear());
