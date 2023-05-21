@@ -2,7 +2,11 @@
 import { RouterView } from 'vue-router'
 import { useAppStore } from '@/stores/app.store'
 import Spinner from "@/components/ui/Spinner.vue"
+import { getCookie } from '@/utils/cookie.utils'
 const appStore = useAppStore()
+
+const error = getCookie('error_message')
+console.log("cookie old", error)
 </script>
 
 <template>
