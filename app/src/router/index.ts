@@ -239,7 +239,6 @@ router.beforeEach(async (to) => {
 
     /*COOKIES*/
     const error = getCookie('error_message')
-    console.log("cookie", error)
     if (error?.message) {
         notify.error(error.message)
         deleteCookie('error_message')
