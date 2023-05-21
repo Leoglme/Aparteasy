@@ -11,7 +11,6 @@ import type { ServerConfig } from '@ioc:Adonis/Core/Server'
 import type { LoggerConfig } from '@ioc:Adonis/Core/Logger'
 import type { ProfilerConfig } from '@ioc:Adonis/Core/Profiler'
 import type { ValidatorConfig } from '@ioc:Adonis/Core/Validator'
-import appInfos from 'Config/app-infos'
 
 /*
 |--------------------------------------------------------------------------
@@ -104,7 +103,7 @@ export const http: ServerConfig = {
   |--------------------------------------------------------------------------
   */
   cookie: {
-    domain: Env.get('NODE_ENV') === 'development' ? '' : appInfos.domain,
+    domain: '',
     path: '/',
     maxAge: '2h',
     httpOnly: true,
