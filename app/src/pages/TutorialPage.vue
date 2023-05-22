@@ -61,7 +61,7 @@
                                v-show="!step.isLoading"
                                autoplay
                                @loadstart="step.isLoading = true"
-                               @canplaythrough="step.isLoading = false"
+                               @loadedmetadata="step.isLoading = false"
                                loop
                                class="rounded-lg">
                             <source :src="step.video" type="video/webm">
