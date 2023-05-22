@@ -68,7 +68,7 @@
                             <source :src="step.video" type="video/webm">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
-                        {{step.isLoading}}
+                        {{step.video}}
                         <Spinner v-if="step.isLoading"/>
                     </div>
                 </div>
