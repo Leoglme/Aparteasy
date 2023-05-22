@@ -64,7 +64,7 @@
                                @loadeddata="() => setStepLoading(step, false)"
                                loop
                                class="rounded-lg">
-                            <source v-if="isWebMSupported" :src="step.video" type="video/webm">
+                            <source v-if="isWebMSupported()" :src="step.video" type="video/webm">
                             <source v-else :src="step.videoMp4" type="video/mp4">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
