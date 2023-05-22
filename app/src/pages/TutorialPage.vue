@@ -58,10 +58,10 @@
                     <p>{{ step.description }}</p>
                     <div class="step__gif--video rounded-lg border-contrast-30 b-1">
                         <video v-show="!step.isLoading"
-                               autoplay
+                               ref="stepVideo"
                                @loadstart="() => setStepLoading(step, true)"
                                muted
-                               @canplaythrough="() => setStepLoading(step, false)"
+                               @loadeddata="() => setStepLoading(step, false)"
                                loop
                                class="rounded-lg">
                             <source :src="step.video" type="video/webm">
