@@ -69,7 +69,12 @@
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
 
-                        <img v-else :src="step.gif" :alt="`${SITE_NAME} ${step.title} présentation gif`">
+                        <img v-else
+                             :src="step.gif"
+                             @loadstart="() => setStepLoading(step, true)"
+                             @loadeddata="() => setStepLoading(step, false)"
+                             class="rounded-lg"
+                             :alt="`${SITE_NAME} ${step.title} présentation gif`">
 
                         <Spinner v-if="step.isLoading"/>
                     </div>
