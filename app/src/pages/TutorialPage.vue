@@ -58,8 +58,7 @@
                     <p>{{ step.description }}</p>
                     <div class="step__gif--video rounded-lg border-contrast-30 b-1">
                         <video v-show="!step.isLoading"
-                               ref="stepVideo"
-                               @loadstart="() => setStepLoading(step, true)"
+                               autoplay
                                muted
                                @loadeddata="() => setStepLoading(step, false)"
                                loop
@@ -192,7 +191,6 @@ const stepLineHeightUnitOfMeasure = computed(() => {
 
 /*METHODS*/
 const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
-    alert(isLoading)
     step.isLoading = isLoading
 }
 const updateActiveStep = () => {
