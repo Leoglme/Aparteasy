@@ -192,6 +192,7 @@ const stepLineHeightUnitOfMeasure = computed(() => {
 
 /*METHODS*/
 const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
+    alert(isLoading)
     step.isLoading = isLoading
 }
 const updateActiveStep = () => {
