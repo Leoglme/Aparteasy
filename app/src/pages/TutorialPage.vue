@@ -62,13 +62,12 @@
                                autoplay
                                @loadstart="step.isLoading = true"
                                muted
-                               @loadedmetadata="step.isLoading = false"
+                               @load="step.isLoading = false"
                                loop
                                class="rounded-lg">
                             <source :src="step.video" type="video/webm">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
-                        {{step.video}}
                         <Spinner v-if="step.isLoading"/>
                     </div>
                 </div>
