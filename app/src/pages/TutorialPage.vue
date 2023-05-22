@@ -196,7 +196,7 @@ function isWebMSupported() {
 
 /*METHODS*/
 const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
-    isWebMSupported()
+    console.log(isWebMSupported())
     step.isLoading = isLoading
 }
 const updateActiveStep = () => {
