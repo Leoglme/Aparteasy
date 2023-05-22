@@ -64,7 +64,8 @@
                                @loadeddata="() => setStepLoading(step, false)"
                                loop
                                class="rounded-lg">
-                            <source :src="step.video" type="video/webm">
+                            <source v-if="isWebMSupported" :src="step.video" type="video/webm">
+                            <source v-else :src="step.videoMp4" type="video/mp4">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
 
@@ -112,48 +113,56 @@ const steps = ref([
         title: 'Connexion',
         description: 'Connectez-vous à notre application pour commencer à explorer.',
         video: '/docs/webm/auth.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Création ou sélection d\'une recherche',
         description: 'Sélectionnez une recherche existante ou créez-en une nouvelle en y attribuant un nom et une localisation de départ.',
         video: '/docs/webm/create-search.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Invitation d\'utilisateurs',
         description: 'Vous pouvez inviter d\'autres utilisateurs à se joindre à votre recherche afin de partager et gérer ensemble les annonces trouvées.',
         video: '/docs/webm/invite.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Création d\'une annonce',
         description: 'Ajoutez une nouvelle annonce en entrant les informations pertinentes telles que le prix, les charges, le nombre de pièces, la localisation, l\'URL de l\'annonce, etc.',
         video: '/docs/webm/create-property.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Notation d\'une propriété',
         description: 'Attribuez une note sur 5 étoiles à chaque annonce pour évaluer son rapport qualité-prix. Chaque utilisateur peut noter une propriété, et une note moyenne est ensuite calculée et affichée.',
         video: '/docs/webm/rating.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Gestion du statut d\'une propriété',
         description: 'Vous pouvez modifier le statut d\'une annonce, par exemple pour indiquer si vous avez déjà appelé l\'annonceur ou si la propriété est toujours disponible.',
         video: '/docs/webm/statuses.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Consultation de la carte',
         description: 'Consultez la carte pour voir l\'emplacement de la propriété par rapport à votre lieu de recherche. Vous pouvez voir un itinéraire et les temps de trajet estimés en voiture, à pied ou en transport en commun.',
         video: '/docs/webm/maps.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
     {
         title: 'Édition d\'une propriété',
         description: 'Si nécessaire, vous pouvez éditer les informations d\'une annonce, par exemple pour corriger une erreur de prix ou d\'url.',
         video: '/docs/webm/edit-property.webm',
+        videoMp4: '/docs/mp4/statuses.mp4',
         isLoading: false
     },
 ]);
@@ -191,13 +200,14 @@ const stepLineHeightUnitOfMeasure = computed(() => {
 
 function isWebMSupported() {
     const videoElement = document.createElement('video');
-    return videoElement.canPlayType('video/webm') !== '';
+    const isSupported = videoElement.canPlayType('video/webm') !== '';
+    videoElement.remove(); // Suppression de l'élément vidéo créé
+    return isSupported;
 }
 
 /*METHODS*/
 const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
-    alert(isWebMSupported())
-    step.isLoading = isLoading
+    // step.isLoading = isLoading
 }
 const updateActiveStep = () => {
     const observer = new IntersectionObserver((entries) => {
