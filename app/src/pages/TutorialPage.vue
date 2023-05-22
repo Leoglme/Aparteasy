@@ -57,17 +57,17 @@
                     <h2>{{ step.title }}</h2>
                     <p>{{ step.description }}</p>
                     <div class="step__gif--video rounded-lg border-contrast-30 b-1">
-                        <video v-if="step.video"
-                               v-show="!step.isLoading"
+                        <video v-show="!step.isLoading"
                                autoplay
-                               @loadstart="step.isLoading = true"
+                               @loadstart="() => setStepLoading(step, true)"
                                muted
-                               @canplaythrough="step.isLoading = false"
+                               @canplaythrough="() => setStepLoading(step, false)"
                                loop
                                class="rounded-lg">
                             <source :src="step.video" type="video/webm">
                             {{ `${SITE_NAME} ${step.title} présentation video` }}
                         </video>
+
                         <Spinner v-if="step.isLoading"/>
                     </div>
                 </div>
@@ -191,6 +191,9 @@ const stepLineHeightUnitOfMeasure = computed(() => {
 
 
 /*METHODS*/
+const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
+    step.isLoading = isLoading
+}
 const updateActiveStep = () => {
     const observer = new IntersectionObserver((entries) => {
         entries.forEach((entry) => {
