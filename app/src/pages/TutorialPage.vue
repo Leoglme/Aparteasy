@@ -62,7 +62,7 @@
                                autoplay
                                @loadstart="step.isLoading = true"
                                muted
-                               @load="step.isLoading = false"
+                               @canplay="step.isLoading = false"
                                loop
                                class="rounded-lg">
                             <source :src="step.video" type="video/webm">
