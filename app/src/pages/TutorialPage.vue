@@ -59,6 +59,7 @@
                     <div class="step__gif--video rounded-lg border-contrast-30 b-1">
                         <video v-show="!step.isLoading"
                                autoplay
+                               @loadstart="() => setStepLoading(step, true)"
                                muted
                                @loadeddata="() => setStepLoading(step, false)"
                                loop
@@ -188,9 +189,14 @@ const stepLineHeightUnitOfMeasure = computed(() => {
     return stepLineHeight.value ? `${stepLineHeight.value}px` : '100%';
 });
 
+function isWebMSupported() {
+    const videoElement = document.createElement('video');
+    return videoElement.canPlayType('video/webm') !== '';
+}
 
 /*METHODS*/
 const setStepLoading = (step: typeof steps.value[0], isLoading: boolean) => {
+    isWebMSupported()
     step.isLoading = isLoading
 }
 const updateActiveStep = () => {
