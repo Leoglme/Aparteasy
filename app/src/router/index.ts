@@ -28,6 +28,7 @@ import TutorialPage from '@/pages/TutorialPage.vue'
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
+        // sitemap: { "priority": 0.9, "changefreq": "monthly" }
         {
             path: '/',
             name: 'home',
@@ -47,11 +48,13 @@ const router = createRouter({
                 }
             }
         },
+        // sitemap: { "priority": 0.5, "changefreq": "monthly" }
         {
             path: '/login',
             name: 'login',
             component: LoginPage,
         },
+        // sitemap: { "priority": 1, "changefreq": "monthly" }
         {
             path: '/signup',
             name: 'signup',
