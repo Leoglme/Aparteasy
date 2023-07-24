@@ -1,5 +1,5 @@
 <template>
-  <div class="grid items-center search__bar" :title="props.title">
+  <div class="grid items-center search__bar w-full" :title="props.title">
     <div class="h-full bg-grey-200 flex items-center search__bar--prefix p-2">
       <Icon :width="20" :height="20" name="search" stroke="var(--light)" style="margin-bottom: 0;"/>
     </div>

@@ -24,6 +24,7 @@ import { useAppStore } from '@/stores/app.store'
 import { deleteCookie, getCookie } from '@/utils/cookie.utils'
 import { notify } from '@/plugins/notyf'
 import TutorialPage from '@/pages/TutorialPage.vue'
+import SearchLocationPage from '@/pages/SearchLocationPage.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -139,6 +140,15 @@ const router = createRouter({
             name: 'inviteSearch',
             components: {
                 default: SearchInvitePage,
+                Navbar: Navbar,
+                Footer: Footer,
+            },
+        },
+        {
+            path: '/locations',
+            name: 'createLocation',
+            components: {
+                default: SearchLocationPage,
                 Navbar: Navbar,
                 Footer: Footer,
             },

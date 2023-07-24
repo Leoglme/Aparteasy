@@ -3,7 +3,6 @@ import Search from 'App/Models/Search'
 import SearchValidator from 'App/Validators/SearchValidator'
 import AuthService from 'App/Services/AuthService'
 import SearchUser from 'App/Models/SearchUser'
-import LocationService from 'App/Services/LocationService'
 import User from 'App/Models/User'
 import merge from 'lodash/merge'
 
@@ -21,7 +20,6 @@ export default class SearchService extends BaseService {
   public static async getById(id: number) {
     const search = await Search.query()
       .preload('users')
-      .preload('location')
       .preload('creator')
       .where('id', id)
       .firstOrFail()
@@ -42,11 +40,9 @@ export default class SearchService extends BaseService {
       AuthService.unauthorized()
       return
     }
-    const location = await LocationService.create(data.location)
     const search = await Search.create({
       ...data,
       creator_id: super.auth.user?.id,
-      location_id: location.id,
     })
     await super.sendPrivateSuccessNotification(`Votre recherche a été créée avec succès !`)
     return await this.getById(search.id)
@@ -69,7 +65,6 @@ export default class SearchService extends BaseService {
         query.where('user_id', user.id)
       })
       .orWhere('creator_id', user.id)
-      .preload('location')
       .preload('creator')
       .preload('users')
       .orderBy('created_at', 'desc')

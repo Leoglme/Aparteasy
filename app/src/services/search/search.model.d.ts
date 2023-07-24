@@ -14,7 +14,6 @@ export interface Search extends TimeStamps {
 
 export type SearchCommand = {
   name: string
-  location?: Location
 }
 
 export interface SearchInviteResponse extends TimeStamps {
