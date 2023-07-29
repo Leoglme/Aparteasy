@@ -1,42 +1,42 @@
-@keyframes notyf-fadeinup{
-  0%{
+@keyframes notyf-fadeinup {
+  0% {
     opacity: 0;
     transform: translateY(25%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
 }
 
-@keyframes notyf-fadeinleft{
-  0%{
+@keyframes notyf-fadeinleft {
+  0% {
     opacity: 0;
     transform: translateX(25%);
   }
-  100%{
+  100% {
     opacity: 1;
     transform: translateX(0);
   }
 }
 
-@keyframes notyf-fadeoutright{
-  0%{
+@keyframes notyf-fadeoutright {
+  0% {
     opacity: 1;
     transform: translateX(0);
   }
-  100%{
+  100% {
     opacity: 0;
     transform: translateX(25%);
   }
 }
 
-@keyframes notyf-fadeoutdown{
-  0%{
+@keyframes notyf-fadeoutdown {
+  0% {
     opacity: 1;
     transform: translateY(0);
   }
-  100%{
+  100% {
     opacity: 0;
     transform: translateY(25%);
   }
@@ -71,7 +71,8 @@ $toast-padding: 15px;
   padding: 20px;
 
   &__icon {
-    &--error, &--success {
+    &--error,
+    &--success {
       height: 21px;
       width: 21px;
       background: white;
@@ -82,8 +83,9 @@ $toast-padding: 15px;
     }
 
     &--error {
-      &:after, &:before{
-        content: "";
+      &:after,
+      &:before {
+        content: '';
         background: currentColor;
         display: block;
         position: absolute;
@@ -94,31 +96,32 @@ $toast-padding: 15px;
         top: 5px;
       }
 
-      &:after{
+      &:after {
         transform: rotate(-45deg);
       }
 
-      &:before{
+      &:before {
         transform: rotate(45deg);
       }
     }
 
     &--success {
-      &:after, &:before{
-        content: "";
+      &:after,
+      &:before {
+        content: '';
         background: currentColor;
         display: block;
         position: absolute;
         width: 3px;
         border-radius: 3px;
       }
-      &:after{
+      &:after {
         height: 6px;
         transform: rotate(-45deg);
         top: 9px;
         left: 6px;
       }
-      &:before{
+      &:before {
         height: 11px;
         transform: rotate(45deg);
         top: 5px;
@@ -141,13 +144,14 @@ $toast-padding: 15px;
     box-sizing: border-box;
     flex-shrink: 0;
 
-    &--disappear{
+    &--disappear {
       transform: translateY(0);
       animation: notyf-fadeoutdown 0.3s forwards;
       animation-delay: 0.25s;
 
       .notyf {
-        &__message, &__icon {
+        &__message,
+        &__icon {
           animation: notyf-fadeoutdown 0.3s forwards;
           opacity: 1;
           transform: translateY(0);
@@ -160,7 +164,7 @@ $toast-padding: 15px;
         }
       }
 
-      .notyf__message{
+      .notyf__message {
         animation-delay: 0.05s;
       }
     }
@@ -174,7 +178,6 @@ $toast-padding: 15px;
     }
 
     &--dismissible {
-
       .notyf__wrapper {
         padding-right: 30px;
       }
@@ -237,8 +240,9 @@ $toast-padding: 15px;
     height: 100%;
     width: 100%;
 
-    &:after, &:before {
-      content: "";
+    &:after,
+    &:before {
+      content: '';
       background: white;
       height: 12px;
       width: 2px;
@@ -277,7 +281,7 @@ $toast-padding: 15px;
 }
 
 /* Small screens */
-@media only screen and (max-width: 480px){
+@media only screen and (max-width: 480px) {
   .notyf {
     padding: 0;
 

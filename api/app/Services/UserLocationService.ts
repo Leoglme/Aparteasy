@@ -20,38 +20,27 @@ export default class UserLocationService extends BaseService {
     // Get current user_locations
     const currentUserLocations = await this.getAllByUserId()
 
-    // Process each data item
+    // Create new locations and user locations
     for (const dataItem of data) {
       // Create or find location
       const location = await LocationService.create(dataItem.location)
 
-      // Check if user location already exists
-      const existingUserLocation = currentUserLocations?.find(
-        (userLocation) =>
-          userLocation.name === dataItem.name && userLocation.location_id === location.id
-      )
+      // Create new user location
+      await UserLocation.create({
+        name: dataItem.name ?? null,
+        location_id: location.id,
+        user_id: userId,
+      })
+    }
 
-      if (existingUserLocation) {
-        // If user location already exists and is the same as the new one, do nothing
-        if (
-          existingUserLocation.name === dataItem.name &&
-          existingUserLocation.location_id === location.id
-        ) {
-          continue
-        }
-
-        // If user location exists but is different, update it
-        existingUserLocation.merge({ name: dataItem.name, location_id: location.id })
-        await existingUserLocation.save()
-      } else {
-        // If user location does not exist, create it
-        await UserLocation.create({
-          name: dataItem.name ?? null,
-          location_id: location.id,
-          user_id: userId,
-        })
+    // If new locations were created successfully, delete old ones
+    if (currentUserLocations) {
+      for (const oldLocation of currentUserLocations) {
+        await oldLocation.delete()
       }
     }
+
+    await super.sendPrivateSuccessNotification('Les lieux ont été mis à jour !')
 
     return this.getAllByUserId()
   }

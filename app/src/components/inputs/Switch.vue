@@ -1,6 +1,6 @@
 <template>
-  <label class="switch" :style="{'--switch-color': color}">
-    <input type="checkbox" @click="toggleCheckbox" :checked="value"/>
+  <label class="switch" :style="{ '--switch-color': color }">
+    <input type="checkbox" @click="toggleCheckbox" :checked="value" />
     <span class="slider"></span>
   </label>
 </template>
@@ -9,17 +9,16 @@
 /*PROPS*/
 const props = defineProps({
   value: { type: Boolean, default: false },
-  color: {type: String, default: "var(--primary)"}
-});
+  color: { type: String, default: 'var(--primary)' }
+})
 
 /*EMITS*/
-const emit = defineEmits(["update:value"]);
+const emit = defineEmits(['update:value'])
 
 /*METHODS*/
 const toggleCheckbox = () => {
-  emit("update:value", !props.value);
-
-};
+  emit('update:value', !props.value)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -49,7 +48,7 @@ const toggleCheckbox = () => {
 
 .slider:before {
   position: absolute;
-  content: "";
+  content: '';
   height: 20px;
   width: 20px;
   left: 2px;

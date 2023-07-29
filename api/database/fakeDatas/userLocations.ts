@@ -1,6 +1,6 @@
 import { Chance } from 'chance'
-import User from 'App/Models/User'
 import Location from 'App/Models/Location'
+import User from 'App/Models/User'
 
 interface UserLocationData {
   name: string
@@ -8,9 +8,10 @@ interface UserLocationData {
   location_id: number
 }
 
-export async function generateUserLocations(n: number, users: User[]): Promise<UserLocationData[]> {
+export async function generateUserLocations(n: number): Promise<UserLocationData[]> {
   const chance = new Chance()
   const locations = await Location.all()
+  const users = await User.all()
 
   const userLocations: UserLocationData[] = []
   for (let i = 0; i < n; i++) {

@@ -1,16 +1,16 @@
-@import "functions";
-@import "variables";
+@import 'functions';
+@import 'variables';
 $max: 10;
 
 @for $i from 0 through $max {
   .gap-#{$i} {
-    gap: space($i)
+    gap: space($i);
   }
   .p-#{$i} {
     padding: space($i);
   }
   .pb-#{$i} {
-    padding-bottom: space($i)
+    padding-bottom: space($i);
   }
   .px-#{$i} {
     padding-right: space($i);
@@ -35,25 +35,24 @@ $max: 10;
     margin-bottom: space($i);
   }
   .mr-#{$i} {
-    margin-right: space($i)
+    margin-right: space($i);
   }
   .ml-#{$i} {
-    margin-left: space($i)
+    margin-left: space($i);
   }
   .mb-#{$i} {
-    margin-bottom: space($i)
+    margin-bottom: space($i);
   }
   .mt-#{$i} {
     margin-top: space($i);
   }
 }
 
-
 @each $breakpoint, $sizes in $breakpoints {
   @media (min-width: map-get($sizes, 'width')) {
     @for $i from 0 through $max {
       .#{$breakpoint}\:m-#{$i} {
-        margin-bottom: space($i)
+        margin-bottom: space($i);
       }
       .#{$breakpoint}\:px-#{$i} {
         padding-right: space($i);

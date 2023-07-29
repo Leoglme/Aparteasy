@@ -4,52 +4,59 @@ import Property, { TravelTimes } from 'App/Models/Property'
 import PropertyValidator from 'App/Validators/PropertyValidator'
 import SearchService from 'App/Services/SearchService'
 import type { PropertyRatingWithUser } from 'App/Models/PropertyRating'
+import UserLocationService from 'App/Services/UserLocationService'
+import UserLocation from 'App/Models/UserLocation'
 
 interface ServiceProperty extends Omit<Property, 'ratings'> {
-  travelTimes: TravelTimes
   average_ratings?: number
   ratings: PropertyRatingWithUser[]
 }
 
+type UserLocationWithTravelTime = {
+  userLocation: UserLocation
+  travelTimes: TravelTimes
+}
+
+interface ServicePropertyWithLocations extends ServiceProperty {
+  locations: Array<UserLocationWithTravelTime>
+}
+
 export default class PropertyService extends BaseService {
-  public static async getSearchProperties(searchId: number): Promise<ServiceProperty[] | null> {
+  public static async getSearchProperties(searchId: number): Promise<Property[] | null> {
     const search = await SearchService.getById(searchId)
     if (!search) return null
 
-    const properties = await Property.query()
+    return await Property.query()
       .where('search_id', search?.id)
       .where('is_deleted', false)
       .preload('location')
       .preload('ratings')
       .orderBy('created_at', 'desc')
       .exec()
-
-    return await Promise.all(
-      properties.map(async (property) => {
-        let travelTimes = { driving: 0, transit: 0, walking: 0 }
-        try {
-          travelTimes = await property.getTravelTimes({
-            lat: search.location.lat,
-            lng: search.location.lng,
-          })
-        } catch (e) {
-          console.log(e)
-        }
-        return { ...property.toJSON(), travelTimes } as ServiceProperty
-      })
-    )
   }
 
   public static async findById(id: number, searchId: number) {
     const property = await this.getById(id, searchId)
 
-    const search = await SearchService.getById(searchId)
-    if (!search || !property) return super.response.notFound()
+    const userLocations = await UserLocationService.getAllByUserId()
+    if (!property) return super.response.notFound()
 
-    const travelTimes = await property.getTravelTimes({
-      lat: search.location.lat,
-      lng: search.location.lng,
-    })
+    let locations: Array<UserLocationWithTravelTime> = []
+
+    if (userLocations) {
+      locations = await Promise.all(
+        userLocations.map(async (location) => {
+          const travelTimes = await property.getTravelTimes({
+            lat: location.location.lat,
+            lng: location.location.lng,
+          })
+          return {
+            userLocation: location,
+            travelTimes,
+          }
+        })
+      )
+    }
 
     const propertyObj: Property = property.toJSON() as Property
 
@@ -59,10 +66,10 @@ export default class PropertyService extends BaseService {
 
     return {
       ...propertyObj,
-      travelTimes,
+      locations,
       ratings,
       average_ratings: property.averageRating,
-    } as ServiceProperty
+    } as ServicePropertyWithLocations
   }
 
   public static async getById(id: number, searchId: number) {

@@ -1,19 +1,23 @@
 <template>
-  <svg xmlns="http://www.w3.org/2000/svg"
-       :width="width"
-       :height="height"
-       :viewBox="`0 0 24 24`"
-       stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-       :style="`color: ${stroke || fill}`"
-       :aria-labelledby="name">
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    :width="width"
+    :height="height"
+    :viewBox="`0 0 24 24`"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    :style="`color: ${stroke || fill}`"
+    :aria-labelledby="name"
+  >
     <g :stroke="stroke ?? 'transparent'" :fill="fill ?? 'transparent'">
-      <AsyncComp/>
+      <AsyncComp />
     </g>
   </svg>
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent } from 'vue'
 
 const props = defineProps({
   name: {
@@ -36,10 +40,8 @@ const props = defineProps({
     type: String,
     default: null
   }
-});
-const AsyncComp = defineAsyncComponent(() =>
-    import(`@/components/icons/${props.name}.vue`)
-);
+})
+const AsyncComp = defineAsyncComponent(() => import(`@/components/icons/${props.name}.vue`))
 </script>
 <style scoped>
 svg {

@@ -24,18 +24,17 @@ import Button from '@/components/buttons/Button.vue'
 const props = defineProps({
   open: {
     type: Boolean,
-    required: true,
-  },
+    required: true
+  }
 })
 
-const emit = defineEmits(['confirm', 'close']);
-
+const emit = defineEmits(['confirm', 'close'])
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/style/core/_mixins.scss";
+@import '@/assets/style/core/_mixins.scss';
 .modal__footer {
-  @include down(400){
+  @include down(400) {
     .btn {
       flex: 1;
     }

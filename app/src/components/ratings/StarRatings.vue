@@ -1,12 +1,14 @@
 <template>
   <form class="rating" :data-animate="animate && !props.disabled" @click.stop>
     <div class="flex">
-      <StarRating v-for="nbStar in props.nbStars"
-                  :uniqueId="uniqueId"
-                  :key="nbStar" :index="nbStar"
-                  :current-star="props.value"
-                  :disabled="props.disabled"
-                  @update:current-star="props.disabled ? null : setValue($event)"
+      <StarRating
+        v-for="nbStar in props.nbStars"
+        :uniqueId="uniqueId"
+        :key="nbStar"
+        :index="nbStar"
+        :current-star="props.value"
+        :disabled="props.disabled"
+        @update:current-star="props.disabled ? null : setValue($event)"
       />
     </div>
   </form>
@@ -20,15 +22,14 @@ import { ref } from 'vue'
 const props = defineProps({
   nbStars: { type: Number, default: 5 },
   value: { type: Number, default: 0 },
-  disabled: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false }
 })
 
 /*REFS*/
-const animate = ref(false);
+const animate = ref(false)
 
 // Generate a unique ID
-const uniqueId = ref(Date.now() + Math.random().toString(36).substr(2, 5));
-
+const uniqueId = ref(Date.now() + Math.random().toString(36).substr(2, 5))
 
 /*EMITS*/
 const emit = defineEmits(['update:value'])

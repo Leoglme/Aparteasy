@@ -1,5 +1,5 @@
 <template>
-  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor"/>
-  <polyline points="16 17 21 12 16 7" stroke="currentColor"/>
-  <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor"/>
+  <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" stroke="currentColor" />
+  <polyline points="16 17 21 12 16 7" stroke="currentColor" />
+  <line x1="21" y1="12" x2="9" y2="12" stroke="currentColor" />
 </template>

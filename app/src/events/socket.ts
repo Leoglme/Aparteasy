@@ -1,26 +1,26 @@
-import io from 'socket.io-client';
+import io from 'socket.io-client'
 import { API_URL } from '@/env'
 import axios from 'axios'
 import { notify } from '@/plugins/notyf'
 
-const socket = io(API_URL);
+const socket = io(API_URL)
 
-const audio = new Audio('/sounds/notify-open.wav');
+const audio = new Audio('/sounds/notify-open.wav')
 audio.volume = 0.4
 
 socket.on('connect', () => {
-    axios.defaults.headers.common['socketId'] = socket.id
+  axios.defaults.headers.common['socketId'] = socket.id
 })
 
-socket.on('notify:success',  async (message: string) => {
-    notify.success(message);
-    await audio.play()
-});
+socket.on('notify:success', async (message: string) => {
+  notify.success(message)
+  await audio.play()
+})
 
 socket.on('notify:error', async (message: string) => {
-    console.log("error", message)
-    notify.error(message);
-    await audio.play()
-});
+  console.log('error', message)
+  notify.error(message)
+  await audio.play()
+})
 
-export { socket, notify };
+export { socket, notify }

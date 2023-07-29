@@ -1,10 +1,8 @@
 <template>
-  <Badge :color="infos.color"
-         :backgroundColor="infos.backgroundColor">
+  <Badge :color="infos.color" :backgroundColor="infos.backgroundColor">
     {{ infos.title }}
   </Badge>
 </template>
-
 
 <script lang="ts" setup>
 import Badge from '@/components/ui/badges/Badge.vue'
@@ -15,7 +13,7 @@ const props = defineProps({
   value: {
     type: Boolean,
     required: true
-  },
+  }
 })
 /*COMPUTED*/
 const infos = computed(() => {

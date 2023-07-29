@@ -1,8 +1,8 @@
 <template>
   <section id="create-property" class="py-10 grid gap-6 px-3">
-    <Breadcrumb :items="breadcrumbs" class="mb-4"/>
+    <Breadcrumb :items="breadcrumbs" class="mb-4" />
     <h1 class="text-medium text-3xl">Ajouter une propriété à votre recherche</h1>
-    <PropertyForm @submit="createProperty"/>
+    <PropertyForm @submit="createProperty" />
   </section>
 </template>
 

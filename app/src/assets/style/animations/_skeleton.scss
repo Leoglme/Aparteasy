@@ -1,4 +1,4 @@
-@import "../core/mixins";
+@import '../core/mixins';
 /*https://codepen.io/jbeargraphics/pen/BbbgYR*/
 
 .loader {
@@ -8,7 +8,13 @@
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-name: placeholderSkeleton;
   -webkit-animation-timing-function: linear;
-  background: #ECE9FD -webkit-linear-gradient(left, #ECE9FD 0%, #d2d4ef 20%, #ECE9FD 40%, #ECE9FD 100%) no-repeat;
+  background: #ece9fd -webkit-linear-gradient(
+      left,
+      #ece9fd 0%,
+      #d2d4ef 20%,
+      #ece9fd 40%,
+      #ece9fd 100%
+    ) no-repeat;
   background-size: 800px 100%;
   height: 100%;
   position: relative;
@@ -52,7 +58,7 @@
   height: 52px;
   max-width: 300px;
 
-  @include down(768){
+  @include down(768) {
     height: 44px;
   }
 }
@@ -61,7 +67,7 @@
   height: 2.5em;
   max-width: 300px;
 
-  @include down(768){
+  @include down(768) {
     height: 26px;
   }
 }

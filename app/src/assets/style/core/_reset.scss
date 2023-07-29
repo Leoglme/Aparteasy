@@ -1,4 +1,6 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -6,11 +8,13 @@
   margin: 0;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
-textarea, input {
+textarea,
+input {
   outline: none;
   -webkit-appearance: none;
 }
@@ -19,12 +23,18 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
-input, textarea, select {
+input,
+textarea,
+select {
   font: inherit;
 }
 button {
@@ -57,10 +67,17 @@ ul {
   padding: 0;
 }
 
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
-#root, #__next {
+#root,
+#__next {
   isolation: isolate;
 }
