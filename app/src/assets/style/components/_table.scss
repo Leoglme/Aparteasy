@@ -10,7 +10,7 @@ thead {
   color: var(--light);
   border: 1px solid $borderColor;
 
-  td  {
+  td {
     padding: 16px;
   }
 }
@@ -52,7 +52,7 @@ tbody tr {
   padding: 16px;
   font-weight: 500;
 
-  &:nth-child(2n+1) {
+  &:nth-child(2n + 1) {
     background: var(--grey-400);
   }
 

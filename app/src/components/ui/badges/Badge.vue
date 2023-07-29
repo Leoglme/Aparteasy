@@ -1,6 +1,6 @@
 <template>
   <div :style="style" class="pill text-medium px-4 py-1 w-fit text-center text-xs">
-   <slot/>
+    <slot />
   </div>
 </template>
 

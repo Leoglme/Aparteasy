@@ -6,6 +6,7 @@ import './routes/ratings'
 import './routes/location'
 import './routes/mail'
 import './routes/searchInvitation'
+import './routes/userLocations'
 import Route from '@ioc:Adonis/Core/Route'
 import HealthCheck from '@ioc:Adonis/Core/HealthCheck'
 

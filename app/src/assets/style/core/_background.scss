@@ -1,7 +1,7 @@
-@import "variables";
+@import 'variables';
 
 @each $key, $value in $variants {
-  .bg-#{"" + $key} {
+  .bg-#{'' + $key} {
     background-color: $value;
   }
 }

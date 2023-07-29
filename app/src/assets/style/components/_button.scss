@@ -1,7 +1,7 @@
 @use 'sass:color';
-@import "../core/functions";
-@import "../core/mixins";
-@import "../core/variables";
+@import '../core/functions';
+@import '../core/mixins';
+@import '../core/variables';
 
 %reset-button {
   cursor: pointer;
@@ -22,7 +22,7 @@ button {
   justify-content: center;
   font-weight: 500;
   border-radius: 6px;
-  transition: filter 0.25s, background 0.25s, color 0.25s, transform .25s;
+  transition: filter 0.25s, background 0.25s, color 0.25s, transform 0.25s;
   filter: brightness(1);
   white-space: nowrap;
   transform: translateZ(0);
@@ -89,10 +89,8 @@ button {
         background: $value;
       }
     }
-
   }
 }
-
 
 .btn-dashed {
   border: 1px dashed;

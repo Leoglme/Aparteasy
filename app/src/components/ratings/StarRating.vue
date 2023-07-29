@@ -1,28 +1,46 @@
 <template>
-  <div class="rating__star-container"
-       :class="{checked, active, disabled }">
-    <input tabindex="-1" :id="inputId" class="rating__input" :class="`rating__input-${props.index}`" type="checkbox"
-           name="rating" :value="props.index" @change="props.disabled ? null : setCurrentStar(props.index)">
+  <div class="rating__star-container" :class="{ checked, active, disabled }">
+    <input
+      tabindex="-1"
+      :id="inputId"
+      class="rating__input"
+      :class="`rating__input-${props.index}`"
+      type="checkbox"
+      name="rating"
+      :value="props.index"
+      @change="props.disabled ? null : setCurrentStar(props.index)"
+    />
     <label class="rating__label" :for="inputId">
       <svg class="rating__star" width="18" height="18" viewBox="0 0 32 32" aria-hidden="true">
         <g transform="translate(16,16)">
-          <circle class="rating__star-ring" fill="none" stroke="#000" stroke-width="16" r="8" transform="scale(0)"/>
+          <circle
+            class="rating__star-ring"
+            fill="none"
+            stroke="#000"
+            stroke-width="16"
+            r="8"
+            transform="scale(0)"
+          />
         </g>
         <g stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <g transform="translate(16,16) rotate(180)">
-            <polygon class="rating__star-stroke"
-                     points="0,15 4.41,6.07 14.27,4.64 7.13,-2.32 8.82,-12.14 0,-7.5 -8.82,-12.14 -7.13,-2.32 -14.27,4.64 -4.41,6.07"
-                     fill="none"/>
-            <polygon class="rating__star-fill"
-                     points="0,15 4.41,6.07 14.27,4.64 7.13,-2.32 8.82,-12.14 0,-7.5 -8.82,-12.14 -7.13,-2.32 -14.27,4.64 -4.41,6.07"
-                     fill="#000"/>
+            <polygon
+              class="rating__star-stroke"
+              points="0,15 4.41,6.07 14.27,4.64 7.13,-2.32 8.82,-12.14 0,-7.5 -8.82,-12.14 -7.13,-2.32 -14.27,4.64 -4.41,6.07"
+              fill="none"
+            />
+            <polygon
+              class="rating__star-fill"
+              points="0,15 4.41,6.07 14.27,4.64 7.13,-2.32 8.82,-12.14 0,-7.5 -8.82,-12.14 -7.13,-2.32 -14.27,4.64 -4.41,6.07"
+              fill="#000"
+            />
           </g>
           <g transform="translate(16,16)" stroke-dasharray="12 12" stroke-dashoffset="12">
-            <polyline class="rating__star-line" transform="rotate(0)" points="0 4,0 16"/>
-            <polyline class="rating__star-line" transform="rotate(72)" points="0 4,0 16"/>
-            <polyline class="rating__star-line" transform="rotate(144)" points="0 4,0 16"/>
-            <polyline class="rating__star-line" transform="rotate(216)" points="0 4,0 16"/>
-            <polyline class="rating__star-line" transform="rotate(288)" points="0 4,0 16"/>
+            <polyline class="rating__star-line" transform="rotate(0)" points="0 4,0 16" />
+            <polyline class="rating__star-line" transform="rotate(72)" points="0 4,0 16" />
+            <polyline class="rating__star-line" transform="rotate(144)" points="0 4,0 16" />
+            <polyline class="rating__star-line" transform="rotate(216)" points="0 4,0 16" />
+            <polyline class="rating__star-line" transform="rotate(288)" points="0 4,0 16" />
           </g>
         </g>
       </svg>
@@ -31,39 +49,39 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps } from 'vue';
+import { computed, defineProps } from 'vue'
 
 /*PROPS*/
 const props = defineProps({
   index: {
     type: Number,
-    required: true,
+    required: true
   },
   currentStar: {
     type: Number,
-    required: true,
+    required: true
   },
   uniqueId: {
     type: String,
-    required: true,
+    required: true
   },
   disabled: {
     type: Boolean,
-    default: false,
-  },
-});
+    default: false
+  }
+})
 /*COMPUTED*/
-const checked = computed(() => props.index <= props.currentStar);
-const active = computed(() => props.index === props.currentStar);
+const checked = computed(() => props.index <= props.currentStar)
+const active = computed(() => props.index === props.currentStar)
 
-const inputId = computed(() => `rating-${props.uniqueId}-${props.index}`);
+const inputId = computed(() => `rating-${props.uniqueId}-${props.index}`)
 
 /*EMITS*/
-const emit = defineEmits(['update:currentStar']);
+const emit = defineEmits(['update:currentStar'])
 /*ACTIONS*/
 const setCurrentStar = (index: number) => {
-  emit('update:currentStar', index);
-};
+  emit('update:currentStar', index)
+}
 </script>
 
 <style lang="scss">
@@ -72,7 +90,7 @@ const setCurrentStar = (index: number) => {
   --trans-dur: 0.3s;
 }
 
-.rating[data-animate="true"] {
+.rating[data-animate='true'] {
   .rating__star-ring,
   .rating__star-stroke,
   .rating__star-line,
@@ -92,7 +110,9 @@ const setCurrentStar = (index: number) => {
         fill: var(--contrast-70);
       }
 
-      .rating__star-ring, .rating__star-fill, .rating__star-line {
+      .rating__star-ring,
+      .rating__star-fill,
+      .rating__star-line {
         stroke: var(--contrast-70);
       }
     }
@@ -157,8 +177,7 @@ const setCurrentStar = (index: number) => {
     &-fill {
       fill: var(--yellow);
       transform: scale(0);
-      transition: fill var(--trans-dur) var(--bezier),
-      transform var(--trans-dur) var(--bezier);
+      transition: fill var(--trans-dur) var(--bezier), transform var(--trans-dur) var(--bezier);
     }
 
     &-stroke {

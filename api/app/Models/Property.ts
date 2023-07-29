@@ -11,6 +11,7 @@ export interface TravelTimes {
   driving: number
   walking: number
   transit: number
+  bicycling: number
 }
 
 export default class Property extends BaseModel {
@@ -114,6 +115,7 @@ export default class Property extends BaseModel {
       driving: travelTimes.driving || 0,
       walking: travelTimes.walking || 0,
       transit: travelTimes.transit || 0,
+      bicycling: travelTimes.bicycling || 0,
     }
   }
 

@@ -1,28 +1,29 @@
 <template>
-  <div class="grid items-center search__bar" :title="props.title">
+  <div class="grid items-center search__bar w-full" :title="props.title">
     <div class="h-full bg-grey-200 flex items-center search__bar--prefix p-2">
-      <Icon :width="20" :height="20" name="search" stroke="var(--light)" style="margin-bottom: 0;"/>
+      <Icon :width="20" :height="20" name="search" stroke="var(--light)" style="margin-bottom: 0" />
     </div>
 
-    <input ref="searchInput"
-           :value="value"
-           class="input w-full search__bar--input"
-           type="search"
-           @input="setRouteSearch"
-           placeholder="Rechercher (Ctrl + E)">
+    <input
+      ref="searchInput"
+      :value="value"
+      class="input w-full search__bar--input"
+      type="search"
+      @input="setRouteSearch"
+      placeholder="Rechercher (Ctrl + E)"
+    />
   </div>
 </template>
 
-
 <script lang="ts" setup>
 import Icon from '@/components/ui/Icon.vue'
-import { ref, onMounted, onUnmounted } from "vue";
+import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouterStore } from '@/stores/router.store'
 
 /*PROPS*/
 const props = defineProps({
   title: { type: String, default: null }
-});
+})
 
 /*STORE*/
 const routerStore = useRouterStore()
@@ -35,26 +36,25 @@ const setRouteSearch = (event: Event) => {
   routerStore.setRouteSearch((event.target as HTMLInputElement).value)
 }
 
-
 /*FOCUS ON CTRL+E*/
-const searchInput = ref<HTMLInputElement | null>(null);
+const searchInput = ref<HTMLInputElement | null>(null)
 
 const handleKeyDown = (event: KeyboardEvent) => {
   if (event.ctrlKey && event.key.toLowerCase() === 'e') {
-    event.preventDefault();
+    event.preventDefault()
     if (searchInput.value) {
-      searchInput.value.focus();
+      searchInput.value.focus()
     }
   }
-};
+}
 
 onMounted(() => {
-  window.addEventListener('keydown', handleKeyDown);
-});
+  window.addEventListener('keydown', handleKeyDown)
+})
 
 onUnmounted(() => {
-  window.removeEventListener('keydown', handleKeyDown);
-});
+  window.removeEventListener('keydown', handleKeyDown)
+})
 </script>
 
 <style lang="scss" scoped>

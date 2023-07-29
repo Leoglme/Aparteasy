@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import { useAppStore } from '@/stores/app.store'
-import Spinner from "@/components/ui/Spinner.vue"
+import Spinner from '@/components/ui/Spinner.vue'
 const appStore = useAppStore()
-
 </script>
 
 <template>

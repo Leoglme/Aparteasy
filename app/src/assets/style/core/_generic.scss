@@ -1,5 +1,5 @@
-@import "mixins";
-@import "variables";
+@import 'mixins';
+@import 'variables';
 
 html {
   overflow-x: hidden;
@@ -26,7 +26,6 @@ body {
 .opacity-1 {
   opacity: 1;
 }
-
 
 .overflow-x-auto {
   overflow-x: auto;
@@ -83,14 +82,12 @@ p {
 }
 
 .sm-ellipsis {
-  @include down(400){
+  @include down(400) {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 }
-
-
 
 /*Position*/
 .relative {
@@ -106,22 +103,24 @@ p {
   inset: 0;
 }
 
-
 /* Pseudo-classes */
 ::selection {
   background: var(--primary-light);
   color: var(--contrast);
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--contrast-30);
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: var(--contrast-30);
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: var(--contrast-30);
 }

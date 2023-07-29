@@ -1,3 +1,6 @@
+@import 'mixins';
+@import 'variables';
+
 /*Height && width */
 .vh-100 {
   min-height: 100vh;
@@ -26,13 +29,19 @@
   width: 100%;
 }
 
+.sm\:w-full {
+  @include down(map-get(map-get($breakpoints, 'sm'), 'width')) {
+    width: 100%;
+  }
+}
+
 .mx-auto {
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .max-w-md {
-    max-width: 500px;
+  max-width: 500px;
 }
 
 .min-w-md {

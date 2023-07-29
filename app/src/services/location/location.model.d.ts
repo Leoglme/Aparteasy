@@ -1,4 +1,4 @@
-import type { TimeStamps } from "@/services/model";
+import type { TimeStamps } from '@/services/model'
 export interface Location extends TimeStamps {
   id: number
   address: string

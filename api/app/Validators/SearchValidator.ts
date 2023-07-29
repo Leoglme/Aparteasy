@@ -1,11 +1,9 @@
 import { schema } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import { locationSchema } from 'App/Validators/LocationValidator'
 
 export default class SearchValidator {
   constructor(protected ctx: HttpContextContract) {}
   public schema = schema.create({
     name: schema.string({ trim: true }),
-    location: schema.object().members(locationSchema),
   })
 }

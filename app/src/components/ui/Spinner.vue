@@ -20,19 +20,19 @@ import { computed } from 'vue'
 
 const props = defineProps({
   stroke: { type: String, default: 'var(--primary)' },
-  size: { type: Number, default: 56 },
+  size: { type: Number, default: 56 }
 })
 
 const style = computed(() => ({
-      stroke: props.stroke,
-      width: `${props.size}px`,
-      height: `${props.size}px`,
+  stroke: props.stroke,
+  width: `${props.size}px`,
+  height: `${props.size}px`
 }))
 </script>
 
 <style lang="scss" scoped>
 .spinner {
-  animation: spin linear infinite .9s;
+  animation: spin linear infinite 0.9s;
 }
 
 .spinner .stop1 {

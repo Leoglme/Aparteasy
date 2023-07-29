@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from 'pinia'
 import { useSearchStore } from '@/stores/search.store'
 import { usePropertyStore } from '@/stores/property.store'
 import { useAuthStore } from '@/stores/auth.store'
@@ -11,10 +11,10 @@ export const useAppStore = defineStore('appStore', {
   }),
   actions: {
     setPending(pending: boolean) {
-      this.pending = pending;
+      this.pending = pending
     },
     setReferentialLoaded(referentialLoaded: boolean) {
-        this.referentialLoaded = referentialLoaded;
+      this.referentialLoaded = referentialLoaded
     },
     async resetStores() {
       useAuthStore().reset()
@@ -24,4 +24,4 @@ export const useAppStore = defineStore('appStore', {
       this.setReferentialLoaded(false)
     }
   }
-});
+})

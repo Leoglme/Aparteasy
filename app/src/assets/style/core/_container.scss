@@ -1,6 +1,11 @@
-@import "functions";
-@import "variables";
-$container: ("lg": 700px, "md": 600px, "sm": 500px, "xs": 400px);
+@import 'functions';
+@import 'variables';
+$container: (
+  'lg': 700px,
+  'md': 600px,
+  'sm': 500px,
+  'xs': 400px
+);
 
 .container {
   margin-inline: auto;

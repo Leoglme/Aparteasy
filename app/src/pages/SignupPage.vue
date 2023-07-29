@@ -8,15 +8,14 @@
       </div>
       <SignupForm />
     </div>
-
   </section>
 </template>
 
 <script lang="ts" setup>
-import SignupForm from "@/components/forms/SignupForm.vue";
-import GoogleButton from "@/components/buttons/GoogleButton.vue";
-import Divider from "@/components/ui/Divider.vue";
-import Logo from "@/components/ui/Logo.vue";
+import SignupForm from '@/components/forms/SignupForm.vue'
+import GoogleButton from '@/components/buttons/GoogleButton.vue'
+import Divider from '@/components/ui/Divider.vue'
+import Logo from '@/components/ui/Logo.vue'
 import { SITE_NAME } from '@/env'
 
 document.title = 'Inscription | ' + SITE_NAME

@@ -1,19 +1,19 @@
-@import "variables";
+@import 'variables';
 .flex {
   display: flex;
 }
 
 $justify-options: (
-        start: start,
-        center: center,
-        end: end,
-        between: space-between
+  start: start,
+  center: center,
+  end: end,
+  between: space-between
 );
 $align-items-options: (
-        start: start,
-        center: center,
-        end: end,
-        baseline: baseline
+  start: start,
+  center: center,
+  end: end,
+  baseline: baseline
 );
 
 @each $key, $value in $justify-options {
@@ -55,7 +55,6 @@ $align-items-options: (
   flex-wrap: wrap;
 }
 
-
 /*Responsive flex-box*/
 /* Responsive justify-content */
 @each $breakpoint, $sizes in $breakpoints {
@@ -71,9 +70,9 @@ $align-items-options: (
 /* Responsive align-items */
 @each $breakpoint, $sizes in $breakpoints {
   @media (min-width: map-get($sizes, 'width')) {
-       .#{$breakpoint}\:items-center {
-         align-items: center;
-       }
+    .#{$breakpoint}\:items-center {
+      align-items: center;
+    }
   }
   @media (min-height: map-get($sizes, 'height')) {
     .#{$breakpoint}\:min-h-items-center {

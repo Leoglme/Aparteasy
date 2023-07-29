@@ -1,27 +1,17 @@
 <template>
-  <div
-      class="avatar"
-      :style="styles"
-      :class="{ clickable }"
-  >
-    <span
-        v-if="online"
-        class="status-online"
+  <div class="avatar" :style="styles" :class="{ clickable }">
+    <span v-if="online" class="status-online" />
+    <slot />
+    <img v-if="src" :style="{ borderRadius }" :src="src" :alt="alt" />
+    <Icon
+      :width="styles.iconSize"
+      :height="styles.iconSize"
+      :stroke="iconStroke"
+      style="margin-bottom: 0"
+      :fill="iconFill"
+      :name="props.icon"
+      v-else-if="props.icon"
     />
-    <slot/>
-    <img
-        v-if="src"
-        :style="{ borderRadius }"
-        :src="src"
-        :alt="alt"
-    />
-    <Icon :width="styles.iconSize"
-          :height="styles.iconSize"
-          :stroke="iconStroke"
-          style="margin-bottom: 0;"
-          :fill="iconFill"
-          :name="props.icon"
-          v-else-if="props.icon"/>
   </div>
 </template>
 <script setup lang="ts">
@@ -37,7 +27,7 @@ const props = defineProps({
   src: { type: String, default: null },
   alt: { type: String, default: null },
   online: { type: Boolean, default: false },
-  clickable: { type: Boolean, default: false },
+  clickable: { type: Boolean, default: false }
 })
 const styles = {
   width: props.size,
@@ -47,10 +37,9 @@ const styles = {
   iconSize: `calc(${props.size} * 0.8)`
 }
 /*COMPUTED*/
-const iconStroke = computed(() => props.iconMode === 'stroke' ? props.color : undefined)
-const iconFill = computed(() => props.iconMode === 'fill' ? props.color : undefined)
+const iconStroke = computed(() => (props.iconMode === 'stroke' ? props.color : undefined))
+const iconFill = computed(() => (props.iconMode === 'fill' ? props.color : undefined))
 </script>
-
 
 <style lang="scss" scoped>
 .avatar {

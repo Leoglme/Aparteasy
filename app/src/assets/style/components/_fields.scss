@@ -3,7 +3,8 @@ input.no-style {
   border: 0;
 }
 
-textarea, input {
+textarea,
+input {
   color: var(--light);
 }
 
@@ -16,9 +17,11 @@ textarea, input {
   padding: 8px 16px;
   resize: none;
 }
-.textarea:hover, .input:hover {
-  border-color: var(--contrast-30)
+.textarea:hover,
+.input:hover {
+  border-color: var(--contrast-30);
 }
-.textarea:focus, .input:focus {
-  border-color: var(--primary)
+.textarea:focus,
+.input:focus {
+  border-color: var(--primary);
 }
