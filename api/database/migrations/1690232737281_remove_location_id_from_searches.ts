@@ -5,19 +5,10 @@ export default class RemoveLocationIdFromSearches extends BaseSchema {
   protected tableName = 'searches'
 
   public async up() {
-    const result = await Database.rawQuery(`
-      SELECT COUNT(*) as count
-      FROM information_schema.table_constraints
-      WHERE constraint_schema = 'your_database_name'
-      AND table_name = 'searches'
-      AND constraint_name = 'searches_location_id_foreign'
-    `)
-
-    const count = result[0].count
-
-    if (count > 0) {
+    const hasColumn = await this.schema.hasColumn(this.tableName, 'location_id')
+    if (hasColumn) {
+      await Database.rawQuery('ALTER TABLE searches DROP FOREIGN KEY searches_location_id_foreign')
       await this.schema.table(this.tableName, (table) => {
-        table.dropForeign(['location_id'])
         table.dropColumn('location_id')
       })
     }
@@ -34,8 +25,8 @@ export default class RemoveLocationIdFromSearches extends BaseSchema {
           .references('id')
           .inTable('locations')
           .onDelete('CASCADE')
-        table.foreign('location_id')
       })
+      await Database.rawQuery('ALTER TABLE searches ADD CONSTRAINT searches_location_id_foreign FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE')
     }
   }
 }
