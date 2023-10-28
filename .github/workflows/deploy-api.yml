@@ -38,4 +38,4 @@ jobs:
           port: 21
           protocol: ftp
           local-dir: ./api/build/
-          server-dir: aparteasy.api.dibodev.com/
+          server-dir: aparteasy.api.dibodev.com/app/
