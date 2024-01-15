@@ -41,7 +41,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.SSH_HOST }}
           REMOTE_USER: ${{ secrets.SSH_USERNAME }}
           REMOTE_PORT: ${{ secrets.SSH_PORT }}
-          TARGET: ${{ env.APP_DIR }}
+          TARGET: ${{ env.APP_DIR }}/html
           SCRIPT_BEFORE: |
             if ! command -v rsync &> /dev/null
             then
