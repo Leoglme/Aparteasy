@@ -34,19 +34,19 @@ jobs:
       - name: 📝 Update .env with Secrets
         run: |
           cd api
-          sed -i "s/APP_KEY=.*/APP_KEY=${{ secrets.APP_KEY }}/" .env
-          sed -i "s/MYSQL_DATABASE=.*/MYSQL_DATABASE=${{ secrets.DATABASE_DB_NAME }}/" .env
-          sed -i "s/MYSQL_HOST=.*/MYSQL_HOST=${{ secrets.DATABASE_HOST }}/" .env
-          sed -i "s/MYSQL_USER=.*/MYSQL_USER=${{ secrets.DATABASE_USERNAME }}/" .env
-          sed -i "s/MYSQL_PASSWORD=.*/MYSQL_PASSWORD=${{ secrets.DATABASE_PASSWORD }}/" .env
-          sed -i "s/SMTP_HOST=.*/SMTP_HOST=${{ secrets.SMTP_HOST }}/" .env
-          sed -i "s/SMTP_PORT=.*/SMTP_PORT=${{ secrets.SMTP_PORT }}/" .env
-          sed -i "s/SMTP_USERNAME=.*/SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}/" .env
-          sed -i "s/SMTP_PASSWORD=.*/SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}/" .env
-          sed -i "s/GOOGLE_API_KEY=.*/GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}/" .env
-          sed -i "s/GOOGLE_CLIENT_ID=.*/GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}/" .env
-          sed -i "s/GOOGLE_CLIENT_SECRET=.*/GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}/" .env
-          sed -i "s/GOOGLE_CALLBACK_URL=.*/GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }}/" .env
+          sed -i "s|APP_KEY=.*|APP_KEY=${{ secrets.APP_KEY }}|" .env
+          sed -i "s|MYSQL_DATABASE=.*|MYSQL_DATABASE=${{ secrets.DATABASE_DB_NAME }}|" .env
+          sed -i "s|MYSQL_HOST=.*|MYSQL_HOST=${{ secrets.DATABASE_HOST }}|" .env
+          sed -i "s|MYSQL_USER=.*|MYSQL_USER=${{ secrets.DATABASE_USERNAME }}|" .env
+          sed -i "s|MYSQL_PASSWORD=.*|MYSQL_PASSWORD=${{ secrets.DATABASE_PASSWORD }}|" .env
+          sed -i "s|SMTP_HOST=.*|SMTP_HOST=${{ secrets.SMTP_HOST }}|" .env
+          sed -i "s|SMTP_PORT=.*|SMTP_PORT=${{ secrets.SMTP_PORT }}|" .env
+          sed -i "s|SMTP_USERNAME=.*|SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}|" .env
+          sed -i "s|SMTP_PASSWORD=.*|SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}|" .env
+          sed -i "s|GOOGLE_API_KEY=.*|GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}|" .env
+          sed -i "s|GOOGLE_CLIENT_ID=.*|GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}|" .env
+          sed -i "s|GOOGLE_CLIENT_SECRET=.*|GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}|" .env
+          sed -i "s|GOOGLE_CALLBACK_URL=.*|GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }}|" .env
 
       - name: 🧱 Build application
         run: |
