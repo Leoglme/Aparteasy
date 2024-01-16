@@ -1,41 +1,90 @@
-name: 🚀 Deploy api to o2switch
+name: 🚀 Deploy API to OVH VPS
 
 on:
   push:
     branches: [ 'main' ]
+    paths:
+      - 'api/**'
   pull_request:
     branches: [ 'main' ]
+    paths:
+      - 'api/**'
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
+    env:
+      APP_DIR: /var/www/aparteasy.api.dibodev.com
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: 🚀 Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '16.x'
+          node-version: 18
 
       - name: 🔍 Install dependencies
-        run:  cd api && npm install
+        run: cd api && npm install
+
+      - name: 📝 Setup Production .env File
+        run: cd api && cp .env.production .env
+
+      - name: 📝 Update .env with Secrets
+        run: |
+          sed -i "s/APP_KEY=.*/APP_KEY=${{ secrets.APP_KEY }}/" .env
+          sed -i "s/MYSQL_DATABASE=.*/MYSQL_DATABASE=${{ secrets.DATABASE_DB_NAME }}/" .env
+          sed -i "s/MYSQL_HOST=.*/MYSQL_HOST=${{ secrets.DATABASE_HOST }}/" .env
+          sed -i "s/MYSQL_USER=.*/MYSQL_USER=${{ secrets.DATABASE_USERNAME }}/" .env
+          sed -i "s/MYSQL_PASSWORD=.*/MYSQL_PASSWORD=${{ secrets.DATABASE_PASSWORD }}/" .env
+          sed -i "s/SMTP_HOST=.*/SMTP_HOST=${{ secrets.SMTP_HOST }}/" .env
+          sed -i "s/SMTP_PORT=.*/SMTP_PORT=${{ secrets.SMTP_PORT }}/" .env
+          sed -i "s/SMTP_USERNAME=.*/SMTP_USERNAME=${{ secrets.SMTP_USERNAME }}/" .env
+          sed -i "s/SMTP_PASSWORD=.*/SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}/" .env
+          sed -i "s/GOOGLE_API_KEY=.*/GOOGLE_API_KEY=${{ secrets.GOOGLE_API_KEY }}/" .env
+          sed -i "s/GOOGLE_CLIENT_ID=.*/GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}/" .env
+          sed -i "s/GOOGLE_CLIENT_SECRET=.*/GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}/" .env
+          sed -i "s/GOOGLE_CALLBACK_URL=.*/GOOGLE_CALLBACK_URL=${{ secrets.GOOGLE_CALLBACK_URL }}/" .env
 
       - name: 🧱 Build application
-        run: cd api && npm run build
+        run: |
+          cd api
+          npm run build
+          cp .env build/.env
 
-      - name: 🛁 Clean install a project
-        run: cd api/build && npm ci --production
+      - name: 🛁 Clean install for production
+        run: cd api/build && npm ci --production --ignore-scripts
 
-      - name: 📂 Sync files
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+      - name: 📤 Deploy to VPS
+        uses: easingthemes/ssh-deploy@main
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          protocol: ftp
-          local-dir: ./api/build/
-          server-dir: aparteasy.api.dibodev.com/app/
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: "-azrut --delete"
+          SOURCE: "api/build/"
+          REMOTE_HOST: ${{ secrets.SSH_HOST }}
+          REMOTE_USER: ${{ secrets.SSH_USERNAME }}
+          REMOTE_PORT: ${{ secrets.SSH_PORT }}
+          TARGET: ${{ env.APP_DIR }}/html
+          SCRIPT_BEFORE: |
+            if ! command -v rsync &> /dev/null
+            then
+              echo "rsync could not be found, installing..."
+              sudo apt-get update
+              sudo apt-get install -y rsync
+            else
+              echo "rsync is already installed."
+            fi
+            echo "Starting deployment..."
+          SCRIPT_AFTER: |
+            cd ${{ env.APP_DIR }}/html
+            echo "Restarting API with PM2..."
+            pm2 restart aparteasy.api.dibodev.com || pm2 start server.js --name aparteasy.api.dibodev.com
+            pm2 save
+            echo "Restarting Nginx..."
+            sudo systemctl restart nginx
+            echo "Running Migrations..."
+            node ace migration:run --force
+            echo "Running Seeders..."
+            node ace db:seed
+            echo "Deployment completed successfully!"
