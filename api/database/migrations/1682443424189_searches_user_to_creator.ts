@@ -8,7 +8,7 @@ export default class SearchesUpdateUserIdToCreatorId extends BaseSchema {
       table.integer('creator_id').unsigned().after('location_id')
     })
 
-    await this.defer(async (db) => {
+    this.defer(async (db) => {
       await db.rawQuery('UPDATE searches SET creator_id = user_id')
     })
 
@@ -24,7 +24,7 @@ export default class SearchesUpdateUserIdToCreatorId extends BaseSchema {
       table.integer('user_id').unsigned().after('location_id')
     })
 
-    await this.defer(async (db) => {
+    this.defer(async (db) => {
       await db.rawQuery('UPDATE searches SET user_id = creator_id')
     })
 

@@ -12,12 +12,14 @@ import UserLocation from 'App/Models/UserLocation'
 
 export default class FakeDatasSeeder extends BaseSeeder {
   public async run() {
+    let createdUsers: Array<User> = []
+
     // Create users
     const maxUsers: number = 10
     const existingUsers: Array<User> = await User.all()
     if (existingUsers.length < maxUsers) {
       const users = generateUsers(maxUsers)
-      await User.createMany(users)
+      createdUsers = await User.createMany(users)
     }
 
     // Create locations
@@ -40,17 +42,10 @@ export default class FakeDatasSeeder extends BaseSeeder {
     const maxSearches: number = 10
     const existingSearches: Array<Search> = await Search.all()
     if (existingSearches.length < maxSearches) {
-      // 10 users
-      const createdUsers: Array<User> = await User.all()
-      const tenUsers: Array<User> = createdUsers.slice(0, 10)
-
-      // 10 searches
-      const createdSearches: Array<Search> = await Search.all()
-      const tenSearches: Array<Search> = createdSearches.slice(0, 10)
-      const searches = await generateSearches(maxSearches, tenUsers)
-      await Search.createMany(searches)
-      await addUsersToSearches(tenSearches, createdUsers)
-      await addPropertiesToSearches(tenSearches)
+      const searches = await generateSearches(maxSearches, createdUsers)
+      const createdSearches = await Search.createMany(searches)
+      await addUsersToSearches(createdSearches, createdUsers)
+      await addPropertiesToSearches(createdSearches)
     }
   }
 }
