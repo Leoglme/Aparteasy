@@ -29,8 +29,14 @@ jobs:
       - name: 🔍 Install dependencies
         run: cd app && npm install
 
+      - name: 📝 Setup Production .env File
+        run: cd app && cp .env.example .env
+
       - name: 🧱 Build application
-        run: cd app && npm run build
+        run: |
+          cd app
+          npm run build
+          cp .env dist/.env
 
       - name: 📤 Deploy to VPS
         uses: easingthemes/ssh-deploy@main

@@ -8,15 +8,11 @@ export default class RemoveLocationIdFromSearches extends BaseSchema {
     const hasColumn = await this.schema.hasColumn(this.tableName, 'location_id')
     if (hasColumn) {
       await Database.rawQuery('ALTER TABLE searches DROP FOREIGN KEY searches_location_id_foreign')
-      await this.schema.table(this.tableName, (table) => {
-        table.dropColumn('location_id')
-      })
     }
   }
 
   public async down() {
     const hasColumn = await this.schema.hasColumn(this.tableName, 'location_id')
-
     if (!hasColumn) {
       await this.schema.table(this.tableName, (table) => {
         table
@@ -26,7 +22,9 @@ export default class RemoveLocationIdFromSearches extends BaseSchema {
           .inTable('locations')
           .onDelete('CASCADE')
       })
-      await Database.rawQuery('ALTER TABLE searches ADD CONSTRAINT searches_location_id_foreign FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE')
+      await Database.rawQuery(
+        'ALTER TABLE searches ADD CONSTRAINT searches_location_id_foreign FOREIGN KEY (location_id) REFERENCES locations(id) ON DELETE CASCADE'
+      )
     }
   }
 }
