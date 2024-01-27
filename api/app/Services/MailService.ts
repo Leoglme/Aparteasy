@@ -1,11 +1,35 @@
-import Mail from '@ioc:Adonis/Addons/Mail'
-import type { MailMessage, MailsMessages } from '@ioc:Adonis/Addons/Mail'
+import Mail, { BaseMailer } from '@ioc:Adonis/Addons/Mail'
+import type { MessageContract } from '@ioc:Adonis/Addons/Mail'
+import Env from '@ioc:Adonis/Core/Env'
 import View from '@ioc:Adonis/Core/View'
 import mjml from 'mjml'
+import Mailjet from 'node-mailjet'
+import type { LibraryResponse } from 'node-mailjet'
+import Logger from '@ioc:Adonis/Core/Logger'
 import appInfos from 'Config/app-infos'
+import type { RequestData } from 'node-mailjet/declarations/request/Request'
 
-export default class MailService {
-  protected static replyTo = {
+type MailReplayTo = {
+  email: string
+  name: string
+}
+
+interface BaseMailPayload {
+  payload?: Record<string, unknown>
+  subject?: string
+  viewPath?: string
+}
+
+interface MailPayload extends BaseMailPayload {
+  email: string
+}
+
+interface MailManyPayload extends BaseMailPayload {
+  emails: string[]
+}
+
+export default class MailService extends BaseMailer {
+  protected static replyTo: MailReplayTo = {
     email: appInfos.emails.support,
     name: `${appInfos.name} Team`,
   }
@@ -15,30 +39,25 @@ export default class MailService {
     payload,
     subject,
     viewPath = 'emails/test-email',
-  }: {
-    email: string
-    payload?: Record<string, unknown>
-    subject?: string
-    viewPath?: string
-  }): Promise<void> {
-    const mail: MailMessage = {
-      viewPath,
-      from: appInfos.emails.noReply,
-      to: email,
-      subject: subject,
-      replyTo: this.replyTo,
-      payload,
-    }
+  }: MailPayload): Promise<void> {
+    const html: string = this.getHtml(viewPath, payload)
 
-    const html = this.getHtml(mail.viewPath, mail.payload)
-    await Mail.sendLater((message) => {
-      message
-        .from(mail.from)
-        .to(mail.to)
-        .subject(mail.subject || '')
-        .replyTo(mail.replyTo.email || mail.to, mail.replyTo.name)
-        .html(html)
-    })
+    const isProduction: boolean = Env.get('NODE_ENV') === 'production'
+
+    if (isProduction) {
+      // Use Mailjet in production
+      this.sendMailWithMailjet({ email, payload, subject, viewPath })
+    } else {
+      // Use the classic operation of Adonis Mail in development
+      await Mail.sendLater((message: MessageContract): void => {
+        message
+          .from(appInfos.emails.noReply)
+          .to(email)
+          .subject(subject || '')
+          .replyTo(this.replyTo.email, this.replyTo.name)
+          .html(html)
+      })
+    }
   }
 
   public static async sendMany({
@@ -46,39 +65,54 @@ export default class MailService {
     payload,
     subject,
     viewPath = 'emails/test-email',
-  }: {
-    emails: string[]
-    payload?: Record<string, unknown>
-    subject?: string
-    viewPath?: string
-  }) {
-    const mails: MailsMessages = {
-      viewPath,
-      from: appInfos.emails.noReply,
-      to: emails,
-      subject: subject,
-      replyTo: {
-        email: appInfos.emails.support,
-        name: `${appInfos.name} Team`,
-      },
-      payload,
+  }: MailManyPayload): Promise<void> {
+    const uniqueEmails: string[] = [...new Set(emails)]
+
+    for (const email of uniqueEmails) {
+      await this.send({ email, payload, subject, viewPath })
     }
+  }
 
-    const receivers: string[] = []
-    const html = this.getHtml(mails.viewPath, mails.payload)
-    mails.to.map(async (mail) => {
-      if (receivers.includes(mail)) return
-      receivers.push(mail)
+  public static sendMailWithMailjet({
+    email,
+    payload,
+    subject,
+    viewPath = 'emails/test-email',
+  }: MailPayload): void {
+    const html: string = this.getHtml(viewPath, payload)
 
-      await Mail.sendLater((message) => {
-        message
-          .from(mails.from)
-          .to(mail)
-          .subject(mails.subject || '')
-          .replyTo(mails.replyTo.email || mail, mails.replyTo.name)
-          .html(html)
-      })
+    const mailjet: Mailjet = new Mailjet({
+      apiKey: Env.get('MAILJET_API_KEY'),
+      apiSecret: Env.get('MAILJET_API_SECRET_KEY'),
     })
+
+    const request: Promise<LibraryResponse<RequestData>> = mailjet
+      .post('send', { version: 'v3.1' })
+      .request({
+        Messages: [
+          {
+            From: {
+              Email: appInfos.emails.noReply,
+              Name: this.replyTo.name,
+            },
+            To: [{ Email: email }],
+            Subject: subject,
+            HTMLPart: html,
+            ReplyTo: {
+              Email: this.replyTo.email,
+              Name: this.replyTo.name,
+            },
+          },
+        ],
+      })
+
+    request
+      .then((result: LibraryResponse<RequestData>): void => {
+        Logger.info('Mail sent successfully with Mailjet:', JSON.stringify(result.body))
+      })
+      .catch((error): void => {
+        Logger.error('Error sending mail with Mailjet:', JSON.stringify(error.statusCode))
+      })
   }
 
   protected static getHtml(viewPath: string, payload?: Record<string, unknown>): string {

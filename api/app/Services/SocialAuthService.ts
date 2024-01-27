@@ -24,6 +24,7 @@ export default class SocialAuthService extends BaseService {
 
     if (!user) {
       user = await this.createUser(socialUser, provider)
+      await super.sendPrivateSocketEvent({ user }, 'new:user')
     }
 
     if (!user?.oauthProviderName) {
