@@ -1,22 +1,22 @@
 <template>
-  <div class="bg-grey-300 grid items-center py-3 px-3 xs:px-5 rounded-lg gap-4 w-fit">
+  <div class="bg-gray-600 grid items-center py-3 px-3 xs:px-5 rounded-lg gap-4 w-fit">
     <div class="flex items-center flex-wrap gap-3">
-      <h4 class="text-medium">Moyenne</h4>
+      <h4 class="font-medium">Moyenne</h4>
       <StarRatings disabled :value="averageRatings" />
     </div>
 
     <div class="flex items-center flex-wrap gap-3">
-      <h4 class="text-medium">Rapport qualité prix</h4>
+      <h4 class="font-medium">Rapport qualité prix</h4>
       <StarRatings :value="qualityRating" @update:value="$emit('update:qualityRating', $event)" />
     </div>
 
     <div class="flex items-center flex-wrap gap-3">
-      <h4 class="text-medium">Ma note</h4>
+      <h4 class="font-medium">Ma note</h4>
       <StarRatings :value="userRating" @update:value="$emit('update:userRating', $event)" />
     </div>
     <template v-for="(rating, index) in props.ratings" :key="`rating-${index}`">
       <div v-if="rating && !rating.isUser" class="flex items-center flex-wrap gap-3">
-        <h4 v-if="rating.user" class="text-medium">{{ rating.user.name }}</h4>
+        <h4 v-if="rating.user" class="font-medium">{{ rating.user.name }}</h4>
         <StarRatings disabled :value="rating.rating" />
       </div>
     </template>

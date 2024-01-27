@@ -1,19 +1,19 @@
-/* Links */
-$linkColor: var(--primary-light);
-.link {
-  color: $linkColor;
-  text-decoration: none;
-  display: inline-flex;
-  position: relative;
-  padding: 0.2em 0;
-  overflow: hidden;
-}
-
-.hover\:text-link:hover {
-  text-decoration: underline;
-}
-
-.link:hover,
-.link:active {
-  text-decoration: underline;
-}
+///* Links */
+//$linkColor: var(--primary-light);
+//.link {
+//  color: $linkColor;
+//  text-decoration: none;
+//  display: inline-flex;
+//  position: relative;
+//  padding: 0.2em 0;
+//  overflow: hidden;
+//}
+//
+//.hover\:text-link:hover {
+//  text-decoration: underline;
+//}
+//
+//.link:hover,
+//.link:active {
+//  text-decoration: underline;
+//}

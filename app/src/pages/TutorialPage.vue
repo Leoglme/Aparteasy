@@ -1,7 +1,8 @@
 <template>
   <header
-    class="bg-grey-500 bb-1 border-grey-300 gap-2 flex-wrap tutorial-header z-50 flex px-6 py-2 justify-between items-center"
-    :class="showHeader ? 'opacity-1' : 'opacity-0'"
+    class="bg-slate-900 bb-1 border-gray-600 gap-2 flex-wrap tutorial-header
+    z-50 flex px-6 py-2 justify-between items-center"
+    :class="showHeader ? 'opacity-100' : 'opacity-0'"
   >
     <Logo :size="30" large />
     <Button :to="{ name: 'signup' }" class="tutorial-cta">Créer mon compte</Button>
@@ -10,16 +11,16 @@
     <div class="glow"></div>
     <section
       id="home"
-      class="tutorial-landing relative flex w-full flex-col items-center justify-center gap-8 vh-100"
+      class="tutorial-landing relative flex w-full flex-col items-center justify-center gap-8 min-h-screen"
     >
       <div class="grid justify-center items-center gap-8 tutorial__cta--container">
         <div class="flex items-center">
           <Logo :size="64" />
-          <h1 class="text-2xl text-medium">{{ SITE_NAME }}</h1>
+          <h1 class="text-2xl font-medium">{{ SITE_NAME }}</h1>
         </div>
 
-        <h1 class="text-medium text-3xl">Guide d'Utilisation</h1>
-        <p class="text-contrast-70 text-left">
+        <h1 class="font-medium text-2xl sm:text-3xl">Guide d'Utilisation</h1>
+        <p class="text-contrast-700 text-left">
           Bienvenue dans notre Guide d'Utilisation étape par étape. Cette page a été conçue pour
           vous aider à comprendre comment simplifier votre recherche de logement grâce à notre
           application.
@@ -29,8 +30,8 @@
     </section>
 
     <section id="about" class="tutorial-about mt-10">
-      <h2 class="text-2xl text-medium w-full text-left mb-6">En savoir plus</h2>
-      <p class="text-contrast-70 text-left">
+      <h2 class="text-2xl font-medium w-full text-left mb-6">En savoir plus</h2>
+      <p class="text-contrast-700 text-left">
         Découvrez notre nouvelle application web dédiée à la gestion et à la facilitation de vos
         recherches d'appartement, que vous cherchiez seul ou en groupe. <br /><br />
         Vous avez la possibilité d'inviter des amis, que ce soit pour une recherche en couple, en
@@ -48,19 +49,19 @@
       </p>
     </section>
     <section id="steps" class="tutorial-steps relative" ref="stepsContainer">
-      <div class="steps-line bg-grey-300" :style="{ height: `${stepLineHeightUnitOfMeasure}` }" />
-      <div class="steps-line-active bg-light" :style="{ height: `${stepLinePosition}px` }"></div>
+      <div class="steps-line bg-gray-600" :style="{ height: `${stepLineHeightUnitOfMeasure}` }" />
+      <div class="steps-line-active bg-neutral-50" :style="{ height: `${stepLinePosition}px` }"></div>
       <div class="step flex" v-for="(step, index) in steps" ref="stepRefs" :key="index">
         <div
           :class="{ active: index <= activeStep }"
-          class="step-number bg-grey-300 text-light flex items-center justify-center text-bold"
+          class="step-number bg-gray-600 text-neutral-50 flex items-center justify-center font-bold"
         >
           {{ index + 1 }}
         </div>
         <div class="step-content w-full ml-5 grid gap-6">
           <h2>{{ step.title }}</h2>
           <p>{{ step.description }}</p>
-          <div class="step__gif--video rounded-lg border-contrast-30 b-1">
+          <div class="step__gif--video rounded-lg border-contrast-300 b-1">
             <video
               v-show="!step.isLoading"
               v-if="isWebMSupported()"
@@ -92,7 +93,7 @@
   </main>
 
   <footer
-    class="tutorial-footer mt-10 relative bg-grey-500 bt-1 border-grey-300 z-50 grid px-6 pt-3 pb-6 gap-4 items-center"
+    class="tutorial-footer mt-10 relative bg-slate-900 bt-1 border-gray-600 z-50 grid px-6 pt-3 pb-6 gap-4 items-center"
   >
     <div class="flex items-center gap-2 flex-wrap justify-between">
       <Logo :size="30" large />
@@ -100,13 +101,13 @@
         externalLink
         target="_blank"
         href="https://github.com/Leoglme/Aparteasy"
-        class="b-1 border-contrast-30"
+        class="b-1 border-contrast-300"
         small
         square
         variant="dark"
         title="Github - source code"
       >
-        <Icon :height="24" :width="24" stroke="var(--light)" name="github" />
+        <Icon :height="24" :width="24" stroke="#f5f4fb" name="github" />
       </Button>
     </div>
     <p>
@@ -120,7 +121,7 @@
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref } from 'vue'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import Logo from '@/components/ui/Logo.vue'
 import Icon from '@/components/ui/Icon.vue'
 import { SITE_NAME } from '@/env'
@@ -373,7 +374,7 @@ onUnmounted(() => {
   font-size: 16px;
 
   &.active {
-    background: var(--light);
+    background: #f5f4fb;
     color: var(--grey-700);
   }
 }

@@ -22,6 +22,14 @@ interface ServicePropertyWithLocations extends ServiceProperty {
 }
 
 export default class PropertyService extends BaseService {
+  public static async getAll(): Promise<Property[]> {
+    return await Property.query()
+      .where('is_deleted', false)
+      .preload('location')
+      .preload('ratings')
+      .orderBy('created_at', 'desc')
+      .exec()
+  }
   public static async getSearchProperties(searchId: number): Promise<Property[] | null> {
     const search = await SearchService.getById(searchId)
     if (!search) return null

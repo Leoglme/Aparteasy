@@ -10,7 +10,7 @@ import SearchInviteRedirectPage from '@/pages/SearchInviteRedirectPage.vue'
 import { useAuthStore } from '@/stores/auth.store'
 import Navbar from '@/components/layout/Navbar.vue'
 import Footer from '@/components/layout/Footer.vue'
-import { publicRoutes } from '@/utils/router.utils'
+import {privateRoutes, publicRoutes} from '@/utils/router.utils'
 import ReferentialService from '@/services/ReferentialService'
 import SearchInvitePage from '@/pages/SearchInvitePage.vue'
 import SearchCreatePage from '@/pages/SearchCreatePage.vue'
@@ -41,13 +41,17 @@ const router = createRouter({
       },
       beforeEnter: async (to, from, next) => {
         /*STORE*/
-        const searchStore = useSearchStore()
+        const searchStore= useSearchStore()
+        const authStore = useAuthStore()
 
-        if (!searchStore.searches.length) {
-          next({ name: 'createSearch' })
-        } else {
-          next({ name: 'searches' })
+        if(authStore.isConnected) {
+          if (!searchStore.searches.length) {
+            next({ name: 'createSearch' })
+          } else {
+            next({ name: 'searches' })
+          }
         }
+        next()
       }
     },
     // sitemap: { "priority": 0.5, "changefreq": "monthly" }
@@ -230,7 +234,7 @@ const router = createRouter({
         if (!search) {
           next({ name: 'searches' })
         } else {
-          await propertyStore.fetchProperties(search.id)
+          await propertyStore.fetchSearchProperties(search.id)
           next()
         }
       }
@@ -246,7 +250,7 @@ router.beforeEach(async (to) => {
   const auth = useAuthStore()
   const appStore = useAppStore()
   /*MIDDLEWARE IS CONNECTED*/
-  if (!publicRoutes.includes(to.path) && !auth.isConnected) {
+  if (privateRoutes.includes(to.path) && !auth.isConnected) {
     await router.push('/login')
   }
   /*MIDDLEWARE LOAD REFERENTIAL DATAS*/

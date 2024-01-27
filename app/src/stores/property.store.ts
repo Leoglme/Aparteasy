@@ -27,9 +27,17 @@ export const usePropertyStore = defineStore('propertyStore', {
     setProperty(property: PropertyWithLocations) {
       this._property = property
     },
-    async fetchProperties(searchId: number) {
+    async fetchProperties() {
+        // useAppStore().setPending(true)
+        await useAppStore().execWithPending(async () => {
+            const properties = await PropertyService.all()
+            this.setProperties(properties.data || [])
+        })
+        // useAppStore().setPending(false)
+    },
+    async fetchSearchProperties(searchId: number) {
       useAppStore().setPending(true)
-      const properties = await PropertyService.all(searchId)
+      const properties = await PropertyService.allBySearchId(searchId)
       this.setProperties(properties.data || [])
       useAppStore().setPending(false)
     },

@@ -6,7 +6,7 @@
       :title="`${walkingFormatted} à pied.`"
     >
       <svg
-        fill="var(--green)"
+        fill="#00f593"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 320 512"
         width="24"
@@ -43,7 +43,7 @@
       :title="`${drivingFormatted} en voiture.`"
     >
       <svg
-        fill="var(--yellow)"
+        fill="#ffb836"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 512 512"
         width="24"
@@ -61,7 +61,7 @@
       :title="`${transitFormatted} en transport.`"
     >
       <svg
-        fill="var(--red)"
+        fill="#ec364b"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 576 512"
         width="24"

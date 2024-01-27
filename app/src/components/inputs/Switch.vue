@@ -9,7 +9,7 @@
 /*PROPS*/
 const props = defineProps({
   value: { type: Boolean, default: false },
-  color: { type: String, default: 'var(--primary)' }
+  color: { type: String, default: '#db0a61' }
 })
 
 /*EMITS*/

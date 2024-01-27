@@ -13,7 +13,7 @@
             :width="20"
             :height="20"
             style="margin-bottom: 0"
-            stroke="var(--light)"
+            stroke="#f5f4fb"
             name="calendar"
           />
         </Button>
@@ -32,7 +32,7 @@
 
 <script lang="ts" setup>
 import { onBeforeMount, onBeforeUnmount, ref } from 'vue'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import Icon from '@/components/ui/Icon.vue'
 
 const calendar = ref(null)

@@ -46,7 +46,7 @@
         <template #label>
           <span
             >Surface
-            <span class="text-xs text-contrast-70">(en m<span class="text-lg">²</span>)</span></span
+            <span class="text-xs text-contrast-700">(en m<span class="text-lg">²</span>)</span></span
           >
         </template>
       </FormInput>
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import FormInput from '@/components/inputs/FormInput.vue'
 import GooglePlacesAutocomplete from '@/components/inputs/GooglePlacesAutocomplete.vue'
 import Divider from '@/components/ui/Divider.vue'

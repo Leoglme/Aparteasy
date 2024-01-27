@@ -7,7 +7,7 @@
         ><span
           v-if="rules && rules.includes('required')"
           style="margin-left: 5px"
-          class="text-primary"
+          class="text-primary-400"
           >*</span
         >
       </span>
@@ -32,7 +32,7 @@
         :class="{ error: meta.validated && !meta.valid }"
       />
     </Field>
-    <ErrorMessage class="invalid-feedback text-xs" name="place" />
+    <ErrorMessage class="max-w-xxs text-red-400 text-xs" name="place" />
   </div>
 </template>
 

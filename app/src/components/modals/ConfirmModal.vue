@@ -1,8 +1,8 @@
 <template>
   <transition name="modal">
     <div v-if="open" class="fixed inset-0 flex items-center justify-center z-50 px-2">
-      <div class="bg-grey-500 rounded-lg p-6 max-w-md w-full mx-auto">
-        <header class="text-lg text-medium mb-4">
+      <div class="bg-slate-900 rounded-lg p-6 max-w-md w-full mx-auto">
+        <header class="text-lg font-medium mb-4">
           <slot name="title">Confirmer l'action</slot>
         </header>
         <main class="mb-4">
@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 
 const props = defineProps({
   open: {

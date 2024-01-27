@@ -1,16 +1,16 @@
 <template>
-  <div class="container-sm pt-10 grid gap-8 px-3">
+  <div class="w-full m-inline-auto max-w-sm pt-10 grid gap-8 px-3">
     <div class="grid gap-4">
       <Breadcrumb :items="breadcrumbs" class="mb-4" />
-      <h1 class="text-medium text-3xl">Invitez des membres dans la recherche</h1>
-      <p class="text-contrast-70">
+      <h1 class="font-medium text-2xl sm:text-3xl">Invitez des membres dans la recherche</h1>
+      <p class="text-contrast-700">
         Invitez un ou plusieurs membres à votre recherche de propriété.
       </p>
     </div>
 
     <InviteForm
       :load="loadButton"
-      class="container-sm"
+      class="w-full m-inline-auto max-w-sm"
       :emails="emails"
       @update:emails="emails = $event"
       @submit="inviteUsers"

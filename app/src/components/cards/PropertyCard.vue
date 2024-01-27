@@ -1,14 +1,14 @@
 <template>
   <RouterLink
     v-if="props.property"
-    :to="{ name: 'property', params: { searchId: searchId, propertyId: props.property.id } }"
-    class="bg-grey-500 flex flex-col search-card h-full b-2 hover:border-primary-light border-transparent cursor-pointer rounded-lg property-card"
+    :to="{ name: 'property', params: { searchId: 1, propertyId: props.property.id } }"
+    class="bg-slate-800 flex flex-col border-2 search-card h-full b-2 hover:border-primary-400 border-transparent cursor-pointer rounded-lg"
   >
     <!--  Header  -->
-    <header class="flex justify-center flex-col h-fit gap-3 bb-1 border-contrast-30 p-3">
+    <header class="flex justify-center flex-col h-fit gap-3 bb-1 border-contrast-300 p-3">
       <div class="flex items-center gap-2" v-if="props.property.name">
-        <Icon :width="18" :height="18" stroke="var(--light)" name="home" style="margin-bottom: 0" />
-        <h4 class="text-medium">{{ props.property.name }}</h4>
+        <Icon :width="18" :height="18" stroke="#f5f4fb" name="home" style="margin-bottom: 0" />
+        <h4 class="font-medium">{{ props.property.name }}</h4>
       </div>
 
       <LocationMarker address :location="props.property.location" />
@@ -25,18 +25,18 @@
 
       <span class="flex items-center gap-2">
         <span>
-          <span class="text-contrast-70">Prix:</span>
+          <span class="text-contrast-700">Prix:</span>
           {{ props.property.price || 0 }}€
         </span>
         <span>-</span>
         <span
-          ><span class="text-contrast-70">Charges:</span>
+          ><span class="text-contrast-700">Charges:</span>
           {{ props.property.amount_of_charges || 0 }}€</span
         ></span
       >
 
       <div class="flex items-center flex-wrap gap-2">
-        <span class="text-contrast-70">Note moyenne:</span>
+        <span class="text-contrast-700">Note moyenne:</span>
         <StarRatings
           disabled
           :value="props.property.quality_rating"
@@ -53,7 +53,7 @@
       </div>
 
       <div class="grid gap-2" v-if="props.property.comment">
-        <span class="text-contrast-70">Commentaire:</span>
+        <span class="text-contrast-700">Commentaire:</span>
         <span>{{ props.property.comment }}</span>
       </div>
 
@@ -79,7 +79,7 @@ import type { PropType } from 'vue'
 import type { Property } from '@/services/property/property.model'
 import LocationMarker from '@/components/ui/LocationMarker.vue'
 import Icon from '@/components/ui/Icon.vue'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import StatusBadges from '@/components/ui/badges/StatusBadges.vue'
 import StarRatings from '@/components/ratings/StarRatings.vue'
 import { ref } from 'vue'
@@ -90,7 +90,7 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 /*REF*/
-const searchId = ref<string>(route.params.searchId.toString())
+const searchId = ref<string | undefined>(route.params.searchId?.toString())
 
 /*PROPS*/
 const props = defineProps({

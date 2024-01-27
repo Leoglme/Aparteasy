@@ -1,5 +1,10 @@
 <template>
-  <a role="button" :href="googleUrl" class="btn google gap-1">
+  <a role="button" :href="googleUrl"
+     class="gap-1 bg-white font-semibold leading-[14px] text-sm px-4 py-2.5
+          inline-flex items-center justify-center rounded-md whitespace-nowrap text-gray-900
+          cursor-pointer translate-z-0 transition-colors-filter-transform
+          filter-brightness-100 hover:translate-y-[-2px] active:translate-y-[2px]"
+  >
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M21.8055 10.0415H21V10H12V14H17.6515C16.827 16.3285 14.6115 18 12 18C8.6865 18 6 15.3135 6 12C6 8.6865 8.6865 6 12 6C13.5295 6 14.921 6.577 15.9805 7.5195L18.809 4.691C17.023 3.0265 14.634 2 12 2C6.4775 2 2 6.4775 2 12C2 17.5225 6.4775 22 12 22C17.5225 22 22 17.5225 22 12C22 11.3295 21.931 10.675 21.8055 10.0415Z"

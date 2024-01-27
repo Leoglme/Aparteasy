@@ -8,53 +8,54 @@
           <span
             v-if="rules && rules.includes('required')"
             style="margin-left: 5px"
-            class="text-primary"
+            class="text-red-400"
             >*</span
           >
         </span>
       </label>
       <slot name="link"></slot>
     </span>
-    <Field
-      :as="rows ? 'textarea' : undefined"
-      :rows="rows"
-      :rules="rules"
-      class="input h-full w-full"
-      v-model="valueRef"
-      :validateOnInput="true"
-      v-slot="{ meta, field }"
-      :name="props.id"
-      :placeholder="props.placeholder"
-    >
-      <input
-        :size="size"
-        class="input w-full"
-        autofocus
-        :style="hasIcon ? 'padding-left: 40px' : null"
-        v-bind="field"
-        :type="typeRef"
-        :id="props.id"
-        :placeholder="props.placeholder"
-        :class="{ error: meta.validated && !meta.valid }"
-      />
-    </Field>
-
-    <div class="toggle-password" v-if="type === 'password'" @click.prevent="handleTogglePassword">
-      <Icon
-        v-if="!togglePassword"
-        title="Afficher le mot de passe"
-        name="eye"
-        fill="var(--contrast-70)"
-      />
-      <Icon
-        v-if="togglePassword"
-        title="Masquer le mot de passe"
-        name="eye-off"
-        fill="var(--contrast-70)"
-      />
+    <div class="relative">
+      <Field
+          :as="rows ? 'textarea' : undefined"
+          :rows="rows"
+          :rules="rules"
+          class="h-full w-full bg-slate-700 rounded text-neutral-50 border-2 border-transparent focus:border-primary-400 hover:border-contrast-300 py-2 px-4 resize-none transition-border duration-100 ease-in outline-none"
+          v-model="valueRef"
+          :validateOnInput="true"
+          v-slot="{ meta, field }"
+          :name="props.id"
+          :placeholder="props.placeholder"
+      >
+        <input
+            :size="size"
+            class="bg-slate-700 rounded text-neutral-50 border-2 border-transparent focus:border-primary-400 hover:border-contrast-300 py-2 px-4 resize-none transition-border duration-100 ease-in w-full outline-none"
+            autofocus
+            :style="hasIcon ? 'padding-left: 40px' : null"
+            v-bind="field"
+            :type="typeRef"
+            :id="props.id"
+            :placeholder="props.placeholder"
+            :class="{ error: meta.validated && !meta.valid }"
+        />
+      </Field>
+      <div class="toggle-password cursor-pointer absolute top-[10px] right-[12px]" v-if="type === 'password'" @click.prevent="handleTogglePassword">
+        <Icon
+            v-if="!togglePassword"
+            title="Afficher le mot de passe"
+            name="eye"
+            fill="rgba(255, 255, 255, 0.7)"
+        />
+        <Icon
+            v-if="togglePassword"
+            title="Masquer le mot de passe"
+            name="eye-off"
+            fill="rgba(255, 255, 255, 0.3)"
+        />
+      </div>
     </div>
 
-    <ErrorMessage class="invalid-feedback text-xs" :name="props.id" />
+    <ErrorMessage class="text-red-400 text-xs max-w-xxs" :name="props.id" />
     <slot />
   </div>
 </template>
@@ -111,19 +112,12 @@ const hasLabelSlot = !!slot['label']
 </script>
 
 <style>
-.toggle-password {
-  cursor: pointer;
-  position: absolute;
-  top: 40px;
-  right: 12px;
-}
-
 .toggle-password svg {
   top: 4px;
   position: relative;
 }
 
 .toggle-password svg:hover path {
-  fill: var(--contrast-30);
+  fill: rgba(255, 255, 255, 0.3);
 }
 </style>

@@ -2,7 +2,7 @@
   <Form
     id="signup-form"
     v-slot="{ meta }"
-    class="grid columns col-1 gap-6 sm:col-2"
+    class="grid gap-6"
     @submit="signup"
   >
     <FormInput
@@ -44,19 +44,13 @@
     >
       Créer mon compte
     </Button>
-    <h6 class="text-medium text-sm centered sm:justify-start gap-2 flex-wrap">
-      Vous avez déjà un compte ?
-      <router-link class="link" :to="{ name: 'login', query: $route.query }"
-        >Se connecter</router-link
-      >
-    </h6>
   </Form>
 </template>
 
 <script lang="ts" setup>
 import { Form } from 'vee-validate'
 import FormInput from '@/components/inputs/FormInput.vue'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import { AuthService } from '@/services/auth/auth'
 import { useRoute, useRouter } from 'vue-router'
 import type { SignupCommand } from '@/services/auth/auth.model'
@@ -65,6 +59,7 @@ import { ref } from 'vue'
 /*HOOKS*/
 const router = useRouter()
 const route = useRoute()
+
 /*REFS*/
 const values = ref({
   email: '',
@@ -74,6 +69,8 @@ const values = ref({
 } as SignupCommand)
 const buttonLoading = ref(false)
 
+
+/* METHODS */
 const signup = async () => {
   buttonLoading.value = true
   const authService = new AuthService()
@@ -85,7 +82,3 @@ const signup = async () => {
   buttonLoading.value = false
 }
 </script>
-
-<style lang="scss" scoped>
-@import 'src/assets/style/core/_mixins.scss';
-</style>

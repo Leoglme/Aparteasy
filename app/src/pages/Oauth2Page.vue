@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full flex items-center justify-center vh-100">
+  <div class="w-full flex items-center justify-center min-h-screen">
     <Spinner />
   </div>
 </template>

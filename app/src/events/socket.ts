@@ -9,6 +9,7 @@ const audio = new Audio('/sounds/notify-open.wav')
 audio.volume = 0.4
 
 socket.on('connect', () => {
+  console.log('socket connected')
   axios.defaults.headers.common['socketId'] = socket.id
 })
 
@@ -18,7 +19,6 @@ socket.on('notify:success', async (message: string) => {
 })
 
 socket.on('notify:error', async (message: string) => {
-  console.log('error', message)
   notify.error(message)
   await audio.play()
 })

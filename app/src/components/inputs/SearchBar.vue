@@ -1,13 +1,14 @@
 <template>
-  <div class="grid items-center search__bar w-full" :title="props.title">
-    <div class="h-full bg-grey-200 flex items-center search__bar--prefix p-2">
-      <Icon :width="20" :height="20" name="search" stroke="var(--light)" style="margin-bottom: 0" />
+  <div class="grid items-center w-full sm:max-w-96 max-w-full grid-cols-[auto,1fr]" :title="props.title">
+    <div class="h-full bg-gray-700 flex items-center p-2 rounded-l-md">
+      <Icon :width="20" :height="20" name="search" stroke="#f5f4fb" style="margin-bottom: 0" />
     </div>
 
     <input
       ref="searchInput"
       :value="value"
-      class="input w-full search__bar--input"
+      class="bg-slate-700 rounded text-neutral-50 border-2 border-transparent focus:border-primary-400 hover:border-contrast-300 py-2 px-4 resize-none transition-border
+      duration-100 ease-in w-full outline-none rounded-l-none"
       type="search"
       @input="setRouteSearch"
       placeholder="Rechercher (Ctrl + E)"
@@ -56,18 +57,3 @@ onUnmounted(() => {
   window.removeEventListener('keydown', handleKeyDown)
 })
 </script>
-
-<style lang="scss" scoped>
-.search__bar--prefix {
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-}
-.search__bar--input.input {
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.search__bar {
-  max-width: 400px;
-  grid-template-columns: auto 1fr;
-}
-</style>

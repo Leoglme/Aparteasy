@@ -1,7 +1,7 @@
 <template>
-  <div class="container-sm pt-10 grid gap-6 px-3">
+  <div class="w-full m-inline-auto max-w-sm pt-10 grid gap-6 px-3">
     <Breadcrumb :items="breadcrumbs" class="mb-4" />
-    <h1 class="text-medium text-3xl">Nouvelle Recherche</h1>
+    <h1 class="font-medium text-2xl sm:text-3xl">Nouvelle Recherche</h1>
     <SearchForm />
   </div>
 </template>

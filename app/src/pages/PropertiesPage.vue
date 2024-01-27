@@ -1,43 +1,49 @@
 <template>
-  <div class="grid columns px-3 xs:px-6 py-8 items-center gap-6">
-    <header class="grid columns gap-4 pb-6">
-      <Breadcrumb :items="breadcrumbs" class="mb-4" />
-      <div class="flex items-center flex-wrap gap-4 justify-between property__subheader">
-        <h1 class="text-medium text-2xl flex items-center gap-2">
-          <Icon name="home" stroke="var(--light)" style="margin-bottom: 0" />
+  <div class="grid px-3 sm:px-6 py-8 items-center gap-6">
+    <header class="grid gap-4 pb-6">
+      <div class="grid gap-3 mb-3">
+        <Breadcrumb :items="breadcrumbs" class="mb-4" />
+
+        <h1 class="font-medium text-2xl flex items-center gap-2">
+          <Icon name="home" stroke="#f5f4fb" style="margin-bottom: 0" />
           <span>Liste des propriétés</span>
         </h1>
-        <SearchBar title="Nom, Ville, Adresse, Commentaire, Prix" />
-        <Button
-          :to="{ name: 'createProperty', params: { searchId: searchId } }"
-          class="gap-2 sm:w-full"
-          start-icon="plus"
-        >
-          Ajouter une propriété
-        </Button>
       </div>
-      <div class="flex flex-wrap items-center gap-3 property__actions">
-        <Button
-          :to="{ name: 'inviteSearch', params: { searchId: searchId } }"
-          variant="grey-400"
-          class="gap-2 sm:w-full"
-          start-icon="user-plus"
-        >
-          Inviter utilisateurs
-        </Button>
-        <Button
-          :to="{ name: 'createLocation', params: { searchId: searchId } }"
-          variant="yellow"
-          color="black"
-          class="gap-2 sm:w-full"
-          start-icon="plus"
-        >
-          Ajouter lieu de départ
-        </Button>
+
+
+      <div class="flex sm:flex-row-reverse items-center flex-wrap gap-4 justify-between">
+        <div class="flex flex-wrap items-center gap-3 mb-4 sm:mb-0">
+          <Button
+              :to="{ name: 'createProperty', params: { searchId: searchId } }"
+              class="gap-2 w-full sm:w-auto"
+              start-icon="plus"
+          >
+            Ajouter une propriété
+          </Button>
+          <Button
+              :to="{ name: 'inviteSearch', params: { searchId: searchId } }"
+              variant="slate-700"
+              class="gap-2 w-full sm:w-auto"
+              start-icon="user-plus"
+          >
+            Inviter utilisateurs
+          </Button>
+          <Button
+              :to="{ name: 'createLocation', params: { searchId: searchId } }"
+              variant="amber"
+              color="black"
+              class="gap-2 w-full sm:w-auto"
+              start-icon="plus"
+          >
+            Ajouter lieu de départ
+          </Button>
+        </div>
+
+        <SearchBar title="Nom, Ville, Adresse, Commentaire, Prix" />
       </div>
     </header>
 
-    <section id="properties" class="grid columns gap-6" v-if="propertyStore.properties.length > 0">
+    <section id="properties" class="grid gap-6" v-if="propertyStore.properties.length > 0">
       <div
         v-for="(property, index) in propertyStore.properties"
         :key="`property-${index}`"
@@ -63,7 +69,7 @@
       >
         <g
           transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
-          fill="var(--red)"
+          fill="#ec364b"
           stroke="none"
         >
           <path
@@ -80,7 +86,7 @@
           />
         </g>
       </svg>
-      <h2 class="text-medium text-xl">Aucune propriété</h2>
+      <h2 class="font-medium text-xl">Aucune propriété</h2>
     </div>
   </div>
   <ConfirmDeletePropertyModal
@@ -92,7 +98,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import { usePropertyStore } from '@/stores/property.store'
 import PropertyCard from '@/components/cards/PropertyCard.vue'
 import Breadcrumb from '@/components/layout/Breadcrumb.vue'
@@ -149,54 +155,3 @@ const onClickDelete = (property: Property) => {
   isOpenModal.value = true
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/style/core/_mixins.scss';
-
-#properties {
-  grid-template-columns: repeat(auto-fit, 420px);
-
-  @include down(1350) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @include down(800) {
-    grid-template-columns: auto;
-  }
-}
-
-.property__subheader {
-  @include down(700) {
-    flex-direction: column;
-    align-items: flex-start;
-
-    .search__bar {
-      max-width: unset;
-      width: 100%;
-    }
-    .property__actions {
-      width: 100%;
-
-      .btn {
-        flex: 1;
-      }
-    }
-  }
-  @include down(500) {
-    gap: 24px;
-    .property__actions {
-      flex-direction: column;
-
-      .btn {
-        width: 100%;
-      }
-    }
-  }
-}
-
-@include down(500) {
-  .sm\:w-full {
-    width: 100%;
-  }
-}
-</style>

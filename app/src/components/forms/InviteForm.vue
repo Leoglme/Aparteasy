@@ -4,13 +4,13 @@
       v-for="(email, index) in props.emails"
       :key="`email-${index}`"
       :class="errors[`email-${index + 1}`] ? 'items-start' : 'items-center'"
-      class="flex gap-4 invite__row"
+      class="flex gap-2 sm:gap-4 flex-col sm:flex-row"
     >
       <FormInput
         :value="email"
         @update:value="updateEmail(index, $event)"
         rules="email"
-        class="flex-1"
+        class="flex-1 w-full sm:w-auto"
         placeholder="email@gmail.com"
         @keydown.enter.prevent="meta.valid && hasCompletedEmail ? emit('submit') : null"
         type="required|email"
@@ -22,6 +22,7 @@
         square
         small
         variant="red"
+        class="w-full sm:w-auto"
         startIcon="trash"
         @click.prevent="removeEmail(index)"
       />
@@ -46,7 +47,7 @@
 <script lang="ts" setup>
 import type { PropType } from 'vue'
 import { Form } from 'vee-validate'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import FormInput from '@/components/inputs/FormInput.vue'
 import { computed, nextTick } from 'vue'
 /*PROPS*/
@@ -91,16 +92,3 @@ const removeEmail = (index: number) => {
   emit('update:emails', [...props.emails.slice(0, index), ...props.emails.slice(index + 1)])
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/style/core/_mixins.scss';
-
-.invite__row {
-  @include down(350) {
-    flex-direction: column;
-    .btn {
-      width: 100%;
-    }
-  }
-}
-</style>

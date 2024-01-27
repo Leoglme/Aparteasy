@@ -1,9 +1,15 @@
 <template>
-  <div class="sm:p-10 px-3 py-6 w-full flex flex-col items-center gap-8">
-    <h1 class="text-medium text-3xl text-center">Choisir votre recherche</h1>
-    <Button :to="{ name: 'createSearch' }" startIcon="plus">Nouvelle recherche</Button>
-    <section id="searches" class="min-w-md">
-      <div class="flex flex-col gap-6 grid" v-if="searchStore.searches.length">
+  <div class="px-3 py-6 md:px-10 md:py-10 w-full flex flex-col items-center gap-8">
+    <h1 class="font-medium text-xl sm:text-3xl text-center">Choisir votre recherche</h1>
+    <Button
+        :to="{ name: 'createSearch' }"
+        startIcon="plus"
+        class="w-full sm:w-auto"
+    >
+      Nouvelle recherche
+    </Button>
+    <section id="searches" class="max-w-md sm:min-w-[500px] w-full">
+      <div class="flex flex-col gap-6" v-if="searchStore.searches.length">
         <SearchCard
           v-for="search in searchStore.searches"
           :key="search.id"
@@ -23,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import { SITE_NAME } from '@/env'
 import { useSearchStore } from '@/stores/search.store'
 import SearchCard from '@/components/cards/SearchCard.vue'
@@ -51,13 +57,3 @@ const onClickDelete = (search: Search) => {
   isOpenModal.value = true
 }
 </script>
-
-<style lang="scss" scoped>
-@import '@/assets/style/core/_mixins.scss';
-#searches {
-  @include down(600) {
-    min-width: unset;
-    width: 100%;
-  }
-}
-</style>

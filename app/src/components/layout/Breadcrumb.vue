@@ -4,27 +4,26 @@
       <li
         v-for="(item, index) in props.items"
         :key="index"
-        class="xs:text-base text-sm"
-        :class="['flex items-center gap-2', { 'text-primary-light': item.active }]"
+        class="sm:text-base text-sm"
+        :class="['flex items-center gap-2', { 'text-primary-300': item.active }]"
       >
         <template v-if="item.active">
           <Icon
             v-if="item.icon"
-            stroke="var(--primary-light)"
-            class="mb-0"
+            stroke="#ff7097"
             :width="20"
             :height="20"
-            style="margin-bottom: 0"
             :name="item.icon"
+            style="margin-bottom: 0;"
           />
           <span>{{ item.text }}</span>
         </template>
         <template v-else>
-          <router-link v-if="item.to" :to="item.to" class="flex items-center gap-2 hover:text-link">
+          <router-link v-if="item.to" :to="item.to" class="flex items-center gap-2 hover:underline">
             <Icon
               v-if="item.icon"
               class="mb-0"
-              stroke="var(--light)"
+              stroke="#f5f4fb"
               :width="20"
               :height="20"
               style="margin-bottom: 0"
@@ -32,11 +31,11 @@
             />
             <span>{{ item.text }}</span>
           </router-link>
-          <a v-else :href="item.href" class="flex items-center gap-2 hover:text-link">
+          <a v-else :href="item.href" class="flex items-center gap-2 hover:underline">
             <Icon
               v-if="item.icon"
               class="mb-0"
-              stroke="var(--light)"
+              stroke="#f5f4fb"
               :width="20"
               :height="20"
               style="margin-bottom: 0"

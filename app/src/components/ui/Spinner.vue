@@ -19,7 +19,7 @@
 import { computed } from 'vue'
 
 const props = defineProps({
-  stroke: { type: String, default: 'var(--primary)' },
+  stroke: { type: String, default: '#db0a61' },
   size: { type: Number, default: 56 }
 })
 
@@ -31,16 +31,19 @@ const style = computed(() => ({
 </script>
 
 <style lang="scss" scoped>
+$primary: #db0a61;
+$slate700: #35424d;
+
 .spinner {
   animation: spin linear infinite 0.9s;
 }
 
 .spinner .stop1 {
-  stop-color: var(--grey-400);
+  stop-color: $slate700;
   stop-opacity: 0;
 }
 
 .spinner .stop2 {
-  stop-color: var(--primary);
+  stop-color: $primary;
 }
 </style>

@@ -3,7 +3,10 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import PropertyService from 'App/Services/PropertyService'
 
 export default class PropertyController extends BaseController {
-  protected async index({ params }: HttpContextContract) {
+  protected async index({}: HttpContextContract) {
+    return await PropertyService.getAll()
+  }
+  protected async allBySearchId({ params }: HttpContextContract) {
     return await PropertyService.getSearchProperties(params.search_id)
   }
 

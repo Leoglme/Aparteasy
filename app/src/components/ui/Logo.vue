@@ -1,7 +1,11 @@
 <template>
-  <div class="logo">
-    <img :width="size" :height="size" src="/images/logo-color.png" :alt="SITE_NAME + ' logo'" />
-    <span class="logo-text" v-if="props.large">{{ SITE_NAME }}</span>
+  <div class="flex items-center">
+    <img :width="size"
+         :height="size"
+         src="/images/logo-color.png"
+         class="mr-1"
+         :alt="SITE_NAME + ' logo'" />
+    <span class="text-white font-medium text-xl" v-if="props.large">{{ SITE_NAME }}</span>
   </div>
 </template>
 
@@ -14,20 +18,3 @@ const props = defineProps({
   large: { type: Boolean, default: false }
 })
 </script>
-
-<style lang="scss" scoped>
-.logo {
-  display: flex;
-  align-items: center;
-  gap: space(0.5);
-
-  img {
-    margin-right: 4px;
-  }
-}
-.logo-text {
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--contrast, #fff);
-}
-</style>

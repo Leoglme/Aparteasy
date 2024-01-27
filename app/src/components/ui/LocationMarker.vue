@@ -1,13 +1,13 @@
 <template>
   <h6
-    :title="props.location.address"
-    class="location-marker text-regular text-sm grid items-center gap-1"
+    :title="props.location?.address"
+    class="location-marker font-normal text-sm grid items-center gap-1"
   >
     <Icon
       name="map-pin"
       :width="18"
       :height="18"
-      stroke="var(--yellow)"
+      stroke="#ffb836"
       style="margin-bottom: -0px"
     />
     {{ text }}

@@ -6,7 +6,7 @@ import router from './router'
 import 'v-calendar/style.css'
 /*SCSS*/
 import './assets/style/main.scss'
-
+import './assets/scss/tailwind.scss'
 /*vee-validate*/
 import { localize } from '@vee-validate/i18n'
 import fr from '@vee-validate/i18n/dist/locale/fr.json'

@@ -3,11 +3,11 @@
     <Divider />
     <FormInput v-model:value="name" rules="required" label="Nom de la recherche" id="name" />
     <Divider />
-    <div class="grid columns col-1 sm:col-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2">
       <Button
         :disabled="!meta.valid"
         :load="buttonLoading"
-        :class="{ 'btn-create-search': !buttonLoading }"
+        :class="{ 'sm:justify-start': !buttonLoading }"
         class="order-1"
         type="submit"
         endIcon="arrow-right"
@@ -20,7 +20,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import FormInput from '@/components/inputs/FormInput.vue'
 import Divider from '@/components/ui/Divider.vue'
 import { Form } from 'vee-validate'

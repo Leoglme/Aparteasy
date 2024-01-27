@@ -85,6 +85,7 @@ const setCurrentStar = (index: number) => {
 </script>
 
 <style lang="scss">
+$yellow: #ffb836;
 :root {
   --bezier: cubic-bezier(0.42, 0, 0.58, 1);
   --trans-dur: 0.3s;
@@ -118,7 +119,7 @@ const setCurrentStar = (index: number) => {
     }
 
     &:not(.checked):hover .rating__star-stroke {
-      stroke: var(--yellow);
+      stroke: $yellow;
       transform: scale(1);
     }
 
@@ -171,11 +172,11 @@ const setCurrentStar = (index: number) => {
     &-ring,
     &-fill,
     &-line {
-      stroke: var(--yellow);
+      stroke: $yellow;
     }
 
     &-fill {
-      fill: var(--yellow);
+      fill: $yellow;
       transform: scale(0);
       transition: fill var(--trans-dur) var(--bezier), transform var(--trans-dur) var(--bezier);
     }

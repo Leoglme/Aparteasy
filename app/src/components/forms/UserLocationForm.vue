@@ -58,7 +58,7 @@
 
 <script lang="ts" setup>
 import { Form } from 'vee-validate'
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import FormInput from '@/components/inputs/FormInput.vue'
 import GooglePlacesAutocomplete from '@/components/inputs/GooglePlacesAutocomplete.vue'
 import { nextTick, onMounted, ref } from 'vue'

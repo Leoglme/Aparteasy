@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import Button from '@/components/buttons/Button.vue'
+import Button from '@/components/buttons/EasyButton.vue'
 import FormInput from '@/components/inputs/FormInput.vue'
 import { AuthService } from '@/services/auth/auth'
 import { Form } from 'vee-validate'

@@ -1,5 +1,5 @@
 <template>
-  <div :style="style" class="pill text-medium px-4 py-1 w-fit text-center text-xs">
+  <div :style="style" class="pill font-medium px-4 py-1 w-fit text-center text-xs">
     <slot />
   </div>
 </template>
