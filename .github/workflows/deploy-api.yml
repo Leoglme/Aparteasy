@@ -15,7 +15,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_DIR: /var/www/aparteasy.api.dibodev.com
+      APP_DIR: /var/www/aparteasy.api.dibodev.fr
     steps:
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
@@ -78,7 +78,7 @@ jobs:
           SCRIPT_AFTER: |
             cd ${{ env.APP_DIR }}/html
             echo "Restarting API with PM2..."
-            pm2 restart aparteasy.api.dibodev.com || pm2 start server.js --name aparteasy.api.dibodev.com
+            pm2 restart aparteasy.api.dibodev.fr || pm2 start server.js --name aparteasy.api.dibodev.fr
             pm2 save
             echo "Restarting Nginx..."
             sudo systemctl restart nginx

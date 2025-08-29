@@ -9,7 +9,7 @@ router_file_path = 'src/router/index.ts'
 sitemap_file_path = 'public/toto/sitemap.xml'
 
 # Site's base URL
-base_url = 'https://aparteasy.dibodev.com'
+base_url = 'https://aparteasy.dibodev.fr'
 
 # Default values
 default_priority = 0.8

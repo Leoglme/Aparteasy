@@ -15,7 +15,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      APP_DIR: /var/www/aparteasy.dibodev.com
+      APP_DIR: /var/www/aparteasy.dibodev.fr
 
     steps:
       - name: 🚚 Get latest code

@@ -114,7 +114,7 @@
       partager avec vos amis ou colocataires, et faciliter votre recherche du logement idéal.
     </p>
 
-    <p>© <a class="link" href="https://dibodev.com">Dibodev.com</a> - {{ currentYear }}</p>
+    <p>© <a class="link" href="https://dibodev.fr">Dibodev.com</a> - {{ currentYear }}</p>
   </footer>
 </template>
 

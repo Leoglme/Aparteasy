@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aparteasy.dibodev.com/sitemap.xml
+Sitemap: https://aparteasy.dibodev.fr/sitemap.xml

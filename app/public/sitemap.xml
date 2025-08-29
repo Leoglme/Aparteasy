@@ -1,90 +1,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-        <loc>https://aparteasy.dibodev.com/</loc>
+        <loc>https://aparteasy.dibodev.fr/</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/login</loc>
+        <loc>https://aparteasy.dibodev.fr/login</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/signup</loc>
+        <loc>https://aparteasy.dibodev.fr/signup</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/forgot-password</loc>
+        <loc>https://aparteasy.dibodev.fr/forgot-password</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/reset-password</loc>
+        <loc>https://aparteasy.dibodev.fr/reset-password</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/oauth2</loc>
+        <loc>https://aparteasy.dibodev.fr/oauth2</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.2</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/tutorial</loc>
+        <loc>https://aparteasy.dibodev.fr/tutorial</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/search-invite</loc>
+        <loc>https://aparteasy.dibodev.fr/search-invite</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.8</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches</loc>
+        <loc>https://aparteasy.dibodev.fr/searches</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches/create</loc>
+        <loc>https://aparteasy.dibodev.fr/searches/create</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches/{searchId}/invite</loc>
+        <loc>https://aparteasy.dibodev.fr/searches/{searchId}/invite</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches/{searchId}/property/create</loc>
+        <loc>https://aparteasy.dibodev.fr/searches/{searchId}/property/create</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches/{searchId}/property/{propertyId}</loc>
+        <loc>https://aparteasy.dibodev.fr/searches/{searchId}/property/{propertyId}</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/searches/{searchId}/properties</loc>
+        <loc>https://aparteasy.dibodev.fr/searches/{searchId}/properties</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
-        <loc>https://aparteasy.dibodev.com/{catchAll}</loc>
+        <loc>https://aparteasy.dibodev.fr/{catchAll}</loc>
         <lastmod>2023-05-20</lastmod>
         <changefreq>monthly</changefreq>
         <priority>0.5</priority>
